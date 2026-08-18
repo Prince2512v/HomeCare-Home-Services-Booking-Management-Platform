@@ -18,13 +18,13 @@
     <td><img src="screenshots/06_customer_sign_in.png" width="280"/></td>
   </tr>
   <tr>
-    <td align="center"><b>Admin Dashboard</b></td>
-    <td align="center"><b>Booking Management</b></td>
+    <td align="center"><b>Admin Login</b></td>
+    <td align="center"><b>Service Partners</b></td>
     <td align="center"><b>Payment Transactions</b></td>
   </tr>
   <tr>
-    <td><img src="screenshots/08_admin_dashboard.png" width="280"/></td>
-    <td><img src="screenshots/09_admin_booking_management.png" width="280"/></td>
+    <td><img src="screenshots/01_admin_login.png" width="280"/></td>
+    <td><img src="screenshots/12_admin_service_partners.png" width="280"/></td>
     <td><img src="screenshots/14_admin_payment_transactions.png" width="280"/></td>
   </tr>
 </table>
