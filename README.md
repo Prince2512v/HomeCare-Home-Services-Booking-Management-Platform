@@ -10,24 +10,16 @@
   <tr>
     <td align="center"><b>Customer Home</b></td>
     <td align="center"><b>Services Page</b></td>
-    <td align="center"><b>Sign In</b></td>
+    <td align="center"><b>Sign In / Sign Up</b></td>
   </tr>
   <tr>
     <td><img src="screenshots/02_customer_home.png" width="280"/></td>
     <td><img src="screenshots/03_customer_services.png" width="280"/></td>
     <td><img src="screenshots/06_customer_sign_in.png" width="280"/></td>
   </tr>
-  <tr>
-    <td align="center"><b>Admin Login</b></td>
-    <td align="center"><b>Service Partners</b></td>
-    <td align="center"><b>Payment Transactions</b></td>
-  </tr>
-  <tr>
-    <td><img src="screenshots/01_admin_login.png" width="280"/></td>
-    <td><img src="screenshots/12_admin_service_partners.png" width="280"/></td>
-    <td><img src="screenshots/14_admin_payment_transactions.png" width="280"/></td>
-  </tr>
 </table>
+
+
 
 ---
 
