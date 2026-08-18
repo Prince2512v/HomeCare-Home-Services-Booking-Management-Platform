@@ -1,0 +1,67 @@
+<div class="transactions-wrapper">
+  <div class="transactions-header d-flex align-items-center">
+    <h2 class="transactions-title mb-0">Payments &amp; Transactions</h2>
+    <div class="header-actions d-flex gap-2 ms-auto">
+      <app-button [config]="filterConfig"></app-button>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="transactions-card shadow-sm">
+    <div class="grid-container">
+
+      <!-- Header -->
+      <div class="grid-header">
+        <div class="grid-cell d-flex align-items-center gap-1 sortable" (click)="onSort('userName')">
+          User
+        </div>
+        <div class="grid-cell d-flex align-items-center">Transaction ID</div>
+        <div class="grid-cell d-flex align-items-center">Mobile Number</div>
+        <div class="grid-cell d-flex align-items-center">Service</div>
+        <div class="grid-cell d-flex align-items-center gap-1 sortable" (click)="onSort('transactionAmount')">
+          Amount
+        </div>
+        <div class="grid-cell d-flex align-items-center">Payment Method</div>
+      </div>
+
+      <!-- Body -->
+      <div class="grid-body">
+        @if (isLoading) {
+        <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+          <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+          Loading transactions...
+        </div>
+        }
+        @else if (transactions.length === 0) {
+        <div class="grid-state-row text-center text-danger">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          No transactions found.
+        </div>
+        } @else {
+        @for (tx of transactions; track tx.id) {
+        <div class="grid-row clickable-row" (click)="openDetail(tx.id)">
+          <div class="grid-cell fw-medium">{{ tx.userName }}</div>
+          <div class="grid-cell text-muted">{{ tx.transactionId }}</div>
+          <div class="grid-cell text-muted">{{ tx.mobileNumber | mobilenumber }}</div>
+          <div class="grid-cell text-muted">{{ tx.serviceName }}</div>
+          <div class="grid-cell amount-cell">{{ tx.transactionAmount | currency : 'USD' : 'symbol' : '1.2-2' }}</div>
+          <div class="grid-cell text-muted">{{ tx.paymentMethod }}</div>
+        </div>
+        }
+        }
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="transactions-pagination d-flex align-items-center justify-content-end">
+      <app-pagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER PANEL -->
+<app-filter-panel [config]="filterPanelConfig" [isOpen]="isFilterOpen" [activeValues]="activeFilterValues">
+</app-filter-panel>

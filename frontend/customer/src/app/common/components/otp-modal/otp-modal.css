@@ -1,0 +1,30 @@
+.otp-input {
+  height: 52px;
+  font-size: 1rem;
+  border: 1.5px solid #dee2e6;
+}
+
+.otp-input:focus {
+  border-color: #4540e1 !important;
+  box-shadow: 0 0 0 3px rgba(69, 64, 225, 0.08) !important;
+}
+
+.otp-link {
+  color: #4540e1;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.otp-btn {
+  background: #4540e1;
+  border: none;
+  transition: background 0.18s;
+}
+
+.otp-btn:hover:not(:disabled) {
+  background: #3430b8;
+}
+.otp-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

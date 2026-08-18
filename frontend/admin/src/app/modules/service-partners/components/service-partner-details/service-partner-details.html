@@ -1,0 +1,317 @@
+<div class="spd-wrapper">
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+    <div class="d-flex align-items-center gap-2">
+      <button class="btn btn-link text-dark p-0 flex-shrink-0" (click)="goBack()">
+        <img
+          src="assets/icons/ArrowLeft.svg"
+          width="22"
+          height="22"
+          class="spd-back-icon"
+          onerror="this.classList.add('d-none'); this.nextElementSibling.classList.remove('d-none');"
+        />
+        <span class="d-none">←</span>
+      </button>
+      <h2 class="spd-title mb-0">{{ partner?.fullName ?? 'Service Partner Detail' }}</h2>
+
+      @if (!isLoading && partner) { @if (partner.verificationStatus === 'Verified') {
+      <span class="spd-verified-badge">
+        <img src="assets/icons/verified.svg" alt="" />
+      </span>
+      } }
+    </div>
+
+    @if (!isLoading && partner && canApproveOrReject()) {
+    <div class="d-flex gap-2 flex-shrink-0">
+      <button class="btn spd-btn-reject-top" (click)="onReject()">
+        <img src="assets/icons/X (1).svg" width="18" height="18" class="me-1" />
+        Reject
+      </button>
+      <button class="btn spd-btn-approve" (click)="onApprove()">
+        <img src="assets/icons/Check.svg" width="18" height="18" class="me-1" />
+        Approve
+      </button>
+    </div>
+    }
+  </div>
+
+  @if (isLoading) {
+  <div class="spd-main-card text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="text-muted mt-3 mb-0 small">Loading…</p>
+  </div>
+  } @if (!isLoading && !partner) {
+  <div class="spd-main-card text-center py-5 text-muted">Service partner not found.</div>
+  } @if (!isLoading && partner) {
+  <div class="spd-main-card">
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">ID</div>
+        <div class="spd-field-value">{{ partner.id | idFormat }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Name</div>
+        <div class="spd-field-value">{{ partner.fullName }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Mobile Number</div>
+        <div class="spd-field-value">{{ partner.mobileNumber | mobilenumber }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Email</div>
+        <div class="spd-field-value">{{ partner.email }}</div>
+      </div>
+    </div>
+
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Address</div>
+        <div class="spd-field-value">{{ partner.residentialAddress || '—' }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Job</div>
+        <div class="spd-field-value">{{ partner.jobTitle || '—' }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Work Experience</div>
+        <div class="spd-field-value">
+          {{ partner.totalWorkExperienceYears | number : '1.2-2' }} yrs
+        </div>
+      </div>
+
+      @if (partner.verificationStatus === 'Verified') {
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Ratings</div>
+        <div class="spd-field-value">
+          <div class="spd-rating-row">
+            <span class="spd-stars">
+              <img src="assets/icons/Star.svg" alt="" />
+            </span>
+            <span class="spd-rating-score">4.5</span>
+            <span class="spd-rating-count">(120)</span>
+            <img src="assets/icons/Exclaimenation.svg" alt="" />
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <div class="row g-3 mb-2">
+      <div class="col-md-6">
+        <div class="spd-field-label mb-2">Skills</div>
+        <div class="d-flex flex-wrap gap-2">
+          @if (partner.skills.length === 0) {
+          <span class="text-muted small">—</span>
+          } @for (skill of partner.skills; track skill.categoryId) {
+          <span class="spd-tag d-inline-flex align-items-center gap-2">
+            <img src="assets/icons/Ellipse 73.svg" width="6" height="6" alt="" />
+            {{ skill.categoryName }}
+          </span>
+          }
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="spd-field-label mb-2">Services Offered</div>
+        <div class="d-flex flex-wrap gap-2">
+          @if (partner.servicesOffered.length === 0) {
+          <span class="text-muted small">—</span>
+          } @for (svc of partner.servicesOffered; track svc.subCategoryId) {
+          <span class="spd-tag d-inline-flex align-items-center gap-2">
+            <img src="assets/icons/Ellipse 73.svg" width="6" height="6" alt="" />
+            {{ svc.subCategoryName }}
+          </span>
+          }
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="spd-field-label mb-2">Languages Spoken</div>
+        <div class="d-flex flex-wrap gap-2">
+          @if (partner.languagesSpoken.length === 0) {
+          <span class="text-muted small">—</span>
+          } @for (lang of partner.languagesSpoken; track lang.languageId) {
+          <span class="spd-tag d-inline-flex align-items-center gap-2">
+            <img src="assets/icons/Ellipse 73.svg" width="6" height="6" alt="" />
+            {{ lang.languageName }}
+          </span>
+          }
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="spd-field-label mb-2">Status</div>
+        <span class="status-badge" [ngClass]="'status-' + partner.status.toLowerCase()">
+          <span class="status-dot"></span>{{ partner.status }}
+        </span>
+      </div>
+    </div>
+
+    <hr class="spd-divider" />
+    <div class="spd-section-row">
+      <h6 class="spd-section mb-0">Previous Job Experience</h6>
+    </div>
+
+    @if (partner.previousExperiences.length === 0) {
+    <div class="text-muted small mb-2">No experience records.</div>
+    } @else {
+    <div class="spd-exp-row">
+      @for (exp of partner.previousExperiences; track exp.id) {
+      <div class="spd-exp-card">
+        <div class="spd-exp-top-row">
+          <span class="spd-exp-company" [title]="exp.companyName">
+            {{ exp.companyName }}
+          </span>
+          <span class="spd-exp-duration-num">
+            {{ exp.durationYears | number : '1.2-2' }}
+          </span>
+        </div>
+        <div class="spd-exp-bottom-row">
+          <span class="spd-exp-role" [title]="exp.role">{{ exp.role }}</span>
+          <span class="spd-exp-yr-label">yrs</span>
+        </div>
+      </div>
+      }
+    </div>
+    }
+
+    <hr class="spd-divider" />
+    <div class="spd-section-row">
+      <h6 class="spd-section mb-0">Documents</h6>
+    </div>
+
+    @if (partner.attachments.length === 0) {
+    <div class="text-muted small mb-2">No documents uploaded.</div>
+    } @else {
+    <div class="spd-docs-row">
+      @for (doc of partner.attachments; track doc.id) {
+      <div class="spd-doc-card">
+        <img src="assets/icons/FileDoc.svg" alt="" />
+        <div class="flex-grow-1 overflow-hidden">
+          <div class="spd-doc-name" [title]="getDocumentName(doc)">
+            {{ getDocumentName(doc) }}
+          </div>
+          <div class="spd-doc-size">{{ doc.fileSizeKb ? doc.fileSizeKb + ' KB' : '—' }}</div>
+        </div>
+        <button class="spd-doc-dl btn p-0" (click)="downloadDocument(doc.id, getDocumentName(doc))">
+          <img src="assets/icons/DownloadSimple.svg" alt="" />
+        </button>
+      </div>
+      }
+    </div>
+    } @if (partner.verificationStatus === 'Verified') {
+    <hr class="spd-divider" />
+    <div class="spd-section-row">
+      <h6 class="spd-section mb-0">Assigned Services</h6>
+      <app-button [config]="filterButtonConfig"></app-button>
+    </div>
+
+    <div class="spd-assigned-card">
+      <div class="spd-grid-scroll-wrapper">
+        <div class="spd-grid-container">
+          <div class="spd-grid-header">
+            <div
+              class="spd-grid-cell sortable d-flex align-items-center gap-1"
+              (click)="onSort('serviceName')"
+            >
+              Name <span class="sort-icon">{{ getSortIcon('serviceName') }}</span>
+            </div>
+            <div
+              class="spd-grid-cell sortable d-flex align-items-center gap-1"
+              (click)="onSort('customerName')"
+            >
+              Customer <span class="sort-icon">{{ getSortIcon('customerName') }}</span>
+            </div>
+            <div
+              class="spd-grid-cell sortable d-flex align-items-center gap-1"
+              (click)="onSort('bookingDate')"
+            >
+              Date &amp; Time <span class="sort-icon">{{ getSortIcon('bookingDate') }}</span>
+            </div>
+            <div class="spd-grid-cell d-flex align-items-center">Address</div>
+            <div class="spd-grid-cell d-flex align-items-center ms-2">Status</div>
+          </div>
+
+          <div class="spd-grid-body">
+            @if (isServicesLoading) {
+            <div
+              class="spd-grid-state d-flex align-items-center justify-content-center text-muted small"
+            >
+              <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+              Loading assigned services…
+            </div>
+            } @if (!isServicesLoading && assignedServices.length === 0) {
+            <div class="spd-grid-state text-center text-muted">No assigned services found.</div>
+            } @for (item of assignedServices; track item.bookingId) {
+            <div class="spd-grid-row">
+              <div class="spd-grid-cell fw-medium text-truncate">{{ item.serviceName }}</div>
+              <div class="spd-grid-cell text-truncate">{{ item.customerName }}</div>
+              <div class="spd-grid-cell">{{ item.dateAndTime }}</div>
+              <div
+                class="spd-grid-cell spd-cell-address text-truncate"
+                [title]="item.serviceAddress"
+              >
+                {{ item.serviceAddress }}
+              </div>
+              <div class="spd-grid-cell">
+                <span class="spd-svc-status" [ngClass]="'svc-' + item.serviceStatus.toLowerCase()">
+                  <span class="spd-svc-dot"></span>{{ item.serviceStatus }}
+                </span>
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="spd-grid-pagination d-flex align-items-center justify-content-end">
+        <app-pagination
+          [currentPage]="currentPage"
+          [totalItems]="totalItems"
+          [itemsPerPage]="itemsPerPage"
+          (pageChange)="changePage($event)"
+          (pageSizeChange)="changePageSize($event)"
+        ></app-pagination>
+      </div>
+    </div>
+    }
+  </div>
+  }
+  <app-filter-panel
+    [isOpen]="isFilterOpen"
+    [config]="filterPanelConfig"
+    [activeValues]="activeFilterValues"
+  ></app-filter-panel>
+
+  @if (isConfirmModalOpen) {
+  <app-confirmation-model
+    [visible]="isConfirmModalOpen"
+    [config]="confirmConfig!"
+    (confirm)="confirmAction()"
+    (closed)="isConfirmModalOpen = false"
+  ></app-confirmation-model>
+  } @if (isRejectModalOpen) {
+  <div class="spd-modal-backdrop" (click)="cancelReject()">
+    <div class="spd-modal" (click)="$event.stopPropagation()">
+      <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+        <h6 class="mb-0 fw-semibold">Reject Service Partner</h6>
+        <button class="btn btn-link p-0 text-muted lh-1" (click)="cancelReject()">✕</button>
+      </div>
+      <div class="p-3">
+        <p class="text-muted small mb-3">
+          Provide a reason for rejecting <strong>{{ partner?.fullName }}</strong
+          >.
+        </p>
+        <textarea
+          class="form-control shadow-none"
+          rows="4"
+          placeholder="Enter reason…"
+          [(ngModel)]="rejectReason"
+          maxlength="500"
+        ></textarea>
+      </div>
+      <div class="d-flex justify-content-end gap-2 p-3 border-top">
+        <button class="btn btn-light border px-4" (click)="cancelReject()">Cancel</button>
+        <button class="btn spd-btn-reject-top" (click)="confirmReject()">Confirm Reject</button>
+      </div>
+    </div>
+  </div>
+  }
+</div>

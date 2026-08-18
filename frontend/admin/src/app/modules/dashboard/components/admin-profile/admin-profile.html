@@ -1,0 +1,214 @@
+<div class="container-fluid bg-lightBlue p-4">
+  <div class="row fw-semibold fs-4 lineHeight pb-4">My Profile</div>
+  <div class="row bg-white border rounded" style="padding-bottom: 290px">
+    <div class="linear-gradient rounded-top w-100"></div>
+    <div class="d-flex flex-column align-items-center w-100 px-2">
+      <div class="profile-overlap d-flex flex-column align-items-center">
+        <div class="profile-image-wrapper position-relative">
+          <img
+            [src]="profile?.imageUrl || 'assets/images/admin/profile-image.svg'"
+            alt="Profile"
+            class="img-wh-profile rounded-circle"
+            (error)="onImageError($event)"
+          />
+ 
+          <!-- Hover Overlay -->
+          <div
+            class="profile-overlay d-flex justify-content-center align-items-center"
+            (click)="fileInput.click()"
+          >
+            <img src="assets/images/admin/PencilSimple.svg" width="20" />
+          </div>
+ 
+          <!-- Hidden File Input -->
+          <input
+            type="file"
+            #fileInput
+            accept="image/jpeg,image/png,image/webp,image/svg+xml"
+            hidden
+            (change)="onProfileImageSelected($event)"
+          />
+        </div>
+        <div class="fw-semibold fs-5">{{ profile?.name }}</div>
+        <div class="fw-normal font-grey fs-6">{{ profile?.role }}</div>
+      </div>
+ 
+      <!-- Contact Information Card -->
+      <div class="card shadow-sm mb-4 border wh-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="fw-bold mb-0">Contact Information</div>
+            <button
+              class="btn-purple border-0 rounded fw-semibold px-3 py-1"
+              data-bs-toggle="modal"
+              data-bs-target="#editContactModal"
+            >
+              <img src="assets/images/admin/PencilSimple.svg" alt="Not Found" /> Edit
+            </button>
+          </div>
+          <div class="row">
+            <div class="col">
+              <img src="assets/images/admin/Phone.svg" alt="Not Found" class="d-block pb-2" />
+              <span class="fw-medium">{{ profile?.mobileNumber | mobilenumber }}</span>
+            </div>
+            <div class="col">
+              <img
+                src="assets/images/admin/EnvelopeSimple.svg"
+                alt="Not Found"
+                class="d-block pb-2"
+              />
+              <span class="fw-medium text-nowrap">{{ profile?.email }}</span>
+            </div>
+            <div class="col">
+              <img src="assets/images/admin/MapPin.svg" alt="Not Found" class="d-block pb-2" />
+              <span class="fw-medium text-nowrap">{{ profile?.address }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Security Card -->
+      <div class="card shadow-sm mb-4 border wh-card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="fw-bold mb-0">Security</div>
+            <button
+              class="btn-purple border-0 rounded fw-semibold px-3 py-1"
+              data-bs-toggle="modal"
+              data-bs-target="#changePasswordModal"
+            >
+              Change Password
+            </button>
+          </div>
+          <div>
+            <img src="assets/images/admin/Lock.svg" alt="Not Found" class="pe-2" />
+            @for (i of [].constructor(18); track $index) {
+            <i class="bi bi-circle-fill pe-1" style="font-size: 3px"></i>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Change Password Modal -->
+  <div
+    class="modal fade"
+    id="changePasswordModal"
+    tabindex="-1"
+    aria-labelledby="changePasswordLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 p-3">
+        <div class="modal-header border-0 pb-2">
+          <h6 class="modal-title fw-bold" id="changePasswordLabel">Change Password</h6>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="resetPasswordForm()"
+          ></button>
+        </div>
+ 
+        <div class="modal-body" [formGroup]="passwordForm">
+          <div class="mb-3">
+            <app-password [config]="currentPasswordConfig" />
+           @if (passwordForm.get('currentPassword')?.touched &&
+          passwordForm.get('currentPassword')?.hasError('wrongPassword')) {
+            <div class="invalid-feedback d-block text-start">Current password is incorrect.</div>
+          }
+          </div>
+          <div class="mb-3">
+            <app-password [config]="newPasswordConfig" />
+             @if (passwordForm.get('newPassword')?.touched && passwordForm.errors?.['samePassword']) {
+            <div class="invalid-feedback d-block text-start">
+              New password must be different from current password.
+            </div>
+          }
+          </div>
+          <div class="mb-3">
+            <app-password [config]="confirmPasswordConfig" />
+              @if (passwordForm.get('confirmPassword')?.touched && passwordForm.errors?.['passwordMismatch']) {
+            <div class="invalid-feedback d-block text-start">Passwords do not match.</div>
+          }
+          </div>
+        </div>
+ 
+        <div class="modal-footer border-0 pt-0">
+          <div class="d-flex gap-2 w-100">
+            <app-button
+              [config]="cancelPasswordConfig"
+              class="w-100"
+              data-bs-dismiss="modal"
+            ></app-button>
+            <app-button
+              [config]="savePasswordConfig"
+              class="w-100"
+              data-bs-dismiss="modal"
+              [class.disabled]="passwordForm.invalid"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- Edit Contact Modal -->
+  <div
+    class="modal fade"
+    id="editContactModal"
+    tabindex="-1"
+    aria-labelledby="editContactLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 rounded-4 p-3">
+        <div class="modal-header border-0 pb-2">
+          <h6 class="modal-title fw-bold" id="editContactLabel">Edit Contact Information</h6>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            (click)="resetContactForm()"
+          ></button>
+        </div>
+ 
+        <div class="modal-body" [formGroup]="contactForm">
+          <!-- Mobile Number (reusable component) -->
+          <div class="mb-3">
+            <app-mobile [config]="mobileNumberConfig" />
+          </div>
+ 
+          <!-- Email (reusable component) -->
+          <div class="mb-3">
+            <app-email [config]="emailConfig" />
+          </div>
+ 
+          <!-- Address (reusable component) -->
+          <div class="mb-3">
+            <app-address [config]="addressConfig" />
+          </div>
+        </div>
+ 
+        <div class="modal-footer border-0 pt-0">
+          <div class="d-flex gap-2 w-100">
+            <app-button
+              [config]="cancelContactConfig"
+              class="w-100"
+              data-bs-dismiss="modal"
+            ></app-button>
+            <app-button
+              [config]="saveContactConfig"
+              class="w-100"
+              data-bs-dismiss="modal"
+              [class.disabled]="contactForm.invalid"
+            ></app-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,273 @@
+<div class="container-fluid py-5 px-2 px-sm-3 px-md-4 checkout-container">
+  <div class="row g-4">
+    <div class="col-12 col-lg-7">
+      <div class="d-flex flex-column co-steps">
+        <!-- Step 1: Booking For -->
+        <div class="d-flex align-items-stretch gap-3 co-step">
+          <div
+            class="co-indicator flex-shrink-0 d-flex flex-column align-items-center"
+          >
+            <div
+              class="co-dot d-flex align-items-center justify-content-center"
+              [class.co-dot--inactive]="step1State === 'inactive'"
+              [class.co-dot--active]="step1State === 'active'"
+              [class.co-dot--done]="step1State === 'done'"
+            >
+              @if (step1State === 'done') {
+              <img
+                src="assets/images/checkout/icon-check copy.svg"
+                width="22"
+                height="22"
+                alt="done"
+              />
+              } @else {
+              <img
+                src="assets/images/checkout/icon-user.svg"
+                width="22"
+                height="22"
+                alt="user"
+              />
+              }
+            </div>
+            <div
+              class="co-line"
+              [class.co-line--done]="step1State === 'done'"
+            ></div>
+          </div>
+          <div class="flex-grow-1 min-width-0 pb-4">
+            <app-booking-for></app-booking-for>
+          </div>
+        </div>
+
+        <!-- Step 2: Address -->
+        <div class="d-flex align-items-stretch gap-3 co-step">
+          <div
+            class="co-indicator flex-shrink-0 d-flex flex-column align-items-center"
+          >
+            <div
+              class="co-dot d-flex align-items-center justify-content-center"
+              [class.co-dot--inactive]="step2State === 'inactive'"
+              [class.co-dot--active]="step2State === 'active'"
+              [class.co-dot--done]="step2State === 'done'"
+            >
+              @if (step2State === 'done') {
+              <img
+                src="assets/images/checkout/icon-check.svg"
+                width="22"
+                height="22"
+                alt="done"
+              />
+              } @else if (step2State === 'active') {
+              <img
+                src="assets/images/checkout/icon-map-pin-active.svg"
+                width="22"
+                height="22"
+                alt="location"
+              />
+              } @else {
+              <img
+                src="assets/images/checkout/icon-map-pin.svg"
+                width="22"
+                height="22"
+                alt="location"
+              />
+              }
+            </div>
+            <div
+              class="co-line"
+              [class.co-line--done]="step2State === 'done'"
+            ></div>
+          </div>
+          <div class="flex-grow-1 min-width-0 pb-4">
+            <app-select-address
+              (addressSelected)="onAddressSelected($event)"
+            ></app-select-address>
+          </div>
+        </div>
+
+        <!-- Step 3: Slot -->
+        <div class="d-flex align-items-stretch gap-3 co-step">
+          <div
+            class="co-indicator flex-shrink-0 d-flex flex-column align-items-center"
+          >
+            <div
+              class="co-dot d-flex align-items-center justify-content-center"
+              [class.co-dot--inactive]="step3State === 'inactive'"
+              [class.co-dot--active]="step3State === 'active'"
+              [class.co-dot--done]="step3State === 'done'"
+            >
+              @if (step3State === 'done') {
+              <img
+                src="assets/images/checkout/icon-check.svg"
+                width="22"
+                height="22"
+                alt="done"
+              />
+              } @else if (step3State === 'active') {
+              <img
+                src="assets/images/checkout/icon-clock-active.svg"
+                width="22"
+                height="22"
+                alt="slot"
+              />
+              } @else {
+              <img
+                src="assets/images/checkout/icon-clock.svg"
+                width="22"
+                height="22"
+                alt="slot"
+              />
+              }
+            </div>
+            <div
+              class="co-line"
+              [class.co-line--done]="step3State === 'done'"
+            ></div>
+          </div>
+          <div class="flex-grow-1 min-width-0 pb-4">
+            <app-select-slot
+              [isAddressDone]="isAddressDone"
+              [serviceId]="serviceId"
+              [serviceTypeId]="serviceTypeId"
+              (slotSaved)="onSlotSaved($event)"
+              (partnerAvailableChange)="onPartnerAvailableChange($event)"
+            ></app-select-slot>
+          </div>
+        </div>
+
+        <!-- Step 4: Payment Method -->
+        <div class="d-flex align-items-stretch gap-3 co-step">
+          <div
+            class="co-indicator flex-shrink-0 d-flex flex-column align-items-center"
+          >
+            <div
+              class="co-dot d-flex align-items-center justify-content-center"
+              [class.co-dot--inactive]="step4State === 'inactive'"
+              [class.co-dot--active]="step4State === 'active'"
+              [class.co-dot--done]="step4State === 'done'"
+            >
+              @if (step4State === 'done') {
+              <img
+                src="assets/images/checkout/icon-check.svg"
+                width="22"
+                height="22"
+                alt="done"
+              />
+              } @else if (step4State === 'active') {
+              <img
+                src="assets/images/checkout/icon-money-active.svg"
+                width="22"
+                height="22"
+                alt="payment"
+              />
+              } @else {
+              <img
+                src="assets/images/checkout/icon-money.svg"
+                width="22"
+                height="22"
+                alt="payment"
+              />
+              }
+            </div>
+          </div>
+          <div class="flex-grow-1 min-width-0">
+            <app-select-payment
+              [isSlotDone]="isSlotDone"
+              (paymentSaved)="onPaymentSaved($event)"
+            ></app-select-payment>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom action button — shows only when all steps done -->
+      @if (showActionButton) {
+      <div class="d-flex flex-column align-items-center mt-2 mb-2 pt-4 gap-2">
+        @if (blockedError) {
+        <div
+          class="alert alert-danger d-flex align-items-left gap-2 py-2 px-5 ms-5 mb-1 w-90"
+        >
+          <img src="assets/icons/Exclaimenation.svg" alt="error" />
+          <span class="fw-semibold small">{{ blockedError }}</span>
+        </div>
+        } @if (actionPaymentMethod === PAYMENT_METHODS.CASH) {
+        <button
+          type="button"
+          class="btn fw-semibold text-white co-action-btn"
+          [disabled]="isCashProcessing"
+          (click)="onPayButtonClick()"
+        >
+          @if (isCashProcessing) {
+          <span
+            class="spinner-border spinner-border-sm me-2"
+            role="status"
+          ></span>
+          } Place Order
+        </button>
+        @if (cashError) {
+        <div
+          class="alert alert-danger py-2 px-3 mb-0 small fw-semibold w-100 text-center"
+        >
+          {{ cashError }}
+        </div>
+        } } @else {
+        <button
+          type="button"
+          class="btn fw-semibold text-white co-action-btn"
+          (click)="onPayButtonClick()"
+        >
+          Pay ₹{{ totalAmount | number:'1.2-2' }}
+        </button>
+        }
+      </div>
+      }
+
+      <div class="d-flex align-items-stretch gap-3 mt-4">
+        <div class="flex-shrink-0" style="width: 44px"></div>
+        <div class="flex-grow-1 rounded-3 p-4 bg-light">
+          <div class="d-flex align-items-start gap-3">
+            <div class="flex-grow-1">
+              <p class="fw-semibold mb-1 text-dark fs-16">
+                Cancellation policy
+              </p>
+              <p class="text-secondary mb-2 fw-normal fs-14">
+                Free cancellations if done more than 12 hrs before the service
+                or if a professional isn't assigned. A fee will be charged
+                otherwise.
+              </p>
+              <a href="#" class="text-decoration-none fw-bold fs-14">
+                Learn more
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-lg-5">
+      <div class="card border-1 rounded-3 shadow-sm co-border">
+        <div class="card-body p-3 p-md-4">
+          <app-payment-summary
+            [serviceId]="serviceId"
+            [serviceName]="serviceName"
+            (totalAmountChange)="onTotalAmountChange($event)"
+            (appliedOfferIdChange)="onAppliedOfferIdChange($event)"
+          ></app-payment-summary>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stripe Card Payment Modal -->
+@if (showRazorpayModal && selectedAddress && selectedSlot && serviceId &&
+serviceTypeId) {
+<app-stripe-card-model
+  [serviceId]="serviceId"
+  [serviceTypeId]="serviceTypeId"
+  [address]="selectedAddress!"
+  [slot]="selectedSlot!"
+  [offerId]="appliedOfferId"
+  (close)="onStripeModalClose()"
+  (bookingConfirmed)="onBookingConfirmed($event)"
+  (intentFailed)="onIntentFailed($event)"
+/>
+}

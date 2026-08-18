@@ -1,0 +1,158 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.offer-wrapper {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  padding: 24px;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  background-color: #f2f5f9;
+}
+
+.offer-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.offer-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+}
+
+/* Grid */
+.grid-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  min-width: 700px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.grid-header,
+.grid-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  min-width: 700px;
+}
+
+/* Header */
+.grid-header {
+  border-bottom: 2px solid #f1f3f5;
+  background: #fff;
+  z-index: 2;
+}
+
+.grid-header .grid-cell {
+  padding: 14px 16px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+/* Body */
+.grid-body {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+}
+.grid-body::-webkit-scrollbar {
+  width: 6px;
+}
+.grid-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.grid-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.grid-row {
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.grid-row:hover {
+  background: #f8f9fa;
+}
+
+.grid-cell {
+  padding: 16px;
+  font-size: 0.875rem;
+  color: #212529;
+  min-width: 0;
+}
+
+.grid-state-row {
+  padding: 60px 16px;
+}
+
+
+/* Status */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.875;
+  font-weight: 500;
+}
+
+.status-active {
+  background: #1ea13f24;
+  color: #137c2f;
+}
+
+.status-inactive {
+  background: #be0a0424;
+  color: #8c0703;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-active .status-dot {
+  background: rgba(19, 124, 47, 1);
+}
+
+.status-inactive .status-dot {
+  background: rgba(140, 7, 3, 1);
+}
+
+/* Sortable */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  color: #212529;
+}
+
+.dropdown-menu {
+  min-width: 120px;
+  font-size: 1rem;
+}

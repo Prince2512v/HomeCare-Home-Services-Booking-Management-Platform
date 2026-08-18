@@ -1,0 +1,155 @@
+.ps-card {
+  border-color: #e5e7eb !important;
+  border-width: 1.5px !important;
+}
+
+.ps-divider {
+  border: none;
+  border-top: 1.5px dashed #d1d5db;
+  margin: 6px 0;
+  opacity: 1;
+}
+
+.ps-coupon-code {
+  color: #4f46e5;
+}
+
+.ps-view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: transparent;
+  border: 1.5px solid #dde4ee;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4540e1;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ps-signin-notice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+  background: #f9fafb;
+  border: 1px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 6px 10px;
+  margin: 0;
+}
+
+.ps-offer-card {
+  border-color: #e5e7eb !important;
+  border-width: 1.5px !important;
+  transition:
+    border-color 0.18s,
+    background 0.18s;
+}
+
+.ps-offer-card--applied {
+  border-color: #4f46e5 !important;
+  background: #eef2ff !important;
+}
+
+.ps-offer-card--disabled {
+  opacity: 0.55;
+}
+
+.ps-offer-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-offer-icon--lg {
+  width: 40px;
+  height: 40px;
+}
+
+.ps-text-xs {
+  font-size: 0.9rem;
+}
+
+.ps-offer-action {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #4f46e5;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+.ps-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ps-carousel {
+  display: flex;
+  height: 80px;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4px;
+}
+
+.ps-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.ps-carousel-item {
+  min-width: 220px;
+  flex-shrink: 0;
+}
+
+.ps-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  border: none;
+  background: white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.ps-carousel-btn.left {
+  left: -10px;
+}
+
+.ps-carousel-btn.right {
+  right: -10px;
+}
+.ps-offer-action:hover:not(:disabled) {
+  color: #3730a3;
+}
+
+.ps-offer-action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ps-offer-action--remove {
+  color: #dc2626;
+}
+
+.ps-offer-action--remove:hover:not(:disabled) {
+  color: #b91c1c;
+}
+
+.ps-modal-list {
+  max-height: 400px;
+}

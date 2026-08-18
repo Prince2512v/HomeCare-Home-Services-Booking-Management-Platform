@@ -1,0 +1,190 @@
+<div class="vh-100 d-flex flex-column p-0 border border-end">
+  <div class="text-black fw-bold fontsize py-3 ps-4">H<span class="o">o</span>meCare</div>
+  <ul class="nav nav-pills flex-column mb-auto ps-2">
+    <li class="nav-item py-2">
+      <a
+        (click)="goToHome()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActiveGroup(ROUTES.HOME.HOME_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActiveGroup(ROUTES.HOME.HOME_ABSOLUTE)
+              ? 'assets/images/admin/SquaresFourActive.svg'
+              : 'assets/images/admin/SquaresFour.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span class="">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToServiceManagement()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActiveGroup(ROUTES.SERVICE_MANAGEMENT.SERVICE_MANAGEMENT_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActiveGroup(ROUTES.SERVICE_MANAGEMENT.SERVICE_MANAGEMENT_ABSOLUTE)
+              ? 'assets/images/admin/HandHeartActive.svg'
+              : 'assets/images/admin/HandHeart.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Service Management</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        class="nav-link d-flex justify-content-between align-items-center text-grey pointer text-nowrap"
+        data-bs-toggle="collapse"
+        href="#userSubmenu"
+        (click)="openToClose()"
+        [class.active-link]="isActiveGroup(ROUTES.USER_MANAGEMENT.USER_MANAGEMENT_ABSOLUTE) || open"
+      >
+        <div>
+          <img
+            [src]="
+              isActiveGroup(ROUTES.USER_MANAGEMENT.USER_MANAGEMENT_ABSOLUTE)
+                ? 'assets/images/admin/UserActive.svg'
+                : 'assets/images/admin/User.svg'
+            "
+            alt="Not Found"
+            class="pe-3"
+          />
+          <span>User Management</span>
+          <img
+            [src]="open ? 'assets/images/admin/CaretUp.svg' : 'assets/images/admin/CaretDown.svg'"
+            alt="Not Found"
+            class="ps-3"
+          />
+        </div>
+      </a>
+
+      <div class="collapse ps-5" id="userSubmenu" #userSubmenu>
+        <ul class="ps-2 mb-0" style="list-style-type: disc">
+          <li
+            (click)="goToCustomers()"
+            [class.active-link]="isActiveGroup(ROUTES.USER_MANAGEMENT.CUSTOMERS.CUSTOMERS_ABSOLUTE)"
+            class="sidebar-link pointer pb-2"
+          >
+            Customers
+          </li>
+          <li
+            (click)="goToServicePartners()"
+            [class.active-link]="
+              isActiveGroup(ROUTES.USER_MANAGEMENT.SERVICE_PARTNERS.SERVICE_PARTNERS_ABSOLUTE)
+            "
+            class="sidebar-link pointer pb-2"
+          >
+            Service Partners
+          </li>
+          <li
+            (click)="goToAdminUsers()"
+            [class.active-link]="
+              isActiveGroup(ROUTES.USER_MANAGEMENT.ADMIN_USERS.ADMIN_USERS_ABSOLUTE)
+            "
+            class="sidebar-link pointer pb-2"
+          >
+            Admin Users
+          </li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToBookingManagement()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActive(ROUTES.BOOKING_MANAGEMENT.BOOKING_MANAGEMENT_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActive(ROUTES.BOOKING_MANAGEMENT.BOOKING_MANAGEMENT_ABSOLUTE)
+              ? 'assets/images/admin/CalendarDotsActive.svg'
+              : 'assets/images/admin/CalendarDots.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Booking Management</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToOffers()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActive(ROUTES.OFFERS.OFFERS_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActive(ROUTES.OFFERS.OFFERS_ABSOLUTE)
+              ? 'assets/images/admin/SealPercentActive.svg'
+              : 'assets/images/admin/SealPercent.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Offers</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToPaymentTransactions()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="
+          isActiveGroup(ROUTES.PAYMENT_TRANSACTIONS.PAYMENT_TRANSACTIONS_ABSOLUTE)
+        "
+      >
+        <img
+          [src]="
+            isActiveGroup(ROUTES.PAYMENT_TRANSACTIONS.PAYMENT_TRANSACTIONS_ABSOLUTE)
+              ? 'assets/images/admin/CreditCardActive.svg'
+              : 'assets/images/admin/CreditCard.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Payment & Transaction</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToMasterData()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActive(ROUTES.MASTER_DATA.MASTER_DATA_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActive(ROUTES.MASTER_DATA.MASTER_DATA_ABSOLUTE)
+              ? 'assets/images/admin/GearSixActive.svg'
+              : 'assets/images/admin/GearSix.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Master Data</span>
+      </a>
+    </li>
+    <li class="nav-item py-2">
+      <a
+        (click)="goToSupport()"
+        class="nav-link text-grey pointer text-nowrap"
+        [class.active-link]="isActive(ROUTES.SUPPORT.SUPPORT_ABSOLUTE)"
+      >
+        <img
+          [src]="
+            isActive(ROUTES.SUPPORT.SUPPORT_ABSOLUTE)
+              ? 'assets/images/admin/HeadsetActive.svg'
+              : 'assets/images/admin/Headset.svg'
+          "
+          class="pe-3"
+          alt="Not Found"
+        />
+        <span>Support</span>
+      </a>
+    </li>
+  </ul>
+</div>

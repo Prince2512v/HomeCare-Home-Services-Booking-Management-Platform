@@ -1,0 +1,15 @@
+<div class="stat-card">
+  <div class="stat-content">
+    <div class="stat-value">{{ displayValue }}</div>
+    <div class="stat-label">{{ config.label }}</div>
+    <div class="stat-badge-row">
+      <span class="stat-pct" [class]="pctClass">
+        {{ pctSign }}{{ data.changePercent | number : '1.0-1' }}%
+      </span>
+      <span class="stat-badge-label">{{ config.badgeLabel || 'than last week' }}</span>
+    </div>
+  </div>
+  <div class="stat-icon">
+    <img [src]="config.iconSrc" alt="" width="26" height="26" />
+  </div>
+</div>

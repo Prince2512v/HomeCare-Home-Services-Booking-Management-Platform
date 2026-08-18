@@ -1,0 +1,39 @@
+<div class="search-wrapper position-relative">
+  <div class="d-flex bg-white rounded-pill shadow-sm border px-3 py-2 align-items-center">
+
+    <!-- Search Icon -->
+    <span class="input-group-text bg-transparent border-0 ps-0 pe-2">
+      <img src="assets/icons/Search.svg" alt="search-icon">
+    </span>
+
+    <!-- Input -->
+    <input
+      type="text"
+      class="form-control border-0 shadow-none ps-0 search-height"
+      placeholder='Search for "Ac Cleaning Service"'
+      [(ngModel)]="searchQuery"
+      (input)="onSearch()"
+      (focus)="showDropdown = true"
+      (blur)="hideDropdown()"
+      autocomplete="off"
+    />
+
+    <!-- Search Button -->
+    <app-button [config]="searchBtnConfig"></app-button>
+  </div>
+
+  <!-- Dropdown -->
+  @if (showDropdown && filteredServices.length > 0) {
+    <ul class="dropdown-list position-absolute w-100 bg-white shadow rounded-3 mt-1 p-0">
+      @for (service of filteredServices; track service.id) {
+        <li
+          class="dropdown-item py-2 px-4 cursor-pointer"
+          (mousedown)="selectService(service)"
+        >
+          {{ service.name }}
+        </li>
+      }
+    </ul>
+  }
+
+</div>

@@ -1,0 +1,176 @@
+<div class="mt-3 px-1">
+
+  @if (summaryLoading) {
+  <div class="d-flex justify-content-center py-4">
+    <div class="spinner-border spinner-border-sm text-primary"></div>
+  </div>
+  } @else if (summary) {
+
+  <h2 class="fw-bold fs-5 text-dark mb-3">Payment Summary</h2>
+
+  <div class="border rounded-3 bg-white p-3 mb-4 ps-card">
+    <div class="d-flex justify-content-between py-1">
+      <span class="large text-secondary">{{ serviceName || 'Service' }}</span>
+      <span class="large fw-medium text-dark">
+        {{ summary.itemsTotal | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+
+    <div class="d-flex justify-content-between py-1">
+      <span class="large text-secondary">Taxes ({{ summary.taxPercentage }}%)</span>
+      <span class="large fw-medium text-dark">
+        {{ summary.taxAmount | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+
+    <hr class="ps-divider" />
+
+    <div class="d-flex justify-content-between py-1">
+      <span class="large fw-bold text-dark">Total</span>
+      <span class="large fw-bold text-dark">
+        {{ (summary.itemsTotal + summary.taxAmount) | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+
+    @if (hasCouponApplied && summary.discountAmount > 0) {
+    <div class="d-flex justify-content-between py-1">
+      <span class="large text-secondary">
+        Coupon code
+        <span class="fw-bold ps-coupon-code">{{ summary.appliedCouponCode }}</span>
+        Added
+      </span>
+      <span class="large fw-semibold text-success">
+        -{{ summary.discountAmount | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+    }
+
+    <hr class="ps-divider" />
+
+    <div class="d-flex justify-content-between pt-1">
+      <span class="fw-bold text-dark">Total Amount to Pay</span>
+      <span class="fw-bold text-dark">
+        {{ summary.totalAmount | currency:'USD':'symbol':'1.2-2' }}
+      </span>
+    </div>
+  </div>
+
+  }
+
+  @if (hasOffers) {
+
+  <div class="mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="fw-bold fs-5 text-dark mb-0">Coupons & Offers</h2>
+      <button class="ps-view-all-btn" (click)="openViewAll()">
+        View All
+        <img src="assets/icons/ArrowRight.svg" />
+      </button>
+    </div>
+
+    @if (!isLoggedIn) {
+    <p class="ps-signin-notice small mb-2">
+      <img src="assets/icons/SealPercent.svg" />
+      Sign in to apply coupons and enjoy exclusive discounts.
+    </p>
+    }
+
+    <div class="ps-carousel-wrapper">
+
+      @if (showLeftArrow) {
+      <button class="ps-carousel-btn left" (click)="scrollLeft()">
+        <img src="assets/icons/ArrowLeft.svg" />
+      </button>
+      }
+
+      <div class="ps-carousel" #carousel (scroll)="onScroll()">
+
+        @for (offer of activeOffers.slice(0, 10); track offer.id) {
+        <div class="ps-carousel-item">
+          <div
+            class="d-flex align-items-center gap-2 border rounded-3 bg-white p-2 h-100 ps-offer-card"
+            [class.ps-offer-card--applied]="isOfferApplied(offer.id)"
+            [class.ps-offer-card--disabled]="!isLoggedIn"
+          >
+            <div class="ps-offer-icon">
+              <img src="assets/icons/SealPercent.svg" />
+            </div>
+
+            <div class="flex-grow-1 overflow-hidden">
+              <p class="fw-semibold mb-0 text-dark text-truncate ps-text-sm">
+                {{ offer.couponCode }}
+              </p>
+              <p class="mb-0 text-secondary text-truncate ps-text-xs">
+                {{ offer.couponDescription || (offer.discountPercentage | discount) }}
+              </p>
+            </div>
+
+            <button
+              class="ps-offer-action"
+              [class.ps-offer-action--remove]="isOfferApplied(offer.id)"
+              [disabled]="couponState === 'loading' || !isLoggedIn"
+              (click)="isOfferApplied(offer.id) ? removeCoupon() : addCoupon(offer)"
+            >
+              {{ isOfferApplied(offer.id) ? 'Remove' : 'Add' }}
+            </button>
+          </div>
+        </div>
+        }
+
+      </div>
+
+      @if (showRightArrow) {
+      <button class="ps-carousel-btn right" (click)="scrollRight()">
+        <img src="assets/icons/ArrowRight.svg" width="23" height="23" />
+      </button>
+      }
+
+    </div>
+  </div>
+
+  }
+
+  @if (showAllOffersModal) {
+  <app-common-modal title="Coupons & Offers" maxWidth="480px" (close)="closeViewAll()">
+
+    @if (!isLoggedIn) {
+    <p class="ps-signin-notice small mb-3">
+      <img src="assets/icons/SealPercent.svg" />
+      Sign in to apply coupons and enjoy exclusive discounts.
+    </p>
+    }
+
+    <div class="d-flex flex-column gap-2 overflow-auto ps-modal-list">
+      @for (offer of activeOffers; track offer.id) {
+      <div
+        class="d-flex align-items-center gap-3 border rounded-3 bg-white p-3 ps-offer-card"
+        [class.ps-offer-card--applied]="isOfferApplied(offer.id)"
+        [class.ps-offer-card--disabled]="!isLoggedIn"
+      >
+        <div class="ps-offer-icon ps-offer-icon--lg">
+          <img src="assets/icons/SealPercent.svg" />
+        </div>
+
+        <div class="flex-grow-1">
+          <p class="fw-bold mb-1 small">{{ offer.couponCode }}</p>
+          <p class="mb-0 text-secondary small">
+            {{ offer.couponDescription || (offer.discountPercentage | discount) }}
+          </p>
+        </div>
+
+        <button
+          class="ps-offer-action"
+          [class.ps-offer-action--remove]="isOfferApplied(offer.id)"
+          [disabled]="couponState === 'loading' || !isLoggedIn"
+          (click)="isOfferApplied(offer.id) ? removeCoupon() : addCoupon(offer)"
+        >
+          {{ isOfferApplied(offer.id) ? 'Remove' : 'Add' }}
+        </button>
+      </div>
+      }
+    </div>
+
+  </app-common-modal>
+  }
+
+</div>

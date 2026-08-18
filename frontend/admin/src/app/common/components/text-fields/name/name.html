@@ -1,0 +1,25 @@
+<div
+  class="position-relative w-100 name-wrapper floating-wrapper"
+  [formGroup]="formGroup"
+  appRequiredField
+>
+  <input
+    type="text"
+    class="form-control custom-input floating-input"
+    [class.is-invalid]="isTouched && control?.invalid"
+    [formControlName]="config.formControlName"
+    placeholder=" "
+  />
+  <label class="floating-label">{{ config.placeholder }}</label>
+</div>
+ 
+@if (control?.touched && control?.invalid) {
+  <div class="invalid-feedback d-block text-start">
+    @if (errors?.['required']) {
+      Name is required.
+    } @else {
+      Please enter a valid name.
+    }
+  </div>
+}
+ 

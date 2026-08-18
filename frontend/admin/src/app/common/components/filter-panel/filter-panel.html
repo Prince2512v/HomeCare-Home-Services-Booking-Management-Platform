@@ -1,0 +1,157 @@
+<div
+  class="offcanvas offcanvas-end"
+  [class.show]="isOpen"
+  [style.visibility]="isOpen ? 'visible' : 'hidden'"
+  tabindex="-1"
+  aria-labelledby="filterPanelLabel"
+>
+  <div class="offcanvas-header px-3 py-3">
+    <h6 class="offcanvas-title fw-bold d-flex align-items-center gap-2" id="filterPanelLabel">
+      Filter
+    </h6>
+    <button type="button" class="btn-close" (click)="cancel()" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body d-flex flex-column gap-3 px-3 py-3">
+    @for (field of config?.fields; track field.key) { @if (field.type === 'select') {
+    <div class="position-relative">
+      <select
+        class="form-select filter-select"
+        [name]="field.key"
+        [(ngModel)]="fieldValues[field.key]"
+      >
+        <option [ngValue]="''">{{ field.placeholder || field.label }}</option>
+        @for (opt of field.options; track opt.value) {
+        <option [ngValue]="opt.value">{{ opt.label }}</option>
+        }
+      </select>
+      <span class="select-chevron">
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </span>
+    </div>
+    } @if (field.type === 'text') {
+    <div class="position-relative">
+      <input
+        type="text"
+        class="form-control filter-input"
+        [class.has-icon]="!!field.icon"
+        [name]="field.key"
+        [placeholder]="field.placeholder || field.label"
+        [(ngModel)]="fieldValues[field.key]"
+      />
+      @if (field.icon) {
+      <img [src]="field.icon" class="filter-icon" alt="icon" />
+      }
+    </div>
+    } @if (field.type === 'text-with-suffix') {
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control filter-input"
+        [name]="field.key"
+        [placeholder]="field.placeholder || field.label"
+        [(ngModel)]="fieldValues[field.key]"
+      />
+      <span class="input-group-text suffix-badge">{{ field.suffix }}</span>
+    </div>
+    } @if (field.type === 'date') {
+    <div class="position-relative">
+      <input
+        type="date"
+        class="form-control filter-input"
+        [class.has-icon]="!!field.icon"
+        [name]="field.key"
+        [(ngModel)]="fieldValues[field.key]"
+      />
+    </div>
+    } @if (field.type === 'time') {
+    <div class="position-relative">
+      <input
+        type="time"
+        class="form-control filter-input"
+        [name]="field.key"
+        [(ngModel)]="fieldValues[field.key]"
+      />
+    </div>
+    } @if (field.type === 'price-range' || field.type === 'number-range') {
+  <div>
+  <p class="fw-medium mb-2 range-label">{{ field.label }}</p>
+  
+  <div class="range-track mb-1">
+
+    <div
+      class="thumb-bubble"
+      [style.left.%]="fillPercent(field)"
+      [style.--thumb-offset]="fillPercent(field) / 100"
+    >{{ getPrefix(field) }}{{ getMinVal(field) }}</div>
+
+    <div
+      class="thumb-bubble"
+      [style.left.%]="emptyStartPercent(field)"
+      [style.--thumb-offset]="emptyStartPercent(field) / 100"
+    >{{ getPrefix(field) }}{{ getMaxVal(field) }}</div>
+
+    <div
+      class="range-fill"
+      [style.left.%]="fillPercent(field)"
+      [style.right.%]="emptyPercent(field)"
+    ></div>
+    <input
+      type="range"
+      class="range-input"
+      [min]="getMin(field)"
+      [max]="getMax(field)"
+      [step]="field.step ?? 1"
+      [value]="getMinVal(field)"
+      (input)="onMinInput(field, $event)"
+    />
+    <input
+      type="range"
+      class="range-input"
+      [min]="getMin(field)"
+      [max]="getMax(field)"
+      [step]="field.step ?? 1"
+      [value]="getMaxVal(field)"
+      (input)="onMaxInput(field, $event)"
+    />
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <span class="text-secondary range-bound">{{ getPrefix(field) }}{{ getMin(field) }}</span>
+    <span class="text-secondary range-bound">{{ getPrefix(field) }}{{ getMax(field) }}</span>
+  </div>
+</div>
+} @if (field.type === 'toggle') {
+    <div class="d-flex align-items-center justify-content-between py-1">
+      <span class="fw-medium toggle-label">{{ field.label }}</span>
+      <div class="form-check form-switch mb-0">
+        <input
+          class="form-check-input filter-toggle"
+          type="checkbox"
+          role="switch"
+          [name]="field.key"
+          [checked]="getToggleVal(field)"
+          (change)="onToggleChange(field, $any($event.target).checked)"
+        />
+      </div>
+    </div>
+    } }
+    <div class="d-flex gap-2 py-3">
+      <app-button [config]="cancelConfig" class="btn-filter-cancel"></app-button>
+      <app-button [config]="applyConfig" class="btn-filter-cancel"></app-button>
+    </div>
+  </div>
+</div>
+
+@if (isOpen) {
+<div class="offcanvas-backdrop fade show" (click)="cancel()"></div>
+}

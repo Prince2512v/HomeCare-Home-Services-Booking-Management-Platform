@@ -1,0 +1,510 @@
+<div class="d-flex flex-column min-vh-100 bg-white">
+  <div
+    class="d-flex align-items-center px-4 py-3 border-bottom bg-white sticky-top shadow-sm responsive-header"
+  >
+    <span
+      class="navbar-brand text-logo fs-3 fw-bold ms-2 ms-md-5 me-4"
+      (click)="navigateTohome()"
+    >
+      H<span class="text-purple">o</span>meCare
+    </span>
+    <div class="d-flex align-items-center description-text">
+      <img
+        src="assets/icons/ArrowLeft.svg"
+        alt=""
+        class="me-2"
+        (click)="navigateTohome()"
+        style="cursor: pointer"
+      />
+      <span class="fw-bold text-dark"> Fill Out Below Details to Join Us </span>
+    </div>
+  </div>
+
+  <div class="flex-grow-1 py-4 px-3 px-md-5">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+          <div class="row g-3">
+            <!-- Profile Image -->
+            <div
+              class="col-12 col-md-2 d-flex flex-column align-items-center pt-1"
+            >
+              <div
+                class="profile-img-box mb-2 d-flex flex-column align-items-center justify-content-center overflow-hidden"
+              >
+                @if (profileImageUrl) {
+                <img
+                  [src]="profileImageUrl"
+                  alt="Profile"
+                  class="w-100 h-100 object-fit-cover rounded-circle"
+                />
+                } @else {
+                <img
+                  src="assets/icons/ImageSquare.svg"
+                  alt="Profile"
+                  class="profile-img-icon"
+                />
+                <small class="profile-placeholder-text">Profile Image</small>
+                }
+              </div>
+              <label
+                for="profileImage"
+                class="btn-hc-upload d-flex align-items-center gap-2"
+              >
+                <img
+                  src="assets/icons/Upload (1).svg"
+                  alt=""
+                  class="icon-upload"
+                />
+                Upload
+              </label>
+              <input
+                type="file"
+                id="profileImage"
+                hidden
+                accept="image/*"
+                (change)="onProfileImageChange($event)"
+              />
+            </div>
+
+            <div class="col-12 col-md-10">
+              <!-- Personal Information -->
+              <div class="mb-4 pb-3 border-bottom">
+                <h5 class="fw-bold mb-3">Personal Information</h5>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <app-name [config]="fullNameConfig"></app-name>
+                  </div>
+                  <div class="col-md-6">
+                    <app-date [config]="dobConfig"></app-date>
+                  </div>
+                </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <app-dropdown [config]="genderConfig"></app-dropdown>
+                  </div>
+                  <div class="col-md-6">
+                    <app-mobile [config]="mobileConfig"></app-mobile>
+                  </div>
+                </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <app-email [config]="emailConfig"></app-email>
+                  </div>
+                  <div class="col-md-6">
+                    <app-dropdown [config]="applyingConfig"></app-dropdown>
+                  </div>
+                </div>
+                <div class="row g-3 mb-3">
+                  <div class="col-12">
+                    <app-address
+                      [config]="permanentAddressConfig"
+                    ></app-address>
+                  </div>
+                </div>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <app-address
+                      [config]="residentialAddressConfig"
+                    ></app-address>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Educational Information -->
+              <div class="mb-4 pb-3 border-bottom">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h5 class="fw-bold mb-0">Educational Information</h5>
+                  <app-button [config]="addEducationBtnConfig"></app-button>
+                </div>
+                <div formArrayName="educations">
+                  @for (edu of educations.controls; track $index; let i =
+                  $index) {
+                  <div
+                    [formGroupName]="i"
+                    class="row g-2 mb-3 align-items-start"
+                  >
+                    <div class="col-md-5">
+                      <input
+                        formControlName="schoolCollege"
+                        type="text"
+                        class="form-control hc-input"
+                        appFloatingLabel="School / College"
+                        [appRequiredLabel]="true"
+                        appValidate
+                        requiredMsg="School/College is required."
+                      />
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="d-flex flex-column">
+                        <input
+                          formControlName="passingYear"
+                          type="number"
+                          class="form-control hc-input"
+                          appFloatingLabel="Passing Year"
+                          [appRequiredLabel]="true"
+                          appValidate
+                          requiredMsg="Passing year is required."
+                        />
+                        @if (educations.at(i).get('passingYear')?.touched &&
+                        educations.at(i).get('passingYear')?.hasError('yearBeforeDob'))
+                        {
+                        <div class="invalid-feedback d-block text-start">
+                          Passing year cannot be before your birth year.
+                        </div>
+                        }
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-3">
+                      <div class="d-flex flex-column">
+                        <div class="input-group hc-input-group fl-wrapper">
+                          <input
+                            formControlName="marks"
+                            type="text"
+                            inputmode="numeric"
+                            class="form-control hc-input marks-input border-end-0"
+                            placeholder=" "
+                            (keydown)="onlyDigits($event)"
+                            (input)="validateMarks(i)"
+                            maxlength="3"
+                          />
+                          <label class="fl-label marks-fl-label">Marks</label>
+                          <span class="input-group-text hc-icon-end">
+                            <img
+                              src="assets/icons/Percent.svg"
+                              alt="%"
+                              class="icon-percentage"
+                            />
+                          </span>
+                        </div>
+
+                        @if
+                        (educations.at(i).get('marks')?.hasError('invalidMarks'))
+                        {
+                        <div class="invalid-feedback d-block text-start">
+                          Marks must be between 0 and 100.
+                        </div>
+                        }
+                      </div>
+                    </div>
+
+                    <div class="col-md-1 text-center">
+                      @if (i > 0) {
+                      <button
+                        type="button"
+                        class="btn-hc-remove btn bg-transparent border-0 p-0"
+                        (click)="removeEducation(i)"
+                      >
+                        <img
+                          src="assets/icons/Trash.svg"
+                          alt="remove"
+                          class="icon-trash"
+                        />
+                      </button>
+                      }
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Professional Information -->
+              <div class="mb-4 pb-3 border-bottom">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h5 class="fw-bold mb-0">Professional Information</h5>
+                  <app-button [config]="addExperienceBtnConfig"></app-button>
+                </div>
+                <div formArrayName="experiences">
+                  @for (exp of experiences.controls; track $index; let i =
+                  $index) {
+                  <div
+                    [formGroupName]="i"
+                    class="row g-2 mb-3 align-items-start"
+                  >
+                    <div class="col-md-3">
+                      <input
+                        formControlName="companyName"
+                        type="text"
+                        class="form-control hc-input"
+                        appFloatingLabel="Company Name"
+                        [appRequiredLabel]="true"
+                        appValidate
+                        requiredMsg="Company name is required."
+                      />
+                    </div>
+
+                    <div class="col-md-3">
+                      <input
+                        formControlName="role"
+                        type="text"
+                        class="form-control hc-input"
+                        appFloatingLabel="Your Role"
+                        [appRequiredLabel]="true"
+                        appValidate
+                        requiredMsg="Role is required."
+                      />
+                    </div>
+
+                    <div class="col-md-2">
+                      <app-date [config]="fromDateConfig"></app-date>
+                    </div>
+
+                    <div class="col-md-2">
+                      <app-date [config]="toDateConfig"></app-date>
+                      @if (exp.get('toDate')?.touched &&
+                      exp.get('toDate')?.hasError('toDateBeforeFromDate')) {
+                      <div class="text-danger small mt-1">
+                        To date must be after From date.
+                      </div>
+                      }
+                    </div>
+
+                    <div class="col-md-1 text-center">
+                      @if (i > 0) {
+                      <button
+                        type="button"
+                        class="btn-hc-remove btn bg-transparent border-0 p-0"
+                        (click)="removeExperience(i)"
+                      >
+                        <img
+                          src="assets/icons/Trash.svg"
+                          alt="remove"
+                          class="icon-trash"
+                        />
+                      </button>
+                      }
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Skills & Expertise -->
+              <div class="mb-4 pb-3 border-bottom position-relative">
+                <h5 class="fw-bold mb-3">Skills & Expertise</h5>
+                <div class="hc-skill-box">
+                  <input
+                    type="text"
+                    class="hc-skill-input w-100 bg-transparent"
+                    placeholder="E.g. Deep Cleaning, Carpet Cleaning"
+                    [(ngModel)]="skillSearchText"
+                    [ngModelOptions]="{ standalone: true }"
+                    (focus)="onSkillInputFocus()"
+                    (input)="onSkillSearch()"
+                    autocomplete="off"
+                  />
+                </div>
+                @if (showSkillDropdown && filteredCategories.length > 0) {
+                <div class="hc-dropdown">
+                  @for (cat of filteredCategories; track cat.id) {
+                  <div
+                    class="hc-dropdown-item d-flex justify-content-between align-items-center"
+                    (mousedown)="selectSkillFromDropdown(cat)"
+                  >
+                    <span>{{ cat.categoryName }}</span>
+                    @if (isSkillSelected(cat.id)) {
+                    <span class="text-success fw-bold">✓</span>
+                    }
+                  </div>
+                  }
+                </div>
+                } @if (showSkillDropdown && filteredCategories.length === 0 &&
+                categories.length === 0) {
+                <div class="hc-dropdown">
+                  <div class="hc-dropdown-item text-muted fst-italic">
+                    Please select a service type first.
+                  </div>
+                </div>
+                } @if (showSkillDropdown && (filteredCategories.length > 0 ||
+                categories.length === 0)) {
+                <div
+                  class="hc-backdrop"
+                  (mousedown)="showSkillDropdown = false"
+                ></div>
+                } @if (selectedSkillIds.length > 0) {
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  @for (id of selectedSkillIds; track id) {
+                  <!-- d-inline-flex align-items-center replaces CSS on .hc-tag -->
+                  <span
+                    class="hc-tag hc-tag-selected d-inline-flex align-items-center"
+                  >
+                    {{ getCategoryName(id) }}
+                    <img
+                      src="assets/icons/X.svg"
+                      alt="remove"
+                      class="tag-remove-icon ms-1"
+                      (click)="onSkillToggle(id)"
+                    />
+                  </span>
+                  }
+                </div>
+                } @if (formSubmitted && selectedSkillIds.length === 0) {
+                <div class="text-danger small mt-1">
+                  Please select at least one skill.
+                </div>
+                }
+              </div>
+
+              <!-- Services Offered -->
+              <div class="mb-4 pb-3 border-bottom">
+                <h5 class="fw-semibold mb-1">Services Offered</h5>
+                <p class="text-muted mb-2 small">
+                  Select the services which you can offer to our users.
+                </p>
+                @if (subCategories.length > 0) {
+                <div class="d-flex flex-wrap gap-2">
+                  @for (sub of subCategories; track sub.id) {
+                  <span
+                    class="hc-tag d-inline-flex align-items-center"
+                    [class.hc-tag-filled]="isServiceSelected(sub.id)"
+                    (click)="toggleService(sub.id)"
+                  >
+                    {{ sub.subCategoryName }}
+                  </span>
+                  }
+                </div>
+                } @else {
+                <p class="text-muted small fst-italic">
+                  Please select at least one skill to see services.
+                </p>
+                } @if (formSubmitted && selectedServiceIds.length === 0) {
+                <div class="text-danger small mt-1">
+                  Please select at least one service.
+                </div>
+                }
+              </div>
+
+              <!-- Languages -->
+              <div class="mb-4 pb-3 border-bottom">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h5 class="fw-bold mb-0">Languages</h5>
+                  <app-button [config]="addLanguageBtnConfig"></app-button>
+                </div>
+                <div formArrayName="languages">
+                  @for (lang of languages_array.controls; track $index; let i =
+                  $index) {
+                  <div
+                    [formGroupName]="i"
+                    class="row g-2 mb-2 align-items-start"
+                  >
+                    <div class="col-md-5">
+                      <app-dropdown
+                        [config]="getLanguageConfig(i)"
+                      ></app-dropdown>
+                    </div>
+                    <div class="col-md-5">
+                      <app-dropdown [config]="proficiencyConfig"></app-dropdown>
+                    </div>
+                    <div class="col-md-1 text-center">
+                      @if (i > 0) {
+                      <button
+                        type="button"
+                        class="btn-hc-remove btn bg-transparent border-0 p-0"
+                        (click)="removeLanguage(i)"
+                      >
+                        <img
+                          src="assets/icons/Trash.svg"
+                          alt="remove"
+                          class="icon-trash"
+                        />
+                      </button>
+                      }
+                    </div>
+                  </div>
+                  }
+                </div>
+              </div>
+
+              <!-- Attachments -->
+              <div class="mb-4 pb-3 border-bottom">
+                <h5 class="fw-bold mb-3">Attachments</h5>
+                <label
+                  for="attachment"
+                  class="hc-dropzone w-100 d-flex flex-column align-items-center justify-content-center"
+                  (dragover)="onDragOver($event)"
+                  (dragleave)="onDragLeave($event)"
+                  (drop)="onDrop($event)"
+                >
+                  <img
+                    src="assets/icons/Upload (2).svg"
+                    alt=""
+                    class="icon-dropzone"
+                  />
+                  <p class="mb-1 fw-bold text-dark">
+                    Drag and drop attachments here, or
+                    <span class="text-brand fw-semibold">choose a file</span>
+                  </p>
+                  <small class="text-muted"
+                    >E.g. Resume, Professional Reference Letter, Experience
+                    Letter, etc.</small
+                  >
+                  <small class="text-muted mt-1">Max size: 20MB</small>
+                </label>
+                <input
+                  type="file"
+                  id="attachment"
+                  hidden
+                  (change)="onAttachmentChange($event)"
+                />
+                @if (allAttachments.length > 0) {
+                <div class="mt-2">
+                  @for (att of allAttachments; track $index; let i = $index) {
+                  <div
+                    class="d-flex justify-content-between align-items-center px-3 py-2 mb-1 bg-light rounded-2 border"
+                  >
+                    <span class="small">{{ att.fileName }}</span>
+                    <button
+                      type="button"
+                      class="btn-hc-remove btn bg-transparent border-0 p-0"
+                      (click)="removeAttachment(i)"
+                    >
+                      <img
+                        src="assets/icons/Trash.svg"
+                        alt="remove"
+                        class="icon-trash"
+                      />
+                    </button>
+                  </div>
+                  }
+                </div>
+                } @if (formSubmitted && allAttachments.length === 0) {
+                <div class="text-danger small mt-1">
+                  Please upload at least one document.
+                </div>
+                }
+              </div>
+
+              <!-- Actions -->
+              <div class="d-flex gap-3 mt-3 mb-5">
+                <div class="w-50">
+                  <app-button [config]="cancelBtnConfig"></app-button>
+                </div>
+                <div class="w-50">
+                  <app-button [config]="applyBtnConfig"></app-button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div
+    class="d-flex justify-content-between align-items-center px-4 py-3 border-top bg-white"
+  >
+    <small class="text-muted">© Copyright 2026 HomeCare</small>
+    <div class="d-flex gap-3">
+      <img src="assets/icons/Facebook.svg" alt="" class="icon-footer" />
+      <img src="assets/icons/Social.svg" alt="" class="icon-footer" />
+      <img src="assets/icons/Linkden.svg" alt="" class="icon-footer" />
+    </div>
+  </div>
+</div>

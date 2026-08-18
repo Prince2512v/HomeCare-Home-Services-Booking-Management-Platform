@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\HomeCare_BE.props" />
+</Project>

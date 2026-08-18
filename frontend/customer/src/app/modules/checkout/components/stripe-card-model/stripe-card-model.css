@@ -1,0 +1,81 @@
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 60, 0.55);
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: overlayIn 0.2s ease;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Modal box */
+.scm-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 1.75rem 1.75rem 2rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(55, 51, 180, 0.2);
+  animation: slideUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* Title / amount */
+.scm-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.scm-amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #4540e1;
+}
+
+/* Spinner container */
+.scm-spinner {
+  position: relative;
+}
+
+/* Razorpay badge */
+.scm-rzp-badge {
+  background: rgba(69, 64, 225, 0.07);
+  border: 1px solid rgba(69, 64, 225, 0.15);
+}
+
+/* Buttons */
+.scm-btn-close,
+.scm-btn-cancel {
+  background: #fff;
+  color: #4540e1;
+  border: 1.5px solid #dde4ee;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.scm-btn-close:hover,
+.scm-btn-cancel:hover {
+  border-color: #4540e1;
+  background: #f5f4fd;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .scm-box {
+    padding: 1.4rem 1.25rem 1.75rem;
+    border-radius: 16px;
+  }
+}

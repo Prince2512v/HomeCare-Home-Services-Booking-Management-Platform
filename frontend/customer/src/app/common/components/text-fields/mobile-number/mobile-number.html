@@ -1,0 +1,33 @@
+<div
+  class="position-relative w-100 mobile-wrapper"
+  [class.fl-wrapper]="isFloating"
+  [formGroup]="formGroup"
+>
+  <input
+    type="tel"
+    class="form-control custom-input mobile-input"
+    [class.fl-input]="isFloating"
+    [class.is-invalid]="isTouched && isInvalidMobile"
+    [maxlength]="config.maxLength ?? 15"
+    [formControlName]="config.formControlName"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    [placeholder]="isFloating ? ' ' : config.placeholder || 'Mobile Number'"
+    inputmode="numeric"
+    oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+  />
+  @if (isFloating) {
+  <label class="fl-label">{{ config.placeholder || 'Mobile Number' }}@if(config.showRequired){<span class="text-danger ms-1">*</span>}</label>
+  }
+  <img src="assets/icons/Phone.svg" alt="phone" class="input-icon" />
+</div>
+
+@if (isTouched && isInvalidMobile) {
+<div class="invalid-feedback d-block text-start">
+  {{
+    control?.hasError('required')
+      ? 'Mobile number is required.'
+      : 'Please enter a valid mobile number (7 to 15 digits).'
+  }}
+</div>
+}

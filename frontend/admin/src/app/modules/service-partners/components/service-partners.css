@@ -1,0 +1,174 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.service-wrapper {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  padding: 24px;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+  background-color: #F2F5F9;
+}
+
+.service-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.service-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  min-width: 1100px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.grid-header,
+.grid-row {
+  display: grid;
+  grid-template-columns: 0.8fr 1.3fr 1.3fr 1.8fr 2fr 1.8fr 1.3fr 1.3fr 0.8fr;
+  align-items: center;
+  min-width: 1100px;
+}
+
+.grid-header {
+  border-bottom: 2px solid #f1f3f5;
+  z-index: 2;
+}
+
+.grid-header .grid-cell {
+  padding: 14px 16px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+.grid-body {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+}
+
+.grid-row {
+  border-bottom: 1px solid #f1f3f5;
+  transition: background 0.2s;
+}
+
+.grid-row:hover {
+  background: #f8f9fa;
+}
+
+.grid-cell {
+  padding: 16px;
+  font-size: 14px;
+  color: #212529;
+  min-width: 0;
+}
+
+.grid-state-row {
+  padding: 60px 16px;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.875;
+  font-weight: 500;
+}
+
+.status-active {
+  background: #1EA13F24;
+  color: #137C2F;
+}
+
+.status-inactive {
+  background: #80808024;
+  color: #525252;
+}
+
+.status-pending {
+  background: #E1752724;
+  color: #C1601B;
+}
+
+.status-rejected {
+  background: #F6DDDC;
+  color: #8C0703;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.status-active .status-dot {
+  background: rgba(19, 124, 47, 1);
+}
+
+.status-inactive .status-dot {
+  background: #525252;
+}
+
+.status-pending .status-dot {
+  background: #E17527;
+}
+
+.status-rejected .status-dot {
+  background: #8C0703;
+}
+
+.dropdown-menu {
+  min-width: 130px;
+  font-size: 1rem;
+}
+
+.dropdown-menu .dropdown-item {
+  padding: 6px 6px;
+}
+
+.dropdown-item:hover {
+  background-color: #f7fafc;
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  color: #212529 !important;
+  background-color: #f1f3f5;
+}

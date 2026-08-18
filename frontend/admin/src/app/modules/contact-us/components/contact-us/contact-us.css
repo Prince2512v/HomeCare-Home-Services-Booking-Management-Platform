@@ -1,0 +1,195 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+  min-height: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.support-wrapper {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  padding: 24px;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  min-width: 0; 
+  overflow: hidden;
+  background-color: #F2F5F9;
+}
+
+.support-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+.support-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: auto;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  min-width: 900px;
+  overflow-y: hidden;
+}
+
+.grid-header,
+.grid-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 1.6fr 1fr 1.8fr 0.9fr;
+  align-items: center;
+  min-width: 900px;
+}
+
+.grid-header {
+  border-bottom: 2px solid #f1f3f5;
+  background: #fff;
+  z-index: 2;
+}
+
+.grid-header .grid-cell {
+  padding: 14px 16px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: #6c757d;
+  text-transform: uppercase;
+}
+
+.grid-body {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: visible;
+  scrollbar-width: none;
+}
+
+.grid-row {
+  border-bottom: 1px solid #f1f3f5;
+}
+
+.grid-row:hover {
+  background: #f8f9fa;
+}
+
+/* KEY FIX: prevent text from spilling into adjacent columns */
+.grid-cell {
+  padding: 16px;
+  font-size: 0.875rem;
+  color: #212529;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid-state-row {
+  padding: 60px 16px;
+}
+
+.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.sortable:hover {
+  color: #212529;
+}
+
+/* Description cell: allow overflow visible so tooltip is not clipped */
+.description-cell {
+  position: relative;
+  cursor: pointer;
+  overflow: visible;
+}
+
+/* Truncation handled on inner span */
+.description-cell .truncated-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.tooltip-header {
+  font-size: 11px;
+  font-weight: 400;
+  color: #6c757d;
+  margin-bottom: 6px;
+}
+
+.tooltip-content {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #212529;
+  white-space: normal;
+  word-break: break-word;
+}
+/* Tooltip: large bold style matching design */
+.custom-tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(8px);
+  width: 280px;
+  max-width: 300px;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px 20px 18px;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out;
+  z-index: 1000;
+  pointer-events: none;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Default: tooltip opens downward */
+.description-cell:hover .custom-tooltip {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(4px);
+}
+
+/* Arrow pointing UP (tooltip is below) */
+.custom-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  top: auto;
+  left: 24px;
+  margin-left: 0;
+  border-width: 8px;
+  border-style: solid;
+  border-color: transparent transparent #ffffff transparent;
+}
+
+/* Last 2 rows: tooltip opens UPWARD */
+.grid-row:nth-last-child(-n+2) .description-cell .custom-tooltip {
+  top: auto;
+  bottom: 100%;
+  transform: translateY(-8px);
+}
+
+.grid-row:nth-last-child(-n+2) .description-cell:hover .custom-tooltip {
+  transform: translateY(-4px);
+}
+
+/* Arrow pointing DOWN for last 2 rows (tooltip is above) */
+.grid-row:nth-last-child(-n+2) .description-cell .custom-tooltip::after {
+  bottom: auto;
+  top: 100%;
+  border-color: #ffffff transparent transparent transparent;
+}

@@ -1,0 +1,59 @@
+<div class="carousel-outer pt-5">
+  <!-- Title row -->
+  @if (title) {
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold mb-0">{{ title }}</h4>
+    @if (seeMoreLink) {
+    <a class="see-more-btn text-nowrap" [href]="seeMoreLink">
+      See More
+      <img
+        src="assets/images/home/ArrowRight.svg"
+        alt="See More"
+        class="arrow-default"
+      />
+      <img
+        src="assets/images/home/ArrowRightWhite.svg"
+        alt="See More"
+        class="arrow-hover"
+      />
+    </a>
+    }
+  </div>
+  }
+ 
+  <!-- Track -->
+  <div class="carousel-track-wrapper">
+    <div class="carousel-track" [style.transform]="translateX">
+      <ng-content></ng-content>
+    </div>
+  </div>
+ 
+  <!-- Prev -->
+  @if (canPrev) {
+  <button class="carousel-btn carousel-btn-prev" (click)="prev()">
+    <img
+      src="assets/images/home/ArrowLeft.svg"
+      alt="prev"
+      class="arrow-default"
+    />
+    <img
+      src="assets/images/home/ArrowLeftWhite.svg"
+      alt="prev"
+      class="arrow-hover"
+    />
+  </button>
+  } @if (canNext) {
+  <button class="carousel-btn carousel-btn-next" (click)="next()">
+    <img
+      src="assets/images/home/ArrowRight.svg"
+      alt="next"
+      class="arrow-default"
+    />
+    <img
+      src="assets/images/home/ArrowRightWhite.svg"
+      alt="next"
+      class="arrow-hover"
+    />
+  </button>
+  }
+</div>

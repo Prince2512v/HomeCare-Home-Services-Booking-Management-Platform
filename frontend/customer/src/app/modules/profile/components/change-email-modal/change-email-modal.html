@@ -1,0 +1,35 @@
+<app-common-modal [title]="step === 1 ? 'Change Email' : 'Verify OTP'" (close)="close.emit()">
+
+  @if (step === 1) {
+    <form [formGroup]="emailForm" (ngSubmit)="sendOtp()">
+      <div class="mb-4">
+        <app-email [config]="emailConfig" />
+      </div>
+
+      <app-button [config]="sendOtpBtnConfig" />
+    </form>
+  }
+
+  @if (step === 2) {
+    <p class="m-sub mb-3">
+      We have sent you a 4 digit code on {{ newEmail }}.
+    </p>
+
+    <form [formGroup]="otpForm" (ngSubmit)="verifyAndSave()">
+      <div class="m-field mb-3" [class.active]="otpForm.get('otp')?.value">
+        <span class="m-field-label">Enter OTP</span>
+        <input
+          class="form-control m-input"
+          [class.is-invalid]="isOtpInvalid"
+          type="text"
+          placeholder="Enter OTP"
+          formControlName="otp"
+          maxlength="4"s
+        />
+      </div>
+      
+      <app-button [config]="verifyBtnConfig" />
+    </form>
+  }
+
+</app-common-modal>

@@ -1,0 +1,40 @@
+<app-common-modal title="Verify OTP" (close)="close.emit()">
+  <p class="text-muted small mb-3">
+    We've sent a 4-digit code to <strong>{{ email }}</strong>
+  </p>
+
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control otp-input rounded-3"
+      placeholder="Enter OTP"
+      maxlength="4"
+      [value]="otp"
+      (input)="onOtpInput($event)"
+      [disabled]="isLoading"
+    />
+  </div>
+
+  @if (errorMessage) {
+  <div class="alert alert-danger py-2 px-3 small rounded-3 mb-3">
+    {{ errorMessage }}
+  </div>
+  }
+
+  <p class="text-muted small mb-4">
+    By clicking Verify &amp; Sign In, I accept the
+    <span class="otp-link">Terms &amp; Conditions</span> &amp;
+    <span class="otp-link">Privacy Policy</span>
+  </p>
+
+  <button
+    type="button"
+    class="btn w-100 rounded-pill fw-semibold text-white py-3 otp-btn"
+    (click)="verifyOtp()"
+    [disabled]="otp.length !== 4 || isLoading"
+  >
+    @if (isLoading) {
+    <span class="spinner-border spinner-border-sm me-1"></span> } Verify &amp;
+    Sign In
+  </button>
+</app-common-modal>

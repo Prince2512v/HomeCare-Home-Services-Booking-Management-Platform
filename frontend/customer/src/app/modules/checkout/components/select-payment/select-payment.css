@@ -1,0 +1,87 @@
+.sp-border {
+    border-color: #dde4ee;
+}
+
+.sp-title {
+    color: #1a1a2e;
+    font-size: 1rem;
+}
+
+.sp-title--inactive {
+    color: #9ca3af;
+}
+
+.sp-method-pill {
+    border-radius: 50px;
+    border: 1.5px solid #e5e7eb;
+    background: #ffffff;
+    color: #1a1a2e;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: border-color 0.18s ease;
+}
+
+.sp-method-pill:hover {
+    border-color: #4540e1;
+    background-color: #ECECFC;
+}
+
+.sp-method-pill--active {
+    border: 2px solid #4540e1;
+    background: #ffffff;
+    color: #1a1a2e;
+    background-color: #ECECFC;
+}
+
+.sp-btn-cancel {
+    color: #4540e1;
+    border: 1.5px solid #dde4ee;
+    background: #ffffff;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sp-btn-cancel:hover {
+    border-color: #4540e1;
+    background: #f5f4fd;
+}
+
+.sp-btn-save {
+    background: #4540e1;
+    border: none;
+    transition: background 0.18s ease;
+}
+
+.sp-btn-save:hover:not(:disabled) {
+    background: #3430b8;
+}
+
+.sp-btn-save:disabled {
+    background: #a8a5f0;
+    cursor: not-allowed;
+}
+
+.sp-btn-edit {
+    color: #3733b4;
+    border: 1.5px solid #dde4ee;
+    font-size: 0.85rem;
+    padding: 0 14px;
+    height: 34px;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.sp-btn-edit:hover {
+    background: #f0f0fb;
+    border-color: #3733b4;
+}
+
+.sp-btn-select {
+    background: #4540e1;
+    border: none;
+    transition: background 0.18s ease;
+}
+
+.sp-btn-select:hover {
+    background: #3430b8;
+}

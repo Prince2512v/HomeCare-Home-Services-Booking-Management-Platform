@@ -1,0 +1,56 @@
+<div class="tc-card">
+  <div class="tc-header">
+    <span class="tc-title">Top Cities by Bookings</span>
+    <div class="period-tabs">
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'week'"
+        (click)="selectPeriod('week')"
+      >
+        This Week
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'month'"
+        (click)="selectPeriod('month')"
+      >
+        This Month
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'year'"
+        (click)="selectPeriod('year')"
+      >
+        This Year
+      </button>
+    </div>
+  </div>
+
+  <div class="tc-body">
+    @if (isLoading) {
+    <div class="tc-loading">
+      <div class="spinner-border spinner-border-sm text-primary"></div>
+    </div>
+    } @else {
+    <canvas #cityCanvas class="city-canvas"></canvas>
+    }
+  </div>
+
+  <div class="tc-footer">
+    @for (city of visibleCities; track city.cityName; let ci = $index) {
+    <div class="legend-item">
+      <span class="legend-dot" [style.background]="cityColor(cityPage * 2 + ci)"></span>
+      <span class="legend-label">{{ city.cityName }}</span>
+    </div>
+    } @if (totalPages > 1) {
+    <div class="city-nav">
+      <button class="nav-btn" (click)="prevPage()" [disabled]="cityPage === 0">
+        <img src="assets/icons/Left-Arrow.svg" alt="prev" width="16" height="16" />
+      </button>
+      <button class="nav-btn" (click)="nextPage()" [disabled]="cityPage >= totalPages - 1">
+        <img src="assets/icons/Right-Arrow.svg" alt="next" width="16" height="16" />
+      </button>
+    </div>
+    }
+  </div>
+</div>

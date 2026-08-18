@@ -1,0 +1,111 @@
+<div class="offer-wrapper">
+
+  <div class="offer-header d-flex align-items-center">
+    <h2 class="offer-title mb-0">Offers</h2>
+    <div class="header-actions d-flex gap-2 ms-auto">
+      <app-button [config]="filterConfig"></app-button>
+      <app-button [config]="addConfig"></app-button>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="offer-card shadow-sm">
+    <div class="grid-container">
+
+      <!-- Header -->
+      <div class="grid-header">
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('couponCode')">
+          Coupon Code
+        </div>
+        <div class="grid-cell d-flex align-items-center">Coupon Description</div>
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('discountPercentage')">
+          Coupon Discount
+        </div>
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('appliedCount')">
+          Coupon Applied
+        </div>
+        <div class="grid-cell d-flex justify-content-center align-items-center">Status</div>
+        <div class="grid-cell d-flex justify-content-center align-items-center">Action</div>
+      </div>
+
+      <!-- Body -->
+      <div class="grid-body">
+        @if (isLoading) {
+        <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+          <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+          Loading offers...
+        </div>
+        } @else if (errorMessage) {
+        <div class="grid-state-row text-danger small d-flex align-items-center justify-content-center">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          {{ errorMessage }}
+        </div>
+        } @else if (offers.length === 0) {
+        <div class="grid-state-row text-center text-muted">No offer found.</div>
+        } @else {
+        @for (offer of offers; track offer.couponCode) {
+        <div class="grid-row">
+          <div class="grid-cell fw-medium text-truncate">{{ offer.couponCode }}</div>
+          <div class="grid-cell text-muted">{{ offer.couponDescription }}</div>
+          <div class="grid-cell">{{ offer.discountPercentage | discount }}</div>
+          <div class="grid-cell">{{ offer.appliedCount | appliedCount }}</div>
+          <div class="grid-cell d-flex justify-content-center align-items-center">
+            <span class="status-badge" [class.status-active]="offer.isActive" [class.status-inactive]="!offer.isActive">
+              <span class="status-dot"></span>
+              {{ offer.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+          <div class="grid-cell d-flex justify-content-center align-items-center">
+            <div class="dropdown">
+              <button class="btn btn-link text-dark p-0 action-btn" data-bs-toggle="dropdown">
+                <img src="assets/icons/DotsThreeOutlineVertical.svg" width="20" height="20" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                <li>
+                  <button class="dropdown-item d-flex align-items-center py-2 text-dark" (click)="onEdit(offer)">
+                    <img src="assets/icons/edit.svg" width="20" height="20" class="me-2" /> Edit
+                  </button>
+                </li>
+                <li>
+                  <button class="dropdown-item d-flex align-items-center py-2 text-dark"
+                    (click)="openDeleteModal(offer)">
+                    <img src="assets/icons/delete.svg" width="20" height="20" class="me-2" /> Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        }
+        }
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="offer-pagination d-flex align-items-center justify-content-end">
+      <app-pagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)">
+      </app-pagination>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ADD / EDIT MODAL -->
+@if (showModal) {
+<app-offer-modal [offer]="selectedOffer" (modalClose)="closeModal()" (save)="saveOffer($event)">
+</app-offer-modal>
+}
+
+<!-- DELETE MODAL -->
+@if (deleteConfig) {
+<app-delete-model [visible]="isDeleteModalOpen" [config]="deleteConfig" (confirm)="confirmDelete()"
+  (closed)="closeDeleteModal()">
+</app-delete-model>
+}
+
+<!--FILTER PANEL-->
+<app-filter-panel [config]="filterPanelConfig" [isOpen]="isFilterOpen" [activeValues]="activeFilterValues">
+</app-filter-panel>

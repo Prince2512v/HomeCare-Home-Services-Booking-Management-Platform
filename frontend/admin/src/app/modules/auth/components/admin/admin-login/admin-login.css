@@ -1,0 +1,53 @@
+* {
+  font-family: 'Alexandria';
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.logo-title h3 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.logo-title span {
+  color: #4540e1;
+}
+
+.signin-title {
+  font-size: 38px;
+  font-weight: 400;
+  color: #2d2d2d;
+}
+
+.forgot-link {
+  font-size: 15px;
+  color: #6b7280;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.forgot-link:hover {
+  color: #4f46e5;
+}
+
+.btn-primary {
+  background-color: #4f46e5;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+}
+
+.right-image {
+  filter: hue-rotate(215deg) saturate(120%) contrast(110%);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

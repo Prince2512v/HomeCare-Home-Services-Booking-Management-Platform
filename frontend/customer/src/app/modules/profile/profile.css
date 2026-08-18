@@ -1,0 +1,114 @@
+@media (min-width: 768px) {
+  .col-md-6:last-child > div {
+    border-left: 1px solid #dde4ee;
+    border-top: none !important;
+    padding-left: 1.25rem;
+  }
+}
+.action-btn {
+  color: #3733b4;
+  border: 2px solid #dde4ee;
+  height: 40px;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.9rem;
+  background: transparent;
+}
+.action-btn:focus,
+.action-btn:focus-visible,
+.action-btn:active,
+.action-btn:active:focus {
+  border-color: #3733b4;
+  outline: none;
+}
+.action-btn:hover {
+  background: #f0f0fb;
+}
+.dropdown-item:hover {
+  background-color: #f0f0fb !important;
+}
+.dropdown-item.text-danger:hover {
+  background-color: #fff5f5 !important;
+}
+/* Wrapper — fills the parent .container, adds vertical breathing room */
+.profile-wrapper {
+  width: 1000%;
+}
+
+/* Title */
+.profile-title {
+  color: #1a1a2e;
+}
+.border-colr {
+  border-color: #dde4ee;
+}
+/* Section title */
+.section-title {
+  color: #1a1a2e;
+  font-size: 1rem;
+}
+
+/* Icon color */
+.icon-color {
+  color: #3733b4;
+}
+
+/* Text */
+.text-primary-dark {
+  color: #333;
+}
+
+.text-dark-custom {
+  color: #1a1a2e;
+}
+
+.address-subtitle {
+  font-size: 0.82rem;
+  margin-top: 2px;
+}
+
+/* Buttons */
+.action-btn {
+  color: #3733b4;
+  border: 2px solid #dde4ee;
+  height: 40px;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.9rem;
+}
+.see-more-btn{
+  color: #3733b4;
+}
+/* Add icon */
+.plus-icon {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Spinner */
+.profile-spinner {
+  color: #3733b4;
+}
+.b1 {
+  border-color: #dde4ee;
+}
+/* Borders */
+.border-top-light {
+  border-top: 1px solid #dde4ee;
+}
+
+.address-divider {
+  height: 1px;
+  background-color: #dde4ee;
+  margin: 10px 0;
+}
+/* Dropdown */
+.dropdown-custom {
+  min-width: 130px;
+}
+
+/* Responsive border */
+@media (min-width: 768px) {
+  .border-md-start {
+    border-left: 1px solid #dde4ee;
+  }
+}

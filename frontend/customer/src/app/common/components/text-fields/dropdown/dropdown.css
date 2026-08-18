@@ -1,0 +1,116 @@
+.dropdown-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+}
+
+.custom-input.dropdown-display {
+  height: 56px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  font-weight: 300;
+  font-size: 1rem;
+  color: #666666;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  user-select: none;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.custom-input.dropdown-display.is-invalid {
+  border-color: #dc3545;
+}
+
+.custom-input.dropdown-display.has-value {
+  color: #212529;
+}
+
+.dropdown-display-text {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  flex-shrink: 0;
+  color: #666666;
+  opacity: 0.5;
+  transition: transform 0.2s;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-options {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  z-index: 1050;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.dropdown-option {
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #212529;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.dropdown-option:hover {
+  background-color: #f5f5ff;
+  color: #3733b4;
+}
+
+.dropdown-option.selected {
+  background-color: #eeeeff;
+  color: #3733b4;
+  font-weight: 500;
+}
+
+.dropdown-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1049;
+}
+.dropdown-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}

@@ -1,0 +1,134 @@
+.ro-card {
+  height: 100%;
+  box-sizing: border-box;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+ 
+.ro-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-bottom: 16px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+ 
+.ro-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+}
+ 
+.period-tabs {
+  display: flex;
+  gap: 3px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 3px;
+}
+ 
+.period-btn {
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.73rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+ 
+.period-btn.active {
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ 
+.ro-body {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  min-height: 160px;
+}
+ 
+.revenue-canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+}
+ 
+@media (max-width: 640px) {
+  .ro-card {
+    padding: 14px 16px;
+  }
+ 
+  .ro-title {
+    font-size: 1rem;
+  }
+ 
+  .period-tabs {
+    flex-wrap: wrap;
+  }
+ 
+  .period-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .ro-card {
+    padding: 12px 14px;
+  }
+ 
+  .ro-title {
+    font-size: 0.9rem;
+  }
+ 
+  .ro-header {
+    padding-bottom: 10px;
+    margin-bottom: 6px;
+  }
+ 
+  .period-btn {
+    padding: 3px 7px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .ro-card {
+    padding: 10px 12px;
+  }
+ 
+  .ro-title {
+    font-size: 0.82rem;
+  }
+ 
+  .ro-header {
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    gap: 6px;
+  }
+ 
+  .period-tabs {
+    padding: 2px;
+    gap: 2px;
+  }
+ 
+  .period-btn {
+    padding: 3px 6px;
+    font-size: 0.64rem;
+  }
+}

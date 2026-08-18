@@ -1,0 +1,83 @@
+<div class="container p-0 py-5">
+  <div
+    class="overlay row g-0 position-relative overflow-hidden rounded-4"
+    style="height: 400px"
+  >
+    <div class="col">
+      <img src="/assets/images/services/Image-1.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+    <div class="col">
+      <img src="/assets/images/services/Image-2.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+    <div class="col">
+      <img src="/assets/images/services/Image-3.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+    <div class="col">
+      <img src="/assets/images/services/Image-4.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+    <div class="col">
+      <img src="/assets/images/services/Image-5.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+    <div class="col">
+      <img src="/assets/images/services/Image-6.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    </div>
+
+    <!-- TEXT -->
+    <div
+      class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center z-2 text-white fw-bold fs-1"
+    >
+      Services
+    </div>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-3 g-sm-3 g-md-4 g-lg-5 py-5">
+
+    @if (isLoading) {
+      <!-- Skeleton Loaders — 8 placeholder cards -->
+      @for (item of [1,2,3,4,5,6,7,8,9,10,11,12]; track $index) {
+        <div class="col">
+          <div class="card border-0 rounded-4 bg-blue h-100 p-4">
+            <div class="card-body d-flex flex-column justify-content-between p-0">
+              <!-- Title skeleton -->
+              <div class="skeleton rounded-3" style="height: 80px; width: 70%;"></div>
+              <!-- Bottom skeleton -->
+              <div class="d-flex justify-content-between align-items-end mt-5">
+                <div>
+                  <div class="skeleton rounded-3 mb-1" style="height: 24px; width: 60px;"></div>
+                  <div class="skeleton rounded-3" style="height: 16px; width: 80px;"></div>
+                </div>
+                <div class="skeleton rounded-3" style="width: 80px; height: 80px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    } @else {
+      @for (item of items; track $index) {
+        <div class="col">
+          <div class="card border-0 rounded-4 bg-blue h-100 p-4" (click)="goToServiceListing(item.id)">
+            <div class="card-body d-flex flex-column justify-content-between p-0">
+              <!-- Service Name -->
+              <h5 class="card-title fw-bold text-dark fs-5 mb-3 mb-sm-4 mb-md-5">
+                {{ item.title }}
+              </h5>
+              <!-- Bottom: Booking count + Image -->
+              <div class="d-flex justify-content-between align-items-end mt-5">
+                <div>
+                  <p class="fw-bold fs-5 mb-0">{{ item.totalBookings | formateCount }}</p>
+                  <small class="text-muted">Bookings</small>
+                </div>
+                <img
+                  [src]="baseUrl + item.image"
+                  [alt]="item.title"
+                  class="img-fluid service-img"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    }
+
+  </div>
+</div>

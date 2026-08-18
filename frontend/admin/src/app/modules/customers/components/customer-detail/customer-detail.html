@@ -1,0 +1,298 @@
+<div class="detail-wrapper" (click)="closeActionMenu()">
+
+  <!-- Back + Title -->
+  <div class="detail-header d-flex align-items-center gap-3">
+    <button class="back-btn" (click)="goBack()">
+      <img src="assets/icons/ArrowLeft.svg" width="20" height="20" alt="Back" />
+    </button>
+    <h2 class="detail-title mb-0">{{ customer?.name ?? 'Customer Detail' }}</h2>
+  </div>
+
+  <!-- Single Combined Card -->
+  <div class="main-card d-flex flex-column min-h-0 flex-1">
+
+    <!-- Customer Info Section -->
+    <div class="info-section px-4 pt-4 pb-3">
+      @if (isLoadingCustomer) {
+        <div class="d-flex align-items-center gap-2 text-muted small py-2">
+          <div class="spinner-border spinner-border-sm text-primary"></div>
+          Loading...
+        </div>
+      }
+      @if (!isLoadingCustomer && customer) {
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-field">
+              <span class="info-label">ID</span>
+              <span class="info-value">{{ customer.id|idFormat}}</span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-field">
+              <span class="info-label">Name</span>
+              <span class="info-value">{{ customer.name }}</span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-field">
+              <span class="info-label">Mobile Number</span>
+              <span class="info-value">{{ customer.mobileNumber | mobilenumber }}</span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="info-field">
+              <span class="info-label">Email</span>
+              <span class="info-value">{{ customer.email }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="info-field">
+          <span class="info-label">Status</span>
+          <span class="customer-status-badge mt-1" [ngClass]="getCustomerStatusClass(customer.status)">
+            <span class="status-dot"></span>
+            {{ customer.status === 'Block' ? 'Blocked' : customer.status }}
+          </span>
+        </div>
+      }
+    </div>
+
+    <!-- Divider -->
+    <hr class="m-0 border-light" />
+
+    <!-- Service Bookings Header -->
+    <div class="d-flex align-items-center justify-content-between px-3 py-3">
+      <h3 class="bookings-title mb-0 mt-2 ">Service Bookings</h3>
+      <app-button [config]="filterConfig"></app-button>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid-scroll-area flex-1 min-h-0">
+      <div class="grid-container">
+
+        <!-- Header -->
+        <div class="grid-header">
+          <div class="grid-th sortable" (click)="onSort('serviceId')">
+            Service ID
+          </div>
+          <div class="grid-th sortable" (click)="onSort('serviceName')">
+            Service
+          </div>
+          <div class="grid-th sortable" (click)="onSort('serviceType')">
+            Service Type
+          </div>
+          <div class="grid-th">Assigned Expert</div>
+          <div class="grid-th">Address</div>
+          <div class="grid-th sortable" (click)="onSort('bookingDate')">
+            Date &amp; Time
+          </div>
+          <div class="grid-th sortable" (click)="onSort('bookingAmount')">
+            Amount
+          </div>
+          <div class="grid-th">Payment Method</div>
+          <div class="grid-th ms-3  ">Status</div>
+          <div class="grid-th me-2">Action</div>
+        </div>
+
+        <!-- Body -->
+        @if (isLoadingBookings) {
+          <div class="grid-state-row d-flex align-items-center justify-content-center gap-2 text-muted small">
+            <div class="spinner-border spinner-border-sm text-primary"></div>
+            Loading bookings...
+          </div>
+        }
+
+        @if (!isLoadingBookings && bookings.length === 0) {
+          <div class="grid-state-row text-center text-muted small">No bookings found.</div>
+        }
+
+        @for (booking of bookings; track booking.bookingId) {
+          <div class="grid-row">
+            <div class="grid-td text-muted">{{ booking.serviceId }}</div>
+            <div class="grid-td">{{ booking.serviceName }}</div>
+            <div class="grid-td">{{ booking.serviceType }}</div>
+
+            <!-- Assigned Expert with Tooltip -->
+            <div
+              class="grid-td expert-cell"
+              (mouseenter)="booking.assignedExpertName ? showExpertPopup(booking.bookingId) : null"
+              (mouseleave)="hideExpertPopup()"
+            >
+              <div class="d-flex align-items-center gap-2">
+                <img
+                  [src]="booking.assignedExpertImageUrl || 'assets/images/admin/profile-image.svg'"
+                  class="expert-photo"
+                  alt="Expert"
+                />
+                <span class="expert-name">{{ booking.assignedExpertName ?? '—' }}</span>
+              </div>
+
+              @if (hoveredExpertBookingId === booking.bookingId && booking.assignedExpertName) {
+                <div class="expert-popup">
+                  <div class="d-flex align-items-center gap-2 mb-3">
+                    <img
+                      [src]="booking.assignedExpertImageUrl || 'assets/images/admin/profile-image.svg'"
+                      class="expert-popup-photo"
+                      alt="Expert"
+                    />
+                    <div class="d-flex flex-column lh-sm">
+                      <span class="fw-semibold small text-dark">{{ booking.assignedExpertName }}</span>
+                      <span class="expert-popup-type">
+                        {{ booking.serviceType }}
+                        <img src="assets/icons/Blue checked-circle.svg" width="13" height="13" alt="verified" />
+                      </span>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-2">
+                    <button class="btn-popup-view"  (click)="navigateToExpertDetail(booking.assignedPartnerId, $event)">View Details</button>
+                    <button class="btn-popup-call" (click)="$event.stopPropagation()">
+                      <img src="assets/icons/Phone.svg" width="15" height="15" alt="Call" />
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="grid-td address-cell">{{ booking.address }}</div>
+            <div class="grid-td">{{ formatDateTime(booking.bookingDate, booking.bookingTime) }}</div>
+            <div class="grid-td">{{ booking.bookingAmount | currency : 'USD' : 'symbol' : '1.2-2' }}</div>
+            <div class="grid-td">{{ booking.paymentMethod }}</div>
+
+            <div class="grid-td">
+              <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                <span class="status-dot"></span>{{ booking.status }}
+              </span>
+            </div>
+
+            <div class="grid-td" (click)="$event.stopPropagation()">
+              <button
+                class="dots-btn"
+                #actionTrigger
+                (click)="toggleActionMenu(booking.bookingId, $event, actionTrigger)"
+              >
+                <img src="assets/icons/DotsThreeOutlineVertical.svg" width="18" height="18" />
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-footer">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)"
+        (pageSizeChange)="changePageSize($event)"
+      ></app-pagination>
+    </div>
+
+  </div><!-- /main-card -->
+</div>
+
+<!-- Action Menu -->
+@if (openActionBookingId !== null && actionMenuPosition) {
+  <div
+    class="action-menu"
+    [style.top.px]="actionMenuPosition.top"
+    [style.left.px]="actionMenuPosition.left"
+    (click)="$event.stopPropagation()"
+  >
+    @if (getOpenBooking()?.assignedPartnerId) {
+      <button
+        class="action-item"
+        [disabled]="!getOpenBooking()?.canChangeExpert"
+        (click)="openChangeExpert(getOpenBooking()!, $event)"
+      >
+        <img src="assets/icons/Swap.svg" width="18" height="18" alt="" />
+        Change Expert
+      </button>
+    } @else {
+      <button
+        class="action-item"
+        [disabled]="!getOpenBooking()?.canChangeExpert"
+        (click)="openChangeExpert(getOpenBooking()!, $event)"
+      >
+        <img src="assets/icons/Swap.svg" width="18" height="18" alt="" />
+        Assign Expert
+      </button>
+    }
+
+    <button
+      class="action-item"
+      [disabled]="!getOpenBooking()?.canComplete"
+      (click)="openCompleteBooking(openActionBookingId!, $event)"
+    >
+      <img src="assets/icons/checked circle.svg" width="18" height="18" alt="" />
+      Complete Booking
+    </button>
+
+    <button
+      class="action-item"
+      [disabled]="!getOpenBooking()?.canCancel"
+      (click)="openCancelBooking(openActionBookingId!, $event)"
+    >
+      <img src="assets/icons/Close mark.svg" width="18" height="18" alt="" />
+      Cancel Booking
+    </button>
+
+    <button
+      class="action-item action-item-danger"
+      [disabled]="!getOpenBooking()?.canDelete"
+      (click)="openDeleteBooking(openActionBookingId!, $event)"
+    >
+      <img src="assets/icons/delete.svg" width="18" height="18" alt="" />
+      Delete Booking
+    </button>
+  </div>
+}
+
+<!-- Change / Assign Expert Modal -->
+@if (showChangeExpertModal && changeExpertBookingId !== null) {
+  <app-change-expert-modal
+    [bookingId]="changeExpertBookingId"
+    [serviceType]="changeExpertServiceType"
+    [serviceTypeId]="changeExpertServiceTypeId"
+    [currentExpertName]="changeExpertCurrentName"
+    [currentExpertImageUrl]="changeExpertCurrentImageUrl"
+    (modalClose)="closeChangeExpertModal()"
+    (expertChanged)="onExpertChanged($event)"
+  ></app-change-expert-modal>
+}
+
+<!-- Complete Booking Confirmation -->
+@if (completeConfirmConfig) {
+  <app-confirmation-model
+    [visible]="isCompleteConfirmOpen"
+    [config]="completeConfirmConfig"
+    (confirm)="confirmCompleteBooking()"
+    (closed)="closeCompleteConfirm()"
+  ></app-confirmation-model>
+}
+
+<!-- Cancel Booking Modal -->
+@if (showCancelModal && cancelBookingId !== null) {
+  <app-cancel-booking-modal
+    [bookingId]="cancelBookingId"
+    (modalClose)="closeCancelModal()"
+    (bookingCancelled)="onBookingCancelled($event)"
+  ></app-cancel-booking-modal>
+}
+
+<!-- Delete Booking Modal -->
+@if (deleteBookingConfig) {
+  <app-delete-model
+    [visible]="isDeleteBookingOpen"
+    [config]="deleteBookingConfig"
+    (confirm)="confirmDeleteBooking()"
+    (closed)="closeDeleteBookingModal()"
+  ></app-delete-model>
+}
+
+<!-- Filter Panel -->
+<app-filter-panel
+  [config]="filterPanelConfig"
+  [isOpen]="isFilterOpen"
+  [activeValues]="activeFilterValues"
+></app-filter-panel>

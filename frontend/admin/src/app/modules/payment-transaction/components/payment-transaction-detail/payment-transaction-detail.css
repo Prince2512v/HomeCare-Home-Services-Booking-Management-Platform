@@ -1,0 +1,181 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.detail-header button {
+  border: none; 
+}
+.detail-header button i {
+  font-size: 1.5rem;
+}
+.detail-wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 24px;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background-color: #F2F5F9;
+}
+
+/* ─── Header ─── */
+.detail-header {
+  gap: 16px;
+}
+
+.detail-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #212529;
+}
+
+/* ─── Detail Card ─── */
+.detail-card {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.detail-loading {
+  padding: 60px;
+  color: #6c757d;
+  font-size: 1rem;
+}
+/* ─── Field Label / Value ─── */
+.spd-field-label {
+  font-size: 1.1rem;
+  color: #666666;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.spd-field-value {
+  font-size: 1rem;
+  color: #333333;
+  font-weight: 500;
+}
+
+.amount-value {
+  color: #189E3C;
+  font-weight: 700;
+  font-size: 1rem;
+}
+.amount-value {
+  color: #189E3C;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ─── Other Transactions Section ─── */
+.other-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  flex: 1;
+  min-height: 100;
+}
+
+.other-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 20px;
+}
+
+.other-grid-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1f3f5;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.other-grid-header,
+.other-grid-row {
+  display: grid;
+  grid-template-columns: 1.6fr 2fr 1fr 1fr 0.7fr;
+  align-items: center;
+  justify-content: center;
+}
+
+.other-grid-header {
+  background: #fff;
+  border-bottom: 2px solid #f1f3f5;
+}
+
+.other-grid-header .other-grid-cell {
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #8D8D8D;
+
+}
+
+.other-grid-body {
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.other-grid-row {
+  border-bottom: 1px solid #f1f3f5;
+  transition: background 0.12s;
+}
+
+.other-grid-row:last-child {
+  border-bottom: none;
+}
+
+.other-grid-cell {
+  padding: 16px;
+  font-size: 0.875rem;
+  color: #212529;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.amount-cell {
+  color: #28a745;
+  font-weight: 600;
+}
+
+.grid-state-row {
+  padding: 40px 16px;
+  font-size: 0.875rem;
+}
+
+/* ─── Pagination ─── */
+.other-pagination {
+  height: 52px;
+  padding: 8px 0;
+}
+
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .other-grid-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .other-grid-header,
+  .other-grid-row, .other-grid-body {
+    min-width: 600px;
+  }
+}

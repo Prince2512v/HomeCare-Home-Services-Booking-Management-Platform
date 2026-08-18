@@ -1,0 +1,38 @@
+<div class="container-fluid d-flex justify-content-between align-items-center bg-tertiary border border-bottom min-height">
+    <!-- Toggle Button-->
+    <div class="toggle-btn-wrapper">
+        <button class="btn toggle-btn" (click)="toggleSidebar()">
+            <i class="bi bi-list fs-4"></i>
+        </button>
+    </div>
+
+    <!-- Right Side Profile -->
+    <div class="d-flex p-2 pointer" data-bs-toggle="dropdown">
+        <img [src]="profile?.imageUrl || 'assets/images/admin/profile-image.svg'" alt="Not Found"
+            class="img-wh align-self-center"
+            (error)="onImageError($event)">
+        <div class="py-2 px-3">
+            <div class="fw-medium fs-sm">{{profile?.name}}</div>
+            <div class="fw-normal fs-xs">{{profile?.role}}</div>
+        </div>
+
+        <div class="dropdown pt-3 px-2">
+            <a class="nav-link" href="#" role="button" aria-expanded="true" >
+                <img src="assets/images/admin/CaretDown.svg" alt="Not Found">
+            </a>
+
+            <ul class="dropdown-menu  py-2">
+                <li>
+                    <a (click)="goToProfile()" class="dropdown-item fw-medium">
+                        <img src="assets/images/admin/User.svg" class="pe-3">My Profile
+                    </a>
+                </li>
+                <li>
+                    <a (click)="logout()" class="dropdown-item fw-medium">
+                        <img src="assets/images/admin/SignOut.svg" class="pe-3">Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

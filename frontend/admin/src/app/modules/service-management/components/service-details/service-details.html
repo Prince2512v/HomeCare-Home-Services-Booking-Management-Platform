@@ -1,0 +1,112 @@
+<div class="container-fluid py-4 px-3 px-md-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center gap-2 overflow-hidden">
+      <button class="btn btn-link text-dark p-0 flex-shrink-0" (click)="goBack()">
+        <img
+          src="assets/icons/ArrowLeft.svg"
+          width="24"
+          height="24"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'"
+        />
+        <span style="display: none">←</span>
+      </button>
+      <h2 class="fw-bold fs-5 fs-md-4 mb-0 text-truncate">
+        {{ service?.name ?? 'Service Detail' }}
+      </h2>
+    </div>
+    <app-button
+      [config]="editConfig" class="btn-edit"
+    ></app-button>
+  </div>
+
+  @if (isLoading) {
+  <div class="bg-white rounded-3 p-5 text-center shadow-sm">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  } @if (!isLoading && !service) {
+  <div class="bg-white rounded-3 p-5 text-center text-muted shadow-sm">Service not found.</div>
+  } @if (!isLoading && service) {
+  <div class="bg-white rounded-3 shadow-sm p-3 p-md-4">
+    <div class="row g-3 pb-4 mb-2">
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Service Name</div>
+        <div class="sd-value">{{ service.name }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Service Type</div>
+        <div class="sd-value">{{ service.serviceTypeName || '—' }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Service Category</div>
+        <div class="sd-value">{{ service.categoryName || '—' }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Sub Category</div>
+        <div class="sd-value">{{ service.subCategoryName }}</div>
+      </div>
+    </div>
+
+    <div class="row g-3 pb-4 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Duration</div>
+        <div class="sd-value">{{ service.duration }} min</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Price</div>
+        <div class="sd-value">{{ service.price | currency }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="sd-label">Availability</div>
+        <div class="sd-value">{{ service.isAvailable ? 'Available' : 'Not Available' }}</div>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h6 class="fw-bold sd-title mb-3">Service Images</h6>
+      @if (service.images.length === 0) {
+      <p class="text-muted small">No images uploaded.</p>
+      } @else {
+      <div class="d-flex flex-wrap gap-3">
+        @for (img of service.images; track img.id) {
+        <div class="sd-img-wrapper rounded-3 overflow-hidden border">
+          <img [attr.src]="img.imageUrl" [alt]="service.name" class="sd-img" loading="lazy" />
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    @if (service.inclusionItems.length > 0) {
+    <div class="mb-4">
+      <h6 class="fw-bold sd-title mb-3">{{service.serviceTypeName}} Includes</h6>
+      <div class="d-flex flex-wrap gap-2">
+        @for (item of service.inclusionItems; track item.id) {
+        <span class="sd-chip">{{ item.item }}</span>
+        }
+      </div>
+    </div>
+    } @if (service.exclusionItems.length > 0) {
+    <div class="mb-2">
+      <h6 class="fw-bold sd-title mb-3">{{service.serviceTypeName}} Excludes</h6>
+      <div class="d-flex flex-wrap gap-2">
+        @for (item of service.exclusionItems; track item.id) {
+        <span class="sd-chip">{{ item.item }}</span>
+        }
+      </div>
+    </div>
+    }
+  </div>
+  }
+</div>
+
+@if (service) {
+  <app-add-service-modal
+    [isOpen]="isEditModalOpen"
+    [serviceId]="service.id"
+    [title]="'Edit ' + (service?.name ?? 'Service')"
+    [subCategories]="subCategoriesForEdit"
+    [editId]="editServiceId"
+    (modalClose)="closeEditModal()"
+    (save)="handleSave()"
+  ></app-add-service-modal>
+}

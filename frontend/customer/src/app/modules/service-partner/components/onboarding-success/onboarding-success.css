@@ -1,0 +1,30 @@
+.text-purple {
+  color: #4540e1;
+}
+
+span.navbar-brand.text-logo.clickable {
+  cursor: pointer;
+  display: inline-block;
+}
+
+.text-heading {
+  color: #1a1a2e;
+}
+
+.small-text {
+  font-size: 0.95rem;
+}
+
+.btn-outline-custom {
+  border: 1.5px solid #dde4ee;
+  color: #3733b4;
+  background: #fff;
+}
+.btn-primary-custom {
+  background-color: #3733b4;
+  border: none;
+}
+
+.btn-primary-custom:hover {
+  background-color: #2e2a9a;
+}

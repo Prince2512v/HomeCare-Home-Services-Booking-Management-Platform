@@ -1,0 +1,33 @@
+.bsm-section-label {
+    color: #1a1a2e;
+    font-size: 0.95rem;
+}
+
+::ng-deep app-button .bsm-btn-cancel {
+    color: #4540e1;
+    border: 2.8px solid #e5e7eb !important;
+    background: #ffffff;
+    transition: border-color 0.15s ease;
+    border-radius: 25px !important;
+}
+
+::ng-deep app-button .bsm-btn-cancel:hover {
+    border-color: #4540e1 !important;
+    background-color: #ECECFC ;
+}
+
+::ng-deep app-button .bsm-btn-save {
+    background: #4540e1;
+    border: none;
+    transition: background 0.18s ease;
+    min-width: 90px;
+}
+
+::ng-deep app-button .bsm-btn-save:hover:not(:disabled) {
+    background: #3430b8;
+}
+
+::ng-deep app-button .bsm-btn-save:disabled {
+    background: #c7c5f5;
+    cursor: not-allowed;
+}

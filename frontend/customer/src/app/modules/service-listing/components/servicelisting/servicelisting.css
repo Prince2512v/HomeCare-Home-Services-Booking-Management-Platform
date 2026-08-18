@@ -1,0 +1,147 @@
+@media (min-width: 768px) {
+  .sl-sidebar-wrapper {
+    position: sticky;
+    top: 20px; 
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    padding-right: 5px;
+  }
+}
+ 
+.sl-sidebar-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+.sl-sidebar-wrapper::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 10px;
+}
+ 
+.sl-banner {
+  height: clamp(280px, 40vh, 400px);
+}
+.sl-banner-bg {
+  background: url("/assets/images/service-listing.jpg") no-repeat center 40% /
+    cover;
+}
+.sl-banner-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.5)
+  );
+}
+ 
+.sl-search-box {
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+ 
+.sl-btn {
+  background: linear-gradient(135deg, #5b5ef7, #4f46e5);
+  color: #fff;
+  border-radius: 40px;
+  border: none;
+}
+ 
+.sl-title {
+  font-size: clamp(1.2rem, 5vw, 2rem);
+}
+ 
+.category {
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.2s;
+}
+ 
+.category:hover,
+.category.active {
+  background: #f4f4fe;
+}
+ 
+.rotate {
+  transform: rotate(180deg);
+  transition: 0.3s;
+}
+ 
+.subcategory-pill {
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: 0.2s;
+  margin-bottom: 8px;
+}
+ 
+.subcategory-pill.active {
+  background-color: #f0f1ff;
+  font-weight: 600;
+  color: #4A4E51;
+  border-left: 2px solid #4A4E51;
+}
+ 
+.service-card {
+  min-width: 280px;
+}
+ 
+.description-text {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+  display: block;
+}
+ 
+.service-img-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+ 
+@media (min-width: 375px) {
+  .service-img-wrapper {
+    width: 130px;
+    height: 130px;
+  }
+}
+ 
+.service-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid #f0f0f0;
+}
+ 
+.add-btn-overlay {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+ 
+.border-dashed {
+  border-top: 1px dashed #dde4ee;
+  opacity: 1 !important;
+  margin: 1rem 0;
+}
+ 
+.icon-white {
+  filter: brightness(0) invert(1);
+}
+ 
+.custom-btn{
+  border: 1px solid #d6d6d6;
+  color: #4540e1;
+  background-color: transparent;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+}
+ 
+.custom-btn:hover {
+  background-color: #f2f2f2; 
+  border-color: #d6d6d6;
+  color: #1f3a8a;
+}
+ 

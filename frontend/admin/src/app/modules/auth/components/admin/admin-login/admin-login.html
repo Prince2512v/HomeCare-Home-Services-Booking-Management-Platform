@@ -1,0 +1,49 @@
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <div class="col-md-7 d-flex align-items-center justify-content-center bg-light">
+      <div class="auth-card text-center">
+
+        <div class="logo-title mb-4">
+          <h3>H<span>o</span>meCare</h3>
+        </div>
+
+        <p class="signin-title mb-4">Sign in to continue</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="mb-4">
+            <app-email [config]="emailConfig"></app-email>
+          </div>
+
+          <div class="mb-3">
+            <app-password [config]="passwordConfig"></app-password>
+          </div>
+
+          <div class="text-end mb-4">
+            <a class="forgot-link" (click)="forgotPassword()">Forgot Password?</a>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100 py-3 fw-semibold rounded-3"
+            [disabled]="isLoading"
+          >
+            @if (isLoading) {
+              <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+            }
+            Sign In
+            
+          </button>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="col-md-5 d-none d-md-block p-0">
+      <img
+        src="assets/images/auth/home.svg"
+        alt="Healthcare illustration"
+        class="img-fluid h-100 w-100 object-fit-cover right-image"
+      />
+    </div>
+  </div>
+</div>

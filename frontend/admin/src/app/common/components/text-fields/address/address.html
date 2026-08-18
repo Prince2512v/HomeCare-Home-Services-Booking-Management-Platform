@@ -1,0 +1,29 @@
+<div
+  class="position-relative w-100 email-wrapper"
+  [class.floating-wrapper]="isFloating"
+  [formGroup]="formGroup"
+  appRequiredField
+>
+  <textarea
+    rows="3"
+    class="form-control custom-input"
+    [class.floating-input]="isFloating"
+    [class.is-invalid]="isTouched && (control?.hasError('required') || isInvalidAddress)"
+    [formControlName]="config.formControlName"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    [placeholder]="isFloating ? ' ' : config.placeholder || 'Address'"
+  ></textarea>
+
+  @if (isFloating) {
+  <label class="floating-label">{{ config.placeholder || 'Address' }}</label>
+  }
+</div>
+
+@if (isTouched && (control?.hasError('required') || isInvalidAddress)) {
+<div class="invalid-feedback d-block text-start">
+  @if (control?.hasError('required')) {
+  {{ config.placeholder || 'Address' }} is required. } @else { Please enter a valid address (10–200
+  characters). }
+</div>
+}

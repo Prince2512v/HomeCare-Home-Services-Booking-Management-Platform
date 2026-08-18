@@ -1,0 +1,92 @@
+<nav class="navbar navbar-expand-sm shadow-sm py-3">
+  <div class="container">
+    <span class="navbar-brand text-logo clickable" (click)="navigateTo('/')">
+      H<span class="text-purple">o</span>meCare
+    </span>
+
+    @if (showBackButton) {
+      <button
+        type="button"
+        class="btn cn-back-btn rounded-pill d-flex align-items-center gap-2"
+        (click)="goBack()"
+      >
+        <img src="assets/images/home/ArrowLeft.svg" width="16" height="16" alt="back" />
+        Back
+      </button>
+    } @else {
+      <div class="mobile-controls">
+        @if (!authService.currentUser()) {
+          <a class="btn btn-purple rounded-pill px-3 btn-sm-sign" (click)="goToSignIn()">
+            Sign In
+          </a>
+        } @else {
+          <div class="position-relative nav-user-area">
+            <button class="btn user-icon-btn" (click)="toggleDropdown()">
+              <img src="assets/images/navbar/UserCircle.svg" width="30" height="30" alt="profile" />
+            </button>
+            @if (dropdownOpen) {
+              <ul class="dropdown-menu dropdown-menu-end show user-dropdown">
+                <li><a class="dropdown-item" (click)="goToProfile()">My Profile</a></li>
+                <li><a class="dropdown-item" (click)="goToMyBookings()">My Bookings</a></li>
+                <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
+              </ul>
+            }
+          </div>
+        }
+        <button class="hamburger-btn" (click)="toggleMobileMenu()" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navMenu">
+        <ul class="navbar-nav align-items-center gap-4">
+          <li class="nav-item">
+            <span class="nav-link clickable" (click)="navigateTo('/')">Home</span>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link clickable" (click)="navigateTo('/services')">Services</span>
+          </li>
+          <li class="nav-item">
+            <span class="nav-link clickable" (click)="navigateTo('/contact')">Contact Us</span>
+          </li>
+          <li class="nav-item">
+            @if (!authService.currentUser()) {
+              <a class="btn btn-purple rounded-pill px-4" (click)="goToSignIn()">Sign In</a>
+            }
+            @if (authService.currentUser()) {
+              <div class="position-relative nav-user-area">
+                <button class="btn user-icon-btn" (click)="toggleDropdown()">
+                  <img src="assets/images/navbar/UserCircle.svg" width="32" height="32" alt="profile" />
+                </button>
+                @if (dropdownOpen) {
+                  <ul class="dropdown-menu dropdown-menu-end show user-dropdown">
+                    <li><a class="dropdown-item" (click)="goToProfile()">My Profile</a></li>
+                    <li><a class="dropdown-item" (click)="goToMyBookings()">My Bookings</a></li>
+                    <li><a class="dropdown-item" (click)="onLogout()">Logout</a></li>
+                  </ul>
+                }
+              </div>
+            }
+          </li>
+        </ul>
+      </div>
+    }
+  </div>
+</nav>
+
+@if (!showBackButton && mobileMenuOpen()) {
+  <div class="drawer-backdrop" (click)="closeMobileMenu()"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <span class="text-logo clickable" (click)="navigateTo('/')">
+        H<span class="text-purple">o</span>meCare
+      </span>
+      <button class="btn-close" (click)="closeMobileMenu()"></button>
+    </div>
+    <ul class="drawer-nav">
+      <li><span class="drawer-link" (click)="navigateTo('/')">Home</span></li>
+      <li><span class="drawer-link" (click)="navigateTo('/services')">Services</span></li>
+      <li><span class="drawer-link" (click)="navigateTo('/contact')">Contact Us</span></li>
+    </ul>
+  </div>
+}

@@ -1,0 +1,121 @@
+button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-add {
+  background-color: #4540e1;
+  color: #fff;
+  width: 85px;
+  height: 42px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.btn-add::first-letter {
+  font-size: 20px;
+}
+
+.btn-cancle {
+  background-color: #e1e0fa;
+  color: #4540e1;
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+}
+
+.btn-save {
+  background-color: #4540e1;
+  color: #fff;
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+}
+
+.btn-delete {
+  background-color: #4540e1;
+  color: #fff;
+  width: 100%;
+  height: 48px;
+  border-radius: 10px;
+}
+
+.btn-toggle {
+  width: 2.5em;
+  height: 1.35em;
+  cursor: pointer;
+  display: block;
+  margin: 0 ;
+}
+
+.btn-toggle:checked {
+  background-color: #4540e1;
+  border-color: #4540e1;
+}
+
+.btn-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(69, 64, 225, 0.25);
+}
+
+.btn-filter {
+  background-color: #e1e0fa;
+  color: #4540e1;
+  border: 1.5px solid #dddcf8;
+  width: 85px;
+  height: 42px;
+  border-radius: 10px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-filter:hover {
+  background-color: #f0effd;
+  border-color: #4540e1;
+}
+
+.btn-apply {
+  background-color: #4540e1;
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px;
+  font-weight: 600;
+  width: 100%;
+  height: 48px;
+  font-size: 0.9rem;
+  flex: 1;
+  transition: background 0.15s;
+}
+
+.btn-apply:hover {
+  background-color: #3530c0;
+}
+
+.btn-edit {
+  background-color: #4540e1;
+  color: #fff;
+  height: 42px;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.btn-edit:hover {
+  background-color: #3530c0;
+}
+.btn-icon {
+  margin-right: 5px;
+  vertical-align: middle;
+}

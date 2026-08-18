@@ -1,0 +1,12 @@
+.si-btn {
+  background: #4540e1;
+  border: none;
+  transition: background 0.18s;
+}
+.si-btn:hover:not(:disabled) {
+  background: #3430b8;
+}
+.si-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}

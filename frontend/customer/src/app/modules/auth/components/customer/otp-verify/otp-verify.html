@@ -1,0 +1,80 @@
+<div class="container-fluid vh-100 overflow-hidden">
+  <div class="row h-100 m-0">
+    <div
+      class="col-md-7 d-flex align-items-center justify-content-center bg-light"
+    >
+      <div class="auth-card text-center w-100 otp-card">
+        <div class="logo-title mb-4">
+          <h3 class="fw-bold text-center mb-5 fs-1">
+            H<span class="change-text">o</span>meCare
+          </h3>
+        </div>
+        <p class="text-center text-secondary mb-4 fs-4">Enter OTP</p>
+
+        <p class="text-muted small mb-4">
+          We have sent you a 4 digit code on
+          <b>{{ email }}</b>
+        </p>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control rounded-3 py-3 bg-light border-2 shadow-sm text-start"
+            placeholder="OTP"
+            maxlength="4"
+            [value]="otp"
+            (input)="onOtpInput($event)"
+            [disabled]="isLoading"
+          />
+        </div>
+
+        @if (errorMessage) {
+        <div class="alert alert-danger text-center mb-3">
+          {{ errorMessage }}
+        </div>
+        }
+
+        <div class="d-flex gap-3 mb-4">
+          <button
+            id="btn1"
+            type="button"
+            class="btn rounded-pill w-50 py-3 fw-bold shadow border-6"
+            (click)="resendOtp()"
+            [disabled]="isResending || isLoading"
+          >
+            @if (isResending) {
+            <span class="spinner-border spinner-border-sm me-1"></span>
+            } Resend OTP
+          </button>
+
+          <button
+            id="btn2"
+            type="button"
+            class="btn rounded-pill w-50 py-3 fw-bold shadow"
+            (click)="verifyOtp()"
+            [disabled]="otp.length !== 4 || isLoading"
+          >
+            @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-1"></span>
+            } Sign In
+          </button>
+        </div>
+
+        <p class="text-muted small">
+          By clicking on Sign In, I accept the
+          <span class="highlight-text">Terms & Condition</span>
+          &
+          <span class="highlight-text">Privacy Policy</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="col-md-5 d-none d-md-block p-0">
+      <img
+        src="assets/images/auth/Frame 1236 (1).png"
+        alt="HomeCare"
+        class="img-fluid h-100 w-100 object-fit-cover"
+      />
+    </div>
+  </div>
+</div>

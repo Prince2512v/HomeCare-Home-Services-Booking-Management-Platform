@@ -1,0 +1,18 @@
+<app-common-modal title="Sign In" (close)="close.emit()">
+  <form [formGroup]="signInForm" (ngSubmit)="onGetOtp()" novalidate>
+    <div class="mb-3">
+      <app-name [config]="nameConfig"></app-name>
+    </div>
+    <div class="mb-4">
+      <app-email [config]="emailConfig"></app-email>
+    </div>
+    <button
+      type="submit"
+      class="btn w-100 py-3 fw-semibold rounded-pill text-white si-btn"
+      [disabled]="signInForm.invalid || isLoading"
+    >
+      @if (isLoading) {
+      <span class="spinner-border spinner-border-sm me-2"></span> } Get OTP
+    </button>
+  </form>
+</app-common-modal>

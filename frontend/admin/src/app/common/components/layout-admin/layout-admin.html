@@ -1,0 +1,23 @@
+<div class="layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar-col" [class.mobile]="isMobile" [class.open]="isSidebarOpen">
+        <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Overlay -->
+    @if (isMobile && isSidebarOpen) {
+    <div class="overlay" (click)="toggleSidebar()">
+    </div>
+    }
+
+    <!-- Main Content -->
+    <div class="main-col">
+        <app-navbar (sidebarToggle)="toggleSidebar()"></app-navbar>
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- Support Chatbot -->
+    <app-chatbot></app-chatbot>
+
+</div>

@@ -1,0 +1,244 @@
+.container-fluid {
+  background: #F2F5F9;
+  min-height: 100vh;
+}
+
+.scrollable-list {
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  padding-bottom: 60px;
+  scrollbar-width: none;
+}
+
+.service-card {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+}
+
+.service-card-header {
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.service-card-header:hover {
+  background-color: #fafafa;
+  border-radius: 8px;
+}
+.service-card.is-expanded .service-card-header {
+  background-color: white;
+}
+
+.icon-wrapper {
+  width: 32px;
+  height: 32px;
+}
+.toggle-icon {
+  transition: transform 0.25s ease;
+}
+.toggle-icon.rotated {
+  transform: rotate(180deg);
+}
+.btn-icon {
+  background: none;
+  border: none;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+.btn-icon:hover {
+  opacity: 1;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+
+.category-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 12px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  height: 60px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.85rem;
+  min-width: 0;
+  width: 100%;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+.category-card:hover {
+  border-color: #F2F5F9;
+  background:#F2F5F9;
+}
+.category-card.active {
+  background: #F2F5F9;
+  border-color: #F2F5F9;
+}
+.category-name {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
+}
+.category-count {
+  font-weight: 700;
+  flex-shrink: 0;
+  color: black;
+}
+
+.svc-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.svc-toolbar-title {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.svc-toolbar-actions {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.svc-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.svc-table {
+  min-width: 646px; 
+  width: 100%;
+}
+.svc-table th {
+  font-size: 0.78rem;
+  font-weight: 500;
+  white-space: nowrap;
+  color: #6b7280;
+  padding-bottom: 12px;
+}
+.svc-table td {
+  font-size: 0.875rem;
+}
+.svc-row {
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.svc-row:hover {
+  background-color: #f8f7ff;
+}
+.svc-row:last-child td {
+  border-bottom: none !important;
+}
+
+/* ── Action dropdown ── */
+.action-dropdown {
+  position: absolute;
+  right: 25px;
+  top: 70%;
+  min-width: 130px;
+  border-radius: 8px;
+  z-index: 1050;
+   transform: translateY(-15%) translateX(-5%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+}
+.action-dropdown .dropdown-item {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.action-dropdown .dropdown-item:hover {
+  background-color: #f3f4f6;
+}
+.svc-row:last-child .action-dropdown {
+  top: auto;
+  bottom: 70%;
+  transform: translateY(25%) translateX(-5%);
+}
+
+/* ── Manage Category Modal ── */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1055;
+}
+.main-modal {
+  width: 700px;
+  max-width: 95%;
+  height: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: modalFade 0.25s ease;
+}
+@keyframes modalFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.main-modal .row {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.main-modal .col-md-6 {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.main-modal .col-md-6 ul {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  transition: background 0.15s ease;
+}
+.list-group-item:hover {
+  background-color: #f8f7ff;
+}
+.selected-row {
+  background-color: #eeecfc !important;
+  border-left: 3px solid #4540e1 !important;
+  font-weight: 600;
+}
+.pending-row {
+  background-color: #fffbea;
+}
+@media (max-width: 700px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 420px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+}

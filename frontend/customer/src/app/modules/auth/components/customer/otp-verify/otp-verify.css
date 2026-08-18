@@ -1,0 +1,28 @@
+.otp-card {
+  max-width: 360px;
+}
+
+.btn-primary-custom {
+  background-color: #3733b4;
+}
+
+#btn1 {
+  color: #3733b4;
+  border: 2px solid #ffffff;
+}
+
+#btn2 {
+  background-color: #3733b4;
+  color: white;
+}
+
+.change-text {
+  color: #3733b4;
+}
+.row {
+  margin: 0;
+}
+.highlight-text {
+  color: #3733b4;
+  font-weight: 600;
+}

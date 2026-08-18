@@ -1,0 +1,216 @@
+@if (isOpen) {
+<div class="asm-overlay d-flex align-items-center justify-content-center p-2 p-sm-3">
+  <div class="asm-modal bg-white rounded-4 shadow d-flex flex-column">
+    <!-- Header -->
+    <div
+      class="d-flex justify-content-between align-items-center px-3 px-sm-4 pt-4 pb-3 flex-shrink-0"
+    >
+      <h5 class="mb-0 fw-semibold">{{ isEditMode ? '' : 'Add' }} {{ title }} Service</h5>
+      <button type="button" class="btn-close" (click)="closeModal()"></button>
+    </div>
+
+    @if (isLoading) {
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    } @if (!isLoading) {
+
+    <div
+      class="flex-grow-1 overflow-auto px-3 px-sm-4 py-3"
+      [formGroup]="servicesForm"
+      id="ServiceDataForm"
+    >
+      <div class="row g-2 g-sm-3 mb-1">
+        <div class="col-12 col-sm-6">
+          <app-name-field [config]="nameConfig" [formGroup]="servicesForm"></app-name-field>
+        </div>
+        <div class="col-12 col-sm-6">
+          <div class="position-relative asm-float-wrap app" appRequiredField>
+            <select
+              class="form-control asm-input asm-float-select"
+              id="svc-subcategory"
+              [(ngModel)]="subCategoryId"
+              [ngModelOptions]="{ standalone: true }"
+            >
+              <option [ngValue]="null" disabled hidden></option>
+
+              @for (sub of subCategories; track sub.id) {
+              <option [ngValue]="sub.id">{{ sub.subCategoryName }}</option>
+              }
+            </select>
+
+            <label
+              class="asm-float-label"
+              for="svc-subcategory"
+              [class.asm-label-floated]="subCategoryId !== null"
+            >
+              Sub Category
+            </label>
+
+            <span
+              class="asm-select-arrow position-absolute top-50 translate-middle-y pe-none"
+              style="right: 12px; z-index: 3; color: #6b7280"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-1 mt-1 mb-3">
+        <div class="col-4">
+          <app-number-input [config]="durationConfig" [formGroup]="servicesForm"></app-number-input>
+        </div>
+        <div class="col-4">
+          <app-number-input [config]="priceConfig" [formGroup]="servicesForm"></app-number-input>
+        </div>
+        <div class="col-4">
+          <app-number-input
+            [config]="commissionConfig"
+            [formGroup]="servicesForm"
+          ></app-number-input>
+        </div>
+      </div>
+      <div class="row g-2 g-sm-3 mb-1 mt-1">
+        <div class="col-12">
+          <app-description-field
+            [config]="descriptionConfig"
+            [formGroup]="servicesForm"
+          ></app-description-field>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center py-3">
+        <span class="fw-semibold" style="font-size: 0.9rem">Service Images</span>
+        <label class="d-flex align-items-center" style="cursor: pointer">
+          <input type="file" accept="image/*" multiple hidden (change)="onImageSelect($event)" />
+          <img src="assets/icons/add1.png" alt="" height="22" width="22" />
+        </label>
+      </div>
+
+      @if (existingImages.length > 0) {
+      <div class="d-flex flex-wrap gap-2 mb-2">
+        @for (img of existingImages; track img.id) {
+        <div class="asm-preview-item">
+          <img [src]="img.imageUrl" alt="existing image" />
+          <button class="asm-remove-img" (click)="markExistingForDelete(img.id)">
+            <img src="assets/icons/delete.svg" alt="delete" />
+          </button>
+        </div>
+        }
+      </div>
+      } @if (imagePreviews.length > 0) {
+      <div class="d-flex flex-wrap gap-2 mb-2">
+        @for (src of imagePreviews; track $index) {
+        <div class="asm-preview-item">
+          <img [src]="src" alt="preview" />
+          <button class="asm-remove-img" (click)="removeNewImage($index)">
+            <img src="assets/icons/delete.svg" alt="delete" />
+          </button>
+        </div>
+        }
+      </div>
+      }
+
+      <div class="d-flex justify-content-between align-items-center py-3 border-top">
+        <span class="fw-semibold" style="font-size: 0.9rem">Availability</span>
+        <div class="form-check form-switch mb-0">
+          <input
+            class="form-check-input asm-toggle"
+            type="checkbox"
+            role="switch"
+            [(ngModel)]="isAvailable"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center py-3 border-top">
+        <span class="fw-semibold" style="font-size: 0.9rem">{{ title }} Includes</span>
+        <div class="form-check form-switch mb-0">
+          <input
+            class="form-check-input asm-toggle"
+            type="checkbox"
+            role="switch"
+            [(ngModel)]="showInclusions"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      @if (showInclusions) {
+      <div class="pb-3">
+        <div class="mb-2">
+          <input
+            class="form-control asm-input"
+            type="text"
+            placeholder="Inclusion Points"
+            [(ngModel)]="inclusionInput"
+            [ngModelOptions]="{ standalone: true }"
+            (keyup.enter)="addInclusion()"
+          />
+        </div>
+        @if (inclusionItems.length > 0) {
+        <div class="d-flex flex-wrap gap-2">
+          @for (item of inclusionItems; track $index) {
+          <span class="asm-chip"
+            >{{ item }}<button (click)="removeInclusion($index)">×</button></span
+          >
+          }
+        </div>
+        }
+      </div>
+      }
+
+      <div class="d-flex justify-content-between align-items-center py-3 border-top">
+        <span class="fw-semibold" style="font-size: 0.9rem">{{ title }} Excludes</span>
+        <div class="form-check form-switch mb-0">
+          <input
+            class="form-check-input asm-toggle"
+            type="checkbox"
+            role="switch"
+            [(ngModel)]="showExclusions"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      @if (showExclusions) {
+      <div class="pb-3">
+        <div class="mb-2">
+          <input
+            class="form-control asm-input"
+            type="text"
+            placeholder="Exclusion Points"
+            [(ngModel)]="exclusionInput"
+            [ngModelOptions]="{ standalone: true }"
+            (keyup.enter)="addExclusion()"
+          />
+        </div>
+        @if (exclusionItems.length > 0) {
+        <div class="d-flex flex-wrap gap-2">
+          @for (item of exclusionItems; track $index) {
+          <span class="asm-chip asm-chip-red"
+            >{{ item }}<button (click)="removeExclusion($index)">×</button></span
+          >
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+
+    <div class="d-flex gap-2 px-3 px-sm-4 py-3 border-top justify-content-end">
+      <app-button [config]="cancelConfig" class="btn-close-cancel"></app-button>
+      <app-button [config]="saveConfig" class="btn-save"></app-button>
+    </div>
+    }
+  </div>
+</div>
+}

@@ -1,0 +1,60 @@
+.m-field {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.m-sub{
+  color: #666666;
+}
+
+.m-field-label {
+  position: absolute;
+  left: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: #b0b0c8;
+  pointer-events: none;
+  transition:
+    top 0.18s,
+    transform 0.18s,
+    font-size 0.18s,
+    color 0.18s;
+  background: transparent;
+  padding: 0 0.25rem;
+  white-space: nowrap;
+}
+
+.m-field.active .m-field-label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #fff;
+}
+
+.m-input {
+  width: 100%;
+  border: 1.5px solid #d8d8e8;
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  background: #fff;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.m-field.active .m-input {
+  box-shadow: 0 0 0 3px rgba(55, 51, 180, 0.1);
+}
+
+.m-input::placeholder {
+  color: transparent;
+}
+.m-field.active .m-input::placeholder {
+  color: #b0b0c8;
+}

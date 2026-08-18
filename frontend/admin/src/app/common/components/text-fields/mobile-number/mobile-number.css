@@ -1,0 +1,73 @@
+.mobile-wrapper {
+    position: relative;
+  }
+  
+  .custom-input.form-control {
+    height: 56px;
+    width: 100%;
+    padding-right: 3rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    box-sizing: border-box;
+    font-size: 16px;
+  }
+  
+  .form-control.is-invalid {
+    background-image: none !important;
+    padding-right: 3rem;
+  }
+  
+  .input-icon {
+    position: absolute;
+    top: 50%;
+    right: 14px;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  /* Floating input */
+  .floating-input {
+    padding-top: 9px;
+    padding-bottom: 4px;
+  }
+  
+  .floating-input::placeholder {
+    color: transparent;
+  }
+
+  /* Label hidden by default (non-floating mode) */
+.floating-label {
+  display: none;
+}
+  
+  /* Floating label */
+  .floating-wrapper .floating-label {
+    position: absolute;
+    pointer-events: none;
+    left: 10px;
+    top: 18px;
+    color: #999;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    transition: 0.2s ease all;
+    background-color: white;
+    padding: 0 5px;
+    margin: 0;
+    display: block;
+  }
+  
+  .floating-input:focus ~ .floating-label,
+  .floating-input:not(:placeholder-shown) ~ .floating-label {
+    top: -9px;
+    left: 8px;
+    font-size: 12px;
+    color:#999;
+  }
+  
+  .floating-input:focus {
+    border-color: #007bff;
+    box-shadow: none;
+  }

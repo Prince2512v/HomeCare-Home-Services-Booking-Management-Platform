@@ -1,0 +1,49 @@
+<div
+  class="position-relative w-100 date-wrapper"
+  [class.fl-wrapper]="isFloating"
+  [formGroup]="formGroup"
+>
+  <input
+    type="text"
+    class="form-control custom-input date-input"
+    [class.fl-input]="isFloating"
+    [class.is-invalid]="isInvalid"
+    [formControlName]="config.formControlName"
+    [placeholder]="isFloating ? ' ' : (config.placeholder || 'DD-MM-YYYY')"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    (focus)="onFocus()"
+    inputmode="numeric"
+    (keydown)="onKeyDown($event)"
+  />
+  @if (isFloating) {
+  <label class="fl-label">{{ config.placeholder || 'Date' }}@if(config.showRequired){<span class="text-danger ms-1">*</span>}</label>
+  }
+  @if (config.showCalendarIcon) {
+  <img
+    src="assets/icons/CalendarDots.svg"
+    alt="calendar"
+    class="calendar-icon"
+    (click)="openDatePicker()"
+  />
+  <input
+    #nativeDatePicker
+    type="date"
+    class="native-date-hidden"
+    [min]="minDateStr"
+    [max]="config.disableFuture !== false ? todayStr : ''"
+    (change)="onDateSelected($event)"
+    tabindex="-1"
+  />
+  }
+</div>
+
+@if (isTouched && control?.hasError('required')) {
+<div class="invalid-feedback d-block text-start">This field is required.</div>
+} @else if (isTouched && control?.hasError('beforeMinDate')) {
+<div class="invalid-feedback d-block text-start">Date cannot be before date of birth.</div>
+} @else if (isTouched && control?.hasError('dobFutureDate')) {
+<div class="invalid-feedback d-block text-start">Date of birth cannot be a future date.</div>
+} @else if (isTouched && control?.hasError('invalidDate')) {
+<div class="invalid-feedback d-block text-start">Please enter a valid date (DD-MM-YYYY).</div>
+}

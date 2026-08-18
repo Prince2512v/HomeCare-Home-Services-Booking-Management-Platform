@@ -1,0 +1,9 @@
+<app-common-modal title="Change Mobile Number" (close)="close.emit()">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="mb-4">
+      <app-mobile [config]="mobileConfig" />
+    </div>
+
+    <app-button [config]="saveBtnConfig" />
+  </form>
+</app-common-modal>

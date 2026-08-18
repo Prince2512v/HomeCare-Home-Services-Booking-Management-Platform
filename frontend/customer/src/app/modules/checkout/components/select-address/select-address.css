@@ -1,0 +1,34 @@
+.sa-border {
+  border-color: #dde4ee;
+}
+
+.sa-title {
+  color: #1a1a2e;
+  font-size: 1rem;
+}
+
+.sa-btn-select {
+  background: #4540e1;
+  border: none;
+  transition: background 0.18s ease;
+}
+
+.sa-btn-select:hover {
+  background: #3430b8;
+}
+
+.sa-btn-edit {
+  color: #3733b4;
+  border: 1.5px solid #dde4ee;
+  font-size: 0.85rem;
+  padding: 0 14px;
+  height: 34px;
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.sa-btn-edit:hover {
+  background: #f0f0fb;
+  border-color: #3733b4;
+}

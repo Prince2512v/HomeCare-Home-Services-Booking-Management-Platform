@@ -1,0 +1,81 @@
+<div class="modal-overlay" (click)="onCancel()">
+  <div class="scm-box" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-start mb-4">
+      <div>
+        <h5 class="scm-title mb-1">Pay with Razorpay</h5>
+        @if (!isLoadingIntent && amount) {
+        <p class="scm-amount mb-0">{{ formatAmount(amount, currency) }}</p>
+        }
+      </div>
+      <button
+        type="button"
+        class="btn-close"
+        (click)="onCancel()"
+        [disabled]="isProcessing"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    <!-- Loading: creating order -->
+    @if (isLoadingIntent) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5 gap-3">
+      <div class="scm-spinner">
+        <div class="spinner-border text-primary" role="status" style="width:2.5rem;height:2.5rem;">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <p class="text-secondary small mb-0">Creating your secure payment session&hellip;</p>
+    </div>
+    }
+
+    <!-- Processing: confirming with backend after payment -->
+    @if (isProcessing) {
+    <div class="d-flex flex-column align-items-center justify-content-center py-5 gap-3">
+      <div class="spinner-border text-success" role="status" style="width:2.5rem;height:2.5rem;">
+        <span class="visually-hidden">Processing...</span>
+      </div>
+      <p class="text-secondary small mb-0 fw-semibold">Confirming your payment&hellip;</p>
+    </div>
+    }
+
+    <!-- Error state -->
+    @if (intentError && !isLoadingIntent && !isProcessing) {
+    <div class="d-flex flex-column align-items-center gap-3 py-3 text-center">
+      <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="#e74c3c" stroke-width="1.5">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r="0.5" fill="#e74c3c"/>
+      </svg>
+      <p class="fw-semibold text-dark mb-0">Payment Error</p>
+      <p class="text-secondary small mb-3">{{ intentError }}</p>
+      <button
+        type="button"
+        class="btn rounded-pill px-4 py-2 fw-semibold scm-btn-close"
+        (click)="onCancel()"
+      >Close</button>
+    </div>
+    }
+
+    <!-- Waiting for Razorpay popup -->
+    @if (!isLoadingIntent && !intentError && !isProcessing) {
+    <div class="d-flex flex-column align-items-center gap-3 py-3 text-center">
+      <div class="scm-rzp-badge d-flex align-items-center gap-2 px-3 py-2 rounded-pill">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#4540e1" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <span class="small fw-semibold text-primary">Secure Payment via Razorpay</span>
+      </div>
+      <p class="text-secondary small mb-0">
+        A secure Razorpay payment window has opened.<br/>
+        Complete your payment there to confirm your booking.
+      </p>
+      <button
+        type="button"
+        class="btn rounded-pill px-4 py-2 fw-semibold scm-btn-cancel"
+        (click)="onCancel()"
+      >Cancel Payment</button>
+    </div>
+    }
+
+  </div>
+</div>

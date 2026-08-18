@@ -1,0 +1,57 @@
+<div class="container-fluid vh-100 overflow-hidden">
+  <div class="row h-100 m-0">
+    <div class="col-md-7 d-flex align-items-center justify-content-center bg-light">
+      <div class="auth-card text-center w-100 sign-in-card">
+        <div class="logo-title mb-4">
+          <h3 class="fw-bold text-center mb-5 fs-1">H<span class="change-text">o</span>meCare</h3>
+        </div>
+
+        <p class="text-center text-secondary mb-4 fs-4">Sign in to continue</p>
+
+        <form [formGroup]="signInForm" (ngSubmit)="onGetOtp()" novalidate>
+          <div class="mb-3">
+            <app-name [config]="nameConfig"></app-name>
+          </div>
+
+          <div class="mb-4">
+            <app-email [config]="emailConfig"></app-email>
+          </div>
+
+          <button
+            type="submit"
+            class="btn w-100 py-3 fw-semibold rounded-pill text-white btn-primary-custom"
+            [disabled]="signInForm.invalid || isLoading"
+          >
+            @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            } Get OTP
+          </button>
+        </form>
+
+        <p class="text-center text-muted small mt-4">
+          By clicking on Sign In, I accept the
+          <span class="highlight-text">Terms & Condition</span>
+          &
+          <span class="highlight-text">Privacy Policy</span>
+        </p>
+
+        <div class="d-flex align-items-center my-4">
+          <hr class="flex-grow-1" />
+          <span class="px-2 text-muted small">OR</span>
+          <hr class="flex-grow-1" />
+        </div>
+
+        <p class="text-secondary mb-1 fw-semibold">Are you a Service Partner?</p>
+        <a (click)="goToOnboarding()" class="fw-bold text-decoration-none highlight-text" style="cursor:pointer"> Join Now </a>
+      </div>
+    </div>
+
+    <div class="col-md-5 d-none d-md-block p-0">
+      <img
+        src="assets/images/auth/Frame 1236 (1).png"
+        alt="HomeCare"
+        class="img-fluid h-100 w-100 object-fit-cover"
+      />
+    </div>
+  </div>
+</div>

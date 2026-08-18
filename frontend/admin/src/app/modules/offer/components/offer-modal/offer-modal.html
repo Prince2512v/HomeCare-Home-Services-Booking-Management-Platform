@@ -1,0 +1,62 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h5>{{ isEditMode ? 'Edit Offer' : 'Add Offer' }}</h5>
+      <button class="close-btn" (click)="closeModal()">✕</button>
+    </div>
+
+    @if (isLoadingOffer) {
+      <div class="modal-loading">
+        <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+        <span class="text-muted small">Loading offer details...</span>
+      </div>
+    }
+
+    @if (!isLoadingOffer) {
+      <form [formGroup]="offerForm">
+
+        <app-name-field [config]="couponCodeConfig" [formGroup]="offerForm"></app-name-field>
+
+        <app-description-field [config]="couponDescriptionConfig" [formGroup]="offerForm"></app-description-field>
+
+        <app-number-input [config]="offerConfig" [formGroup]="offerForm"></app-number-input>
+
+        @if (isEditMode) {
+          <div class="position-relative om-float-wrap" appRequiredField>
+            <select
+              class="form-control om-float-select"
+              id="offer-status"
+              formControlName="isActive"
+            >
+              <option [ngValue]="null" disabled hidden></option>
+              <option [ngValue]="true">Active</option>
+              <option [ngValue]="false">Inactive</option>
+            </select>
+
+            <label
+              class="om-float-label"
+              for="offer-status"
+              [class.om-label-floated]="offerForm.get('isActive')?.value !== null"
+            >
+              Status
+            </label>
+
+            <span class="om-select-arrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </span>
+          </div>
+        }
+
+      </form>
+
+      <div class="modal-footer-actions">
+        <app-button [config]="cancelConfig" class="footer-btn"></app-button>
+        <app-button [config]="saveConfig" class="footer-btn"></app-button>
+      </div>
+    }
+
+  </div>
+</div>

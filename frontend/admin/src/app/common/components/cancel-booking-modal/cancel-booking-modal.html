@@ -1,0 +1,37 @@
+<div class="modal-backdrop" (click)="close()"></div>
+
+<div
+  class="modal-panel shadow-lg p-4 text-center"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cancelBookingTitle"
+>
+  <button type="button" class="btn-close btn p-0" (click)="close()"></button>
+
+  <div class="warning-icon-wrap mx-auto m-4">
+    <img src="assets/icons/Warning.svg" alt="Warning Icon" class="warning-icon" />
+  </div>
+
+  <h5 class="fw-bold mb-2" id="cancelBookingTitle">
+    Are you sure you want to cancel this booking?
+  </h5>
+  <p class="text-muted small mb-4 px-3">
+    Please enter the reason for cancelling the booking request.
+  </p>
+
+  <form [formGroup]="cancelForm" class="w-100">
+    <div class="mb-4">
+      <app-description-field [config]="reasonConfig" [formGroup]="cancelForm">
+      </app-description-field>
+
+      @if (errorMessage) {
+      <p class="text-danger small text-start mt-1">{{ errorMessage }}</p>
+      }
+    </div>
+
+    <div class="modal-footer-row d-flex gap-3 w-100 mt-4">
+      <app-button [config]="cancelConfig" class="flex-fill"></app-button>
+      <app-button [config]="saveConfig" class="flex-fill"></app-button>
+    </div>
+  </form>
+</div>

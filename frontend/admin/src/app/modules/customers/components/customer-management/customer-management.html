@@ -1,0 +1,122 @@
+<div class="customer-wrapper" (click)="closeDropdowns()">
+  <div class="customer-header d-flex flex-column flex-sm-row align-items-start align-items-sm-center gap-3">
+    <h2 class="customer-title mb-0">Customers</h2>
+    <div class="header-actions d-flex gap-2 ms-sm-auto w-100 w-sm-auto justify-content-start justify-content-sm-end">
+      <app-button [config]="filterConfig"></app-button>
+      <app-button [config]="addConfig"></app-button>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="customer-card shadow-sm">
+    <div class="grid-scroll-area">
+      <div class="grid-container">
+
+        <!-- Header — always visible -->
+        <div class="grid-header">
+          <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('id')">ID</div>
+          <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('name')">
+            Name
+          </div>
+          <div class="grid-cell d-flex align-items-center">Mobile Number</div>
+          <div class="grid-cell d-flex align-items-center">Email</div>
+          <div class="grid-cell d-flex align-items-center">Pending Bookings</div>
+          <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('totalBookings')">
+            Total Bookings
+          </div>
+          <div class="grid-cell d-flex align-items-center justify-content-center">Status</div>
+          <div class="grid-cell d-flex align-items-center justify-content-center">Action</div>
+        </div>
+
+        <!-- Body — loader / error / empty / rows -->
+        <div class="grid-body">
+          @if (isLoading) {
+          <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+            <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+            Loading customers...
+          </div>
+          } @else if (errorMessage) {
+          <div class="grid-state-row text-danger small d-flex align-items-center justify-content-center">
+            <i class="bi bi-exclamation-circle me-2"></i>
+            {{ errorMessage }}
+          </div>
+          } @else if (customers.length === 0) {
+          <div class="grid-state-row text-center text-muted">No customers found.</div>
+          } @else {
+          @for (customer of customers; track customer.id; let i = $index) {
+          <div class="grid-row clickable-row" (click)="navigateToDetail(customer.id)">
+            <div class="grid-cell fw-normal">
+              <span class="customer-id-link">{{ customer.id | idFormat }}</span>
+            </div>
+            <div class="grid-cell fw-normal">{{ customer.name }}</div>
+            <div class="grid-cell fw-normal">{{ customer.mobileNumber | mobilenumber }}</div>
+            <div class="grid-cell fw-normal text-truncate">{{ customer.email }}</div>
+            <div class="grid-cell fw-normal">
+              {{ customer.pendingBookings > 0 ? customer.pendingBookings : '-' }}
+            </div>
+            <div class="grid-cell fw-normal">{{ customer.totalBookings }}</div>
+            <div class="grid-cell fw-normal d-flex align-items-center justify-content-center">
+              <span class="status-badge" [class.status-active]="customer.status === 'Active'" [class.status-blocked]="
+                  customer.status === 'Blocked' || customer.status === 'Block'
+                ">
+                <span class="status-dot" [class.dot-active]="customer.status === 'Active'"
+                  [class.dot-blocked]="customer.status === 'Blocked' || customer.status === 'Block'"></span>
+                {{ customer.status === 'Block' ? 'Blocked' : customer.status }}
+              </span>
+            </div>
+            <div class="grid-cell d-flex justify-content-center align-items-center position-relative"
+              (click)="$event.stopPropagation()">
+              <button class="btn btn-link text-dark p-0 action-btn" (click)="toggleDropdown(customer.id, $event)">
+                <img src="assets/icons/DotsThreeOutlineVertical.svg" width="20" height="20" />
+              </button>
+              @if (activeDropdownId === customer.id) {
+              <div class="action-dropdown shadow rounded-3 py-2 bg-white border" [class.open-up]="dropdownOpenUp"
+                [class.open-down]="!dropdownOpenUp" (click)="$event.stopPropagation()">
+                <button class="dropdown-item d-flex align-items-center gap-3 py-2 px-3 text-dark"
+                  (click)="openBlockModal(customer)">
+                  <img src="assets/icons/prohibit.svg" width="20" height="20" class="me-2" />
+                  {{ customer.status === 'Active' ? 'Block' : 'Unblock' }}
+                </button>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item d-flex align-items-center gap-3 py-2 px-3 text-dark"
+                  (click)="openDeleteModal(customer)">
+                  <img src="assets/icons/delete.svg" width="20" height="20" class="me-2" />
+                  Delete
+                </button>
+              </div>
+              }
+            </div>
+          </div>
+          }
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="customer-pagination d-flex align-items-center justify-content-end">
+      <app-pagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+
+<!--create Modal -->
+@if (showModal) {
+<app-customer-modal (modalClose)="closeModal()" (save)="saveCustomer($event)"> </app-customer-modal>
+}
+
+<!-- Delete Modal -->
+@if (deleteConfig) {
+<app-delete-model [visible]="isDeleteModalOpen" [config]="deleteConfig" (confirm)="confirmDelete()"
+  (closed)="closeDeleteModal()"></app-delete-model>
+}
+
+@if (blockConfig) {
+<app-confirmation-model [visible]="isBlockModalOpen" [config]="blockConfig" (confirm)="confirmBlock()"
+  (closed)="closeBlockModal()"></app-confirmation-model>
+}
+
+<app-filter-panel [config]="filterPanelConfig" [isOpen]="isFilterOpen"
+  [activeValues]="activeFilterValues"></app-filter-panel>

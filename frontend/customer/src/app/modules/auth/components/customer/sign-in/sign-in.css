@@ -1,0 +1,26 @@
+.sign-in-card {
+  max-width: 360px;
+}
+
+.btn-primary-custom {
+  background-color: #3733b4;
+}
+
+.highlight-text {
+  color: #3733b4;
+  font-weight: 600;
+}
+
+.change-text {
+  color: #3733b4;
+}
+.row {
+  margin: 0;
+}
+.email-icon {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: #6c757d;
+}

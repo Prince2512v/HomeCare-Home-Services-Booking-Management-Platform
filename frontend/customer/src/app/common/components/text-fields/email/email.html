@@ -1,0 +1,26 @@
+<div
+  class="position-relative w-100 email-wrapper"
+  [class.fl-wrapper]="isFloating"
+  [formGroup]="formGroup"
+>
+  <input
+    type="email"
+    class="form-control custom-input email-input"
+    [class.fl-input]="isFloating"
+    [class.is-invalid]="isTouched && isInvalidEmail"
+    [formControlName]="config.formControlName"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    [placeholder]="isFloating ? ' ' : (config.placeholder || 'Email')"
+  />
+  @if (isFloating) {
+  <label class="fl-label">{{ config.placeholder || 'Email' }}@if(config.showRequired){<span class="text-danger ms-1">*</span>}</label>
+  }
+  <img src="assets/icons/mail.png" alt="email" class="input-icon" />
+</div>
+
+@if (isTouched && isInvalidEmail) {
+<div class="invalid-feedback d-block text-start">
+  {{ control?.hasError('required') ? 'Email is required.' : 'Please enter a valid email address.' }}
+</div>
+}

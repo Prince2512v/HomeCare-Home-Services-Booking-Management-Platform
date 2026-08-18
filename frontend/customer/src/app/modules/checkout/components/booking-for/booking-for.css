@@ -1,0 +1,18 @@
+.bf-border {
+  border-color: #dde4ee;
+}
+
+.bf-title {
+  color: #1a1a2e;
+  font-size: 1rem;
+}
+
+.bf-btn {
+  background: #4540e1;
+  border: none;
+  transition: background 0.18s ease;
+}
+
+.bf-btn:hover {
+  background: #3430b8;
+}

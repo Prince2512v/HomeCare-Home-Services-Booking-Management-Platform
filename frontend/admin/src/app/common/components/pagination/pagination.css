@@ -1,0 +1,135 @@
+.pagination-wrapper {
+  font-size: 0.875rem;
+  padding: 10px 16px;
+  background-color: transparent;
+  color: #444;
+  min-width: 0;
+}
+
+.pagination-right {
+  min-width: 0;
+}
+
+.rows-per-page {
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.rows-per-page .label {
+  font-size: 0.875rem;
+  color: #444;
+  font-weight: 400;
+}
+
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: visible;
+}
+
+.custom-select-btn {
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;
+  color: #333;
+  cursor: pointer;
+  padding: 2px 22px 2px 4px;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: relative;
+  z-index: 20;
+}
+
+.custom-select-btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-select-btn::after {
+  display: none;
+}
+
+.select-chevron {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.custom-select-btn[aria-expanded="true"] .select-chevron {
+  transform: rotate(180deg);
+}
+
+.custom-dropdown-menu {
+  bottom: 100% !important;
+  top: auto !important;
+  min-width: 80px;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+  padding: 4px 0;
+  margin-bottom: 6px;
+}
+
+.custom-option {
+  font-size: 0.875rem;
+  color: #333;
+  padding: 6px 16px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.custom-option:hover {
+  background-color: #f3f0ff;
+  color: #6f42c1;
+}
+
+.active-option {
+  font-weight: 600;
+  color: #6f42c1;
+  background-color: #ede9ff;
+}
+
+.active-option:hover {
+  background-color: #e0d9ff;
+  color: #6f42c1;
+}
+
+.range {
+  font-size: 0.875rem;
+  color: #444;
+  white-space: nowrap;
+}
+
+.arrow-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 4px;
+  color: #555;
+  border-radius: 4px;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.arrow-btn:hover:not(:disabled) {
+  background-color: #f0f0f0;
+}
+
+.arrow-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+  .pagination-wrapper {
+    justify-content: center !important;
+    padding: 0px !important;
+  }
+
+  .pagination-right {
+    gap: 12px !important;
+  }
+}

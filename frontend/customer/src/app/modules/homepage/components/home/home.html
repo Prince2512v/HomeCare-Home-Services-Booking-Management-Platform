@@ -1,0 +1,156 @@
+<div class="container padding-large">
+  <div class="row align-items-center pb-5">
+    <!-- Left Column -->
+    <div class="col-12 col-lg-6 text-center text-lg-start">
+      <div class="big-font text-nowrap">Home services at</div>
+      <div class="big-font text-nowrap">your door step</div>
+      <div class="pt-2 fw-normal fs-5 text-secondary">Your one-stop destination for home care.</div>
+
+      <div class="padding-search d-flex justify-content-center justify-content-lg-start">
+        <div class="w-100" style="max-width: 460px">
+          <app-search-bar></app-search-bar>
+        </div>
+      </div>
+
+      <div class="d-flex pt-5 justify-content-center justify-content-lg-start">
+        @if (isCountsLoading) {
+          <!-- Skeleton Loader -->
+          <div class="pe-3 py-3">
+            <div class="skeleton" style="width: 32px; height: 32px; border-radius: 6px; margin-bottom: 8px;"></div>
+            <div class="skeleton" style="width: 80px; height: 36px; border-radius: 6px; margin-bottom: 6px;"></div>
+            <div class="skeleton" style="width: 120px; height: 16px; border-radius: 6px;"></div>
+          </div>
+          <div class="p-3">
+            <div class="skeleton" style="width: 32px; height: 32px; border-radius: 6px; margin-bottom: 8px;"></div>
+            <div class="skeleton" style="width: 60px; height: 36px; border-radius: 6px; margin-bottom: 6px;"></div>
+            <div class="skeleton" style="width: 80px; height: 16px; border-radius: 6px;"></div>
+          </div>
+        } @else {
+          <div class="pe-3 py-3">
+            <img src="assets/images/home/UsersThree.svg" alt="Not Found" class="pb-2" />
+            <div class="fs-2 fw-bold">{{ (counts?.totalUsers ?? 0) | formateCount }}</div>
+            <div class="text-gray fw-normal">Customers Globally</div>
+          </div>
+          <div class="p-3">
+            <img src="assets/images/home/GearSix.svg" alt="Not Found" class="pb-2" />
+            <div class="fs-2 fw-bold">{{ (counts?.totalServices ?? 0) + '+' }}</div>
+            <div class="text-gray fw-normal">Services</div>
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end pt-5 pt-lg-0">
+      <div class="collage-wrapper">
+        <span class="dot green"></span>
+        <span class="dot orange"></span>
+        <span class="dot blue"></span>
+
+        <div class="collage-grid">
+          <div class="collage-item circle-1">
+            <img src="assets/images/home/AC Cleaning.jpg" alt="AC Clean" />
+          </div>
+          <div class="collage-item square">
+            <img src="assets/images/home/Table Cleaning.jpg" alt="Cleaning" />
+          </div>
+          <div class="collage-item circle">
+            <img src="assets/images/home/Spa.jpg" alt="Spa" />
+          </div>
+          <div class="collage-item square">
+            <img src="assets/images/home/AC Cleaning.jpg" alt="AC Clean" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex fs-2 fw-semibold padding-banner justify-content-center text-nowrap">What are you looking For?</div>
+
+  <!-- ServiceType Carousel -->
+  <app-carousel #cat [config]="serviceTypeConfig">
+    @if (isServiceTypesLoading) {
+      <div class="d-flex justify-content-center align-items-center w-100 py-5">
+        <div class="spinner-border loader-color" style="width: 3rem; height: 3rem;"></div>
+      </div>
+    } @else {
+      @for (item of serviceTypes; track item.id) {
+        <div class="cat-card" [ngStyle]="cat.cardStyle" (click)="goToServiceListing(item.id)">
+          <div class="cat-icon-wrapper">
+            <img [src]="apiBase + item.image" [alt]="item.title" class="cat-icon" />
+          </div>
+          <p class="cat-title">{{ item.title }}</p>
+        </div>
+      }
+    }
+  </app-carousel>
+
+  <!-- Popular Services Carousel -->
+  <app-carousel #pop [config]="popularConfig">
+    @if (isPopularLoading) {
+      <div class="d-flex justify-content-center align-items-center w-100 py-5">
+        <div class="spinner-border loader-color" style="width: 3rem; height: 3rem;"></div>
+      </div>
+    } @else {
+      @for (item of popularServices; track item.id) {
+        <div class="svc-card" [ngStyle]="pop.cardStyle" (click)="goToServiceDetail(item.id)">
+          <div class="svc-img-wrapper">
+            <img [src]="apiBase + item.image" [alt]="item.title" class="svc-img" />
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">{{ item.title }}</p>
+            <div class="svc-footer">
+              <div>
+                <small class="text-secondary">Starts at</small>
+                <div class="svc-price">${{ item.price }}</div>
+              </div>
+             <app-button [config]="addToCartConfig(item)"></app-button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </app-carousel>
+
+  <!-- All Services Carousel -->
+  <app-carousel #all [config]="allServiceConfig">
+    @if (isAllServicesLoading) {
+      <div class="d-flex justify-content-center align-items-center w-100 py-5">
+        <div class="spinner-border loader-color" style="width: 3rem; height: 3rem;"></div>
+      </div>
+    } @else {
+      @for (item of allServices; track item.id) {
+        <div class="svc-card" [ngStyle]="pop.cardStyle" (click)="goToServiceDetail(item.id)">
+          <div class="svc-img-wrapper">
+            <img [src]="apiBase + item.image" [alt]="item.title" class="svc-img" />
+          </div>
+          <div class="svc-body">
+            <p class="svc-title">{{ item.title }}</p>
+            <div class="svc-footer">
+              <div>
+                <small class="text-secondary">Starts at</small>
+                <div class="svc-price">${{ item.price }}</div>
+              </div>
+             <app-button [config]="addToCartConfig(item)"></app-button>
+            </div>
+          </div>
+        </div>
+      }
+    }
+  </app-carousel>
+
+  <div class="join-us-wrapper">
+  <div class="position-relative">
+    <svg viewBox="0 -60 1210 370" width="100%">
+      <image href="assets/images/home/JoinUs.svg"></image>
+      <image href="assets/images/home/Man.svg" x="695" y="-112"></image>
+      <foreignObject x="55" y="170" width="160" height="60">
+        <div xmlns="http://www.w3.org/1999/xhtml">
+          <app-button [config]="joinNowConfig"></app-button>
+        </div>
+      </foreignObject>
+    </svg>
+  </div>
+</div>
+</div>

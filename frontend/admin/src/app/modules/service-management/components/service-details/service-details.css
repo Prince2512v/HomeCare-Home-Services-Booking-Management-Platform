@@ -1,0 +1,50 @@
+.sd-label {
+  font-size: 1.0rem;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+.container-fluid{
+  background: #F2F5F9;
+  min-height: 100vh;
+}
+
+.sd-value {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827;
+  word-break: break-word;
+}
+.sd-title{
+  font-size: 1.2rem;
+}
+
+@media (max-width: 420px) {
+  .sd-value { font-size: 0.9rem; }
+  .sd-label { font-size: 0.75rem; }
+}
+
+.sd-img-wrapper {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+@media (max-width: 420px) {
+  .sd-img-wrapper { width: 80px; height: 80px; }
+}
+
+.sd-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sd-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: #374151;
+  background: #fff;
+}

@@ -1,0 +1,119 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1040;
+}
+
+.modal-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1050;
+  background: #fff;
+  border-radius: 0.75rem;
+  width: 560px;
+  max-width: calc(100vw - 32px);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+}
+
+.custom-bg {
+  background-color: #F2F5F9;
+}
+
+.floating-border-group {
+  position: relative;
+}
+
+/* Input box */
+.custom-select-box {
+  height: 56px;
+  padding: 0.75rem 0.75rem;
+}
+
+.floating-border-group label {
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  background: #fff;
+  padding: 0 6px;
+  font-size: 0.75rem;
+  color: #666666;
+  z-index: 1;
+}
+
+/* Avatar */
+.expert-avatar-wrap,
+.expert-avatar,
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+}
+
+.expert-avatar {
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e9ecef;
+  border-radius: 0.5rem;
+}
+
+/* List */
+.experts-list {
+  max-height: 204px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.expert-option {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 4px;
+}
+
+.expert-option.selected {
+  background: #eef2ff;
+}
+
+/* Radio */
+.radio-outer {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #dde4ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radio-outer.radio-selected {
+  border-color: #4f46e5;
+}
+
+.radio-inner {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #4f46e5;
+}
+
+/* Small helpers */
+.meta-dot {
+  margin: 0 2px;
+  color: #adb5bd;
+}
+
+.section-label {
+  font-size: 0.75rem;
+}

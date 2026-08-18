@@ -1,0 +1,43 @@
+<div class="position-relative w-100 dropdown-wrapper" [formGroup]="formGroup">
+  <div
+    class="custom-input dropdown-display"
+    [class.is-invalid]="isInvalid"
+    [class.has-value]="hasValue"
+    (click)="toggleDropdown()"
+    tabindex="0"
+    (blur)="onBlur($event)"
+  >
+    <span class="dropdown-display-text">{{ selectedLabel }}</span>
+
+    <img
+      src="assets/icons/CaretDown.svg"
+      class="dropdown-arrow"
+      [class.open]="isOpen"
+      alt="dropdown arrow"
+    />
+  </div>
+
+  @if (isOpen) {
+  <ul class="dropdown-options">
+    @for (opt of config.options; track opt.value) {
+    <li
+      class="dropdown-option"
+      [class.selected]="opt.value === control?.value"
+      (mousedown)="selectOption(opt)"
+    >
+      {{ opt.label }}
+    </li>
+    } @if (!config.options || config.options.length === 0) {
+    <li class="dropdown-option text-muted fst-italic">No options available</li>
+    }
+  </ul>
+  } @if (isOpen) {
+  <div class="dropdown-backdrop" (mousedown)="closeDropdown()"></div>
+  }
+</div>
+
+@if (isTouched && control?.hasError('required')) {
+<div class="invalid-feedback d-block text-start">
+  {{ config.requiredMsg ?? 'This field is required.' }}
+</div>
+}

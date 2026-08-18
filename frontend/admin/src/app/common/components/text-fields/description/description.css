@@ -1,0 +1,52 @@
+.description-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+    resize: vertical;
+  }
+  
+  .custom-textarea:hover,
+  .custom-textarea:focus {
+    border-color: #ced4da;
+    box-shadow: none;
+  }
+  
+  .form-control.is-invalid {
+    background-image: none !important;
+  }
+  
+  .floating-label {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-size: 1rem;
+    color: #6c757d;
+    pointer-events: none;
+    background: white;
+    padding: 0 4px;
+    transition: 0.2s ease all;
+  }
+  
+  .custom-textarea:focus + .floating-label,
+  .custom-textarea:not(:placeholder-shown) + .floating-label {
+    top: -8px;
+    font-size: 0.85rem;
+    left: 12px;
+    transform: none;
+  }
+  
+  .wr-input {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 4px;
+  }

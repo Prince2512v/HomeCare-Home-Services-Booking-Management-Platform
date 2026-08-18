@@ -1,0 +1,78 @@
+<div class="support-wrapper">
+  <div class="support-header d-flex align-items-center">
+    <h2 class="support-title mb-0">Support</h2>
+    <div class="header-actions d-flex gap-2 ms-auto">
+      <app-button [config]="filterConfig"></app-button>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="support-card shadow-sm">
+    <div class="grid-container">
+      <div class="grid-header">
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('id')">
+          Ticket ID
+        </div>
+        <div class="grid-cell d-flex align-items-center">User Name</div>
+        <div class="grid-cell d-flex align-items-center">Email</div>
+        <div class="grid-cell d-flex align-items-center">Mobile</div>
+        <div class="grid-cell d-flex align-items-center">Description</div>
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('submittedAt')">Submission Date</div>
+      </div>
+
+      <!-- Body -->
+      <div class="grid-body">
+        @if (isLoading) {
+          <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+            <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+            Loading tickets...
+          </div>
+        } @else if (tickets.length === 0) {
+          <div class="grid-state-row text-center text-danger">
+            <i class="bi bi-exclamation-circle me-2"></i>
+            No support tickets found.</div>
+        } @else {
+        @for (ticket of tickets; track ticket.id) {
+          <div class="grid-row">
+            <div class="grid-cell fw-medium">{{ ticket.id | idFormat }}</div>
+            <div class="grid-cell text-muted">{{ ticket.userName }}</div>
+            <div class="grid-cell text-muted">{{ ticket.email }}</div>
+            <div class="grid-cell text-muted">{{ ticket.contactNumber }}</div>
+            <div class="grid-cell text-muted description-cell">
+              @if (ticket.description.length > 20) {
+                <span class="truncated-text">{{ ticket.description | slice: 0 : 20 }}...</span>
+                <div class="custom-tooltip shadow">
+                  <div class="tooltip-header">Description</div>
+                  <div class="tooltip-content">{{ ticket.description }}</div>
+                </div>
+              } @else {
+                {{ ticket.description }}
+              }
+            </div>
+            <div class="grid-cell text-muted">{{ ticket.submittedAt | date: 'dd MMM yyyy' }}</div>
+          </div>
+      }
+      }
+      </div>
+
+    </div>
+
+    <!-- Pagination -->
+    <div class="support-pagination d-flex align-items-center justify-content-end">
+      <app-pagination
+        [currentPage]="currentPage"
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)"
+        (pageSizeChange)="changePageSize($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
+
+<!--FILTER PANEL-->
+<app-filter-panel
+  [config]="filterPanelConfig"
+  [isOpen]="isFilterOpen"
+  [activeValues]="activeFilterValues">
+</app-filter-panel> 

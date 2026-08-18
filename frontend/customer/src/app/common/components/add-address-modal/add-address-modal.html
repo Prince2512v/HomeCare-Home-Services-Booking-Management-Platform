@@ -1,0 +1,227 @@
+<div class="aa-overlay d-flex align-items-center justify-content-center p-3" (click)="close.emit()">
+  <div class="aa-modal bg-white overflow-auto w-100" (click)="$event.stopPropagation()">
+    @if (step === 1) {
+      <div class="d-flex justify-content-between align-items-center px-4 pt-4 pb-3">
+        <h5 class="fw-bold mb-0 fs-5 text-dark">Add Address</h5>
+        <button type="button" class="btn-close" (click)="close.emit()"></button>
+      </div>
+
+      <div class="px-4 pb-2">
+        <div class="position-relative">
+          <svg
+            class="position-absolute top-50 translate-middle-y ms-3 aa-search-ico"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#9ca3af"
+            stroke-width="2"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <input
+            class="form-control aa-search-input bg-light border border-light-subtle rounded-3"
+            type="text"
+            placeholder="Search your location"
+            [(ngModel)]="searchQuery"
+            (ngModelChange)="onSearchInput()"
+            (focus)="onSearchFocus()"
+            autocomplete="off"
+          />
+          <div class="position-absolute top-50 translate-middle-y end-0 me-2">
+            @if (isSearching) {
+              <div class="spinner-border spinner-border-sm aa-spinner"></div>
+            }
+          </div>
+
+          @if (showResults) {
+            <div
+              class="position-absolute w-100 bg-white border border-light-subtle rounded-3 shadow-sm overflow-hidden aa-dropdown"
+            >
+              @for (r of searchResults; track r.place_id) {
+                <button
+                  class="d-flex align-items-start gap-2 w-100 px-3 py-2 border-0 bg-transparent text-start border-bottom border-light aa-dropdown-item"
+                  (mousedown)="$event.preventDefault()"
+                  (click)="selectSearchResult(r)"
+                >
+                  <div>
+                    <p class="mb-0 fw-semibold small text-dark">{{ nominatimTitle(r) }}</p>
+                    <p class="mb-0 text-muted aa-sub-text">{{ nominatimSubtitle(r) }}</p>
+                  </div>
+                </button>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <button
+        class="btn d-flex align-items-center gap-2 w-100 px-4 py-3 border-0 border-bottom rounded-0 fw-semibold aa-location-btn"
+        (click)="useCurrentLocation()"
+        [disabled]="isLocating"
+      >
+        <img src="assets/images/GpsFix.svg" alt="" width="18" height="18" />
+        <span>{{ isLocating ? 'Getting location…' : 'Use current location' }}</span>
+      </button>
+
+      @if (recentAddresses.length > 0) {
+        <div class="px-4 pt-3 pb-4">
+          <p class="fw-bold mb-2 small text-dark">Recent Searches</p>
+          @for (a of recentAddresses; track a.addressId; let last = $last) {
+            <button
+              class="d-flex align-items-start gap-3 w-100 py-3 border-0 bg-transparent text-start aa-recent-item"
+              (click)="selectRecent(a)"
+            >
+              <img
+                src="assets/images/ClockCounterClockwise.svg"
+                alt=""
+                width="18"
+                height="18"
+                class="flex-shrink-0 mt-1"
+              />
+              <div>
+                <p class="mb-0 fw-semibold small text-dark">
+                  {{ a.landmark ? a.landmark + ', ' : '' }}{{ a.houseFlatNumber }}
+                </p>
+                <p class="mb-0 text-muted aa-recent-sub">{{ a.fullAddress }}</p>
+              </div>
+            </button>
+            @if (!last) {
+              <hr class="aa-divider" />
+            }
+          }
+        </div>
+      }
+
+      @if (recentAddresses.length === 0 && !searchQuery) {
+        <div class="d-flex flex-column align-items-center gap-2 py-4 px-4 text-muted small">
+          <p class="mb-0 text-center">Search or use current location to add an address</p>
+        </div>
+      }
+    }
+
+    @if (step === 2) {
+      <div class="d-flex justify-content-between align-items-center px-4 pt-4 pb-3">
+        <h5 class="fw-bold mb-0 fs-6 text-dark">{{ isEdit ? 'Edit Address' : 'Add Address' }}</h5>
+        <button type="button" class="btn-close" (click)="close.emit()"></button>
+      </div>
+
+      <div class="mx-4">
+        <div class="position-relative rounded-4 overflow-hidden border border-light-subtle aa-map-wrap">
+          <div #mapContainer class="w-100 h-100"></div>
+          <button
+            class="btn bg-white border border-secondary-subtle position-absolute shadow-sm d-flex align-items-center justify-content-center rounded-3 aa-locate-fab"
+            (click)="locateMe()"
+          >
+            <img src="assets/images/GpsFix.svg" alt="" width="18" height="18" />
+          </button>
+        </div>
+      </div>
+
+      <div class="px-4 pt-3 pb-3">
+        <p class="text-uppercase fw-bold mb-2 text-muted aa-selected-label">Selected Address</p>
+        <div class="d-flex justify-content-between align-items-start gap-3">
+          <div class="flex-grow-1">
+            @if (isGeocoding) {
+              <p class="mb-0 text-muted fst-italic small">Fetching address…</p>
+            } @else if (displayTitle) {
+              <p class="mb-1 fw-bold small text-dark">{{ displayTitle }}</p>
+              @if (displaySubtitle) {
+                <p class="mb-0 text-secondary aa-selected-sub">{{ displaySubtitle }}</p>
+              }
+            } @else {
+              <p class="mb-0 text-muted fst-italic small">Select a location on the map</p>
+            }
+          </div>
+          @if (!isEdit) {
+            <button class="btn btn-sm rounded-pill fw-semibold flex-shrink-0 aa-change-btn" (click)="backToStep1()">
+              Change
+            </button>
+          }
+        </div>
+      </div>
+
+      <hr class="mx-4 my-0 aa-section-divider" />
+
+      <div class="px-4 pt-3">
+        <div class="row g-3">
+          <div class="col-6">
+            <input
+              type="text"
+              appFloatingLabel="House / Flat Number"
+              appRequiredField
+              [(ngModel)]="houseFlatNumber"
+              #houseFlatInput="ngModel"
+              name="houseFlatNumber"
+              required
+              autocomplete="off"
+              [class.is-invalid]="houseFlatInput.invalid && houseFlatInput.touched"
+            />
+            @if (houseFlatInput.invalid && houseFlatInput.touched) {
+              <div class="invalid-feedback d-block text-start">House / Flat Number is required.</div>
+            }
+          </div>
+          <div class="col-6">
+            <input type="text" appFloatingLabel="Landmark" [(ngModel)]="landmark" name="landmark" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 pt-3">
+        <p class="fw-bold mb-2 small text-dark">Save As</p>
+        <div class="d-flex gap-2">
+          <button
+            class="btn btn-sm rounded-pill px-3 aa-tag"
+            [class.aa-tag-active]="saveAs === 'Home'"
+            (click)="setSaveAs('Home')"
+          >
+            Home
+          </button>
+          <button
+            class="btn btn-sm rounded-pill px-3 aa-tag"
+            [class.aa-tag-active]="saveAs === 'Other'"
+            (click)="setSaveAs('Other')"
+          >
+            Other
+          </button>
+        </div>
+      </div>
+
+      @if (saveAs === 'Other') {
+        <div class="px-4 pt-3">
+          <input
+            type="text"
+            appFloatingLabel="e.g. John's home, Mom's place…"
+            [(ngModel)]="customLabel"
+            name="customLabel"
+            autocomplete="off"
+          />
+        </div>
+      }
+
+      <div class="d-flex justify-content-end gap-2 px-4 pt-3 pb-4">
+        @if (duplicateAddressError) {
+          <div class="text-danger small w-100 mb-1">{{ duplicateAddressError }}</div>
+        }
+        <button
+          class="btn rounded-pill px-4 fw-semibold border text-secondary bg-white aa-btn-cancel"
+          (click)="close.emit()"
+        >
+          Cancel
+        </button>
+        <button
+          class="btn rounded-pill px-4 fw-bold d-flex align-items-center gap-2 aa-btn-add"
+          (click)="onAdd()"
+          [disabled]="isSaving"
+        >
+          @if (isSaving) {
+            <span class="spinner-border spinner-border-sm aa-btn-spinner"></span>
+          } @else {
+            {{ isEdit ? 'Update' : 'Add' }}
+          }
+        </button>
+      </div>
+    }
+  </div>
+</div>

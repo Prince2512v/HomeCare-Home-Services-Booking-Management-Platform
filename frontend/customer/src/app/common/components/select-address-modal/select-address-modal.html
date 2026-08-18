@@ -1,0 +1,61 @@
+<app-common-modal
+  title="Select Address"
+  maxWidth="500px"
+  (close)="close.emit()"
+>
+  <button
+    type="button"
+    class="btn sam-add-link d-flex align-items-center gap-2 mb-4 p-0"
+    (click)="openAddAddress()"
+  >
+    <span class="sam-plus-icon">+</span>
+    Add New Address
+  </button>
+
+  <p class="sam-saved-heading mb-3">Saved Address</p>
+
+  @if (isLoading) {
+  <div class="text-center py-3">
+    <div class="spinner-border sam-spinner" role="status"></div>
+  </div>
+  } @if (!isLoading) { @if (addresses.length === 0) {
+  <p class="text-muted small text-center py-2 mb-0">
+    No saved addresses. Add one above.
+  </p>
+  } @else {
+  <div class="sam-list">
+    @for (address of addresses; track address.addressId; let last = $last) {
+    <button
+      type="button"
+      class="btn w-100 text-start d-flex align-items-center gap-3 sam-row py-3 px-0"
+      (click)="selectAddress(address)"
+    >
+      <span
+        class="sam-radio flex-shrink-0"
+        [class.sam-radio--selected]="selectedId === address.addressId"
+      ></span>
+
+      <div class="flex-grow-1 overflow-hidden">
+        <p class="mb-0 fw-semibold sam-primary-text">
+          {{ address.houseFlatNumber }}{{ address.landmark ? ', ' +
+          address.landmark : '' }}
+        </p>
+        <p class="mb-0 sam-sub-text text-muted">{{ address.fullAddress }}</p>
+      </div>
+    </button>
+
+    @if (!last) {
+    <hr class="sam-divider" />
+    } }
+  </div>
+  } }
+</app-common-modal>
+
+@if (showAddAddressModal) {
+<app-add-address-modal
+  [address]="null"
+  [recentAddresses]="addresses"
+  (close)="showAddAddressModal = false"
+  (saved)="onAddressSaved()"
+/>
+}

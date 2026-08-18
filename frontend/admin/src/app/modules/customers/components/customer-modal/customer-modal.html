@@ -1,0 +1,21 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <h5>Add Customer</h5>
+      <button class="close-btn" (click)="closeModal()">✕</button>
+    </div>
+
+    <form [formGroup]="customerForm">
+      <app-name-field [config]="nameConfig"></app-name-field>
+      <app-mobile     [config]="mobileConfig"></app-mobile>
+      <app-email      [config]="emailConfig"></app-email>
+    </form>
+
+    <div class="modal-footer-actions">
+      <app-button [config]="cancelConfig" class="footer-btn"></app-button>
+      <app-button [config]="saveConfig"   class="footer-btn"></app-button>
+    </div>
+
+  </div>
+</div>

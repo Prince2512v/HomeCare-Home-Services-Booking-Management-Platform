@@ -1,0 +1,17 @@
+.textarea-wrapper {
+  position: relative;
+}
+
+.textarea-input {
+  border-radius: 8px;
+  border: 1.5px solid #d8d8e8;
+  font-size: 0.95rem;
+  color: #1a1a2e;
+  resize: none;
+  transition: border-color 0.2s;
+}
+
+.textarea-input:focus {
+  border-color: #3733b4;
+  box-shadow: 0 0 0 3px rgba(55,a 51, 180, 0.08);
+}

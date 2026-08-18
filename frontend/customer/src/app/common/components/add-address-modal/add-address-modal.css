@@ -1,0 +1,226 @@
+.aa-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 18, 60, 0.45);
+  z-index: 1055;
+  animation: aaFadeIn 0.2s ease;
+}
+@keyframes aaFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.aa-modal {
+  max-width: 500px;
+  border-radius: 20px;
+  max-height: 94vh;
+  animation: aaSlideUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: none;
+  box-shadow: none;
+}
+@keyframes aaSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.m-close {
+  width: 32px;
+  height: 32px;
+}
+
+.aa-search-ico {
+  left: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.aa-search-input {
+  padding-left: 40px;
+  padding-right: 36px;
+  font-size: 0.9rem;
+  height: 48px;
+}
+.aa-search-input:focus {
+  border-color: #adb5bd !important;
+  background-color: #fff !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.aa-spinner {
+  width: 13px;
+  height: 13px;
+  color: #3733b4;
+  border-width: 2px;
+}
+
+.aa-dropdown {
+  top: calc(100% + 6px);
+  z-index: 300;
+  max-height: 260px;
+  overflow-y: auto;
+}
+.aa-dropdown-item:hover {
+  background: #f5f5ff;
+}
+
+.aa-pin-ico {
+  stroke: #3733b4;
+}
+.aa-sub-text {
+  font-size: 0.78rem;
+}
+
+.aa-location-btn {
+  color: #3733b4;
+  font-size: 0.9rem;
+}
+.aa-location-btn:hover {
+  background: #f5f5ff;
+}
+.aa-location-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.aa-recent-item {
+  transition: opacity 0.15s;
+}
+.aa-recent-item:hover {
+  opacity: 0.7;
+}
+.aa-recent-sub {
+  font-size: 0.8rem;
+}
+.aa-divider {
+  margin: 0;
+  border-color: #adadcc;
+}
+
+.aa-map-wrap {
+  height: 220px;
+}
+.aa-locate-fab {
+  bottom: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+}
+
+.aa-selected-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+}
+.aa-selected-sub {
+  font-size: 0.85rem;
+}
+.aa-section-divider {
+  border-color: #c4cde0;
+}
+
+.aa-change-btn {
+  border: 1.5px solid #3733b4;
+  color: #3733b4;
+  background: #fff;
+  font-size: 0.85rem;
+  padding: 0.35rem 1.1rem;
+  white-space: nowrap;
+}
+
+.aa-input {
+  height: 48px;
+  border: 1.5px solid #dee2e6;
+  font-size: 0.875rem;
+  padding: 0 0.9rem;
+}
+.aa-input:focus {
+  border-color: #adb5bd !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.aa-input::placeholder {
+  color: #adb5bd;
+}
+
+.aa-tag {
+  border: 1.5px solid #dee2e6;
+  background: #fff;
+  transition: all 0.15s;
+}
+.aa-tag:hover:not(.aa-tag-active) {
+  border-color: #3733b4;
+  color: #3733b4;
+}
+.aa-tag-active {
+  border: 2px solid #3733b4 !important;
+  color: #3733b4;
+  font-weight: 700;
+}
+
+.aa-btn-cancel {
+  font-size: 0.9rem;
+}
+.aa-btn-cancel:hover {
+  background: #f8f9fa;
+}
+
+.aa-btn-add {
+  background: #3733b4;
+  color: #fff;
+  border: none;
+  font-size: 0.9rem;
+}
+.aa-btn-add:hover:not(:disabled) {
+  background: #2f2b9e;
+}
+.aa-btn-add:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.aa-btn-spinner {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
+@media (max-width: 480px) {
+  .aa-modal {
+    border-radius: 16px;
+  }
+  .aa-map-wrap {
+    height: 190px;
+  }
+}
+
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+
+.marker-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Floating-label inputs inside the add-address modal (House/Flat, Landmark, custom label) */
+.fl-input.form-control:focus {
+  border-color: #adb5bd !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.fl-input.form-control:focus ~ .fl-label {
+  color: #adb5bd !important;
+}

@@ -1,0 +1,28 @@
+.dropdown-menu .dropdown-item:active {
+    background-color: transparent;
+    color: black;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.img-wh {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+}
+
+.toggle-btn-wrapper {
+    visibility: hidden;
+}
+
+@media (max-width: 1025px) {
+    .toggle-btn-wrapper {
+        visibility: visible;
+    }
+}
+
+.min-height {
+    min-height: 90px;
+}

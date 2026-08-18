@@ -1,0 +1,14 @@
+<div class="d-flex flex-wrap gap-2">
+  @for (slot of timeSlots; track slot) {
+
+  <app-button [config]="getTimeBtnConfig(slot)"></app-button>
+
+  }
+</div>
+
+@if (checkingSlot) {
+<p class="text-muted small mt-2 mb-0">
+  <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+  Checking availability…
+</p>
+}

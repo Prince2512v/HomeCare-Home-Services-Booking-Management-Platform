@@ -1,0 +1,176 @@
+<div class="bsp-page" *ngIf="data">
+  <main class="bsp-main container-fluid px-3 px-sm-4 py-4 py-sm-5">
+    <!-- Hero -->
+    <div
+      class="bsp-hero text-center d-flex flex-column align-items-center gap-2 mb-4"
+    >
+      <div
+        class="bsp-checkmark-ring d-flex align-items-center justify-content-center rounded-circle"
+      >
+        <div
+          class="bsp-checkmark-circle d-flex align-items-center justify-content-center rounded-circle"
+        >
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#fff"
+            stroke-width="2.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+      </div>
+      <h1 class="bsp-heading fw-bold mb-0">Thanks for choosing HomeCare</h1>
+      <p class="bsp-subheading text-secondary mb-0">
+        Your
+        <strong class="text-dark"
+          >{{ data.serviceCategoryName || 'Service' }}</strong
+        >
+        booking is confirmed
+      </p>
+    </div>
+
+    <!-- Card -->
+    <div class="bsp-card card border rounded-4 shadow-sm p-4 mb-4">
+      <!-- Card Header -->
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <span class="fw-bold fs-6 text-dark">Booking Details</span>
+
+        <!-- Invoice Button -->
+        <button
+          class="bsp-invoice-btn"
+          (click)="downloadInvoice()"
+          type="button"
+        >
+          <svg
+            class="bsp-invoice-icon"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span class="bsp-invoice-text">Invoice</span>
+        </button>
+      </div>
+
+      <!-- Service Info -->
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <p class="bsp-service-name fw-semibold mb-0 text-dark">
+          {{ data.serviceName || 'Service' }}
+        </p>
+        <span class="bsp-badge rounded-pill">
+          {{ data.durationMinutes ? data.durationMinutes + ' Min' : '60 Min' }}
+        </span>
+      </div>
+
+      <!-- Assigning Spinner -->
+      @if (!partnerAssigned) {
+      <div class="d-flex align-items-center gap-2 py-2 mb-2">
+        <div class="bsp-spinner"></div>
+        <span class="bsp-assigning-text"
+          >We are assigning a Service Partner.</span
+        >
+      </div>
+      }
+
+      <!-- Partner Assigned -->
+      @if (partnerAssigned) {
+      <div class="bsp-partner-section mb-2">
+        <p class="bsp-partner-label mb-2">ASSIGNED SERVICE PARTNER</p>
+        <div
+          class="bsp-partner-card d-flex align-items-center justify-content-between gap-2 p-3 rounded-3"
+        >
+          <div class="d-flex align-items-center gap-2">
+            <img
+              class="bsp-partner-avatar rounded-circle flex-shrink-0"
+              [src]="partnerAvatar"
+              [alt]="partnerName"
+            />
+            <div class="d-flex flex-column gap-1">
+              <span class="bsp-partner-name fw-bold text-dark"
+                >{{ partnerName }}</span
+              >
+              <span class="d-flex align-items-center gap-1 bsp-partner-rating">
+                <span class="text-secondary">•</span>
+                <svg
+                  width="13"
+                  height="13"
+                  viewBox="0 0 24 24"
+                  fill="#f59e0b"
+                  stroke="#f59e0b"
+                  stroke-width="1"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                {{ partnerMeta.rating }} ({{ partnerMeta.reviews }})
+              </span>
+            </div>
+          </div>
+          <button
+            class="bsp-call-btn d-flex align-items-center justify-content-center flex-shrink-0"
+            type="button"
+            aria-label="Call partner"
+          >
+            <img
+              src="assets/images/booking-success/Phone.png"
+              alt=""
+              width="38"
+              height="38"
+            />
+          </button>
+        </div>
+      </div>
+      }
+
+      <hr class="bsp-divider my-3" />
+
+      <!-- Amount -->
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="bsp-detail-label">Amount Paid</span>
+        <span class="bsp-amount fw-bold text-dark"
+          >{{ formatAmount(data.bookingAmount) }}</span
+        >
+      </div>
+
+      <hr class="bsp-divider my-3" />
+
+      <!-- Location -->
+      <div class="d-flex justify-content-between align-items-start gap-3">
+        <span class="bsp-detail-label flex-shrink-0">Location</span>
+        <span class="bsp-detail-value fw-semibold text-dark text-end">
+          {{ data.serviceAddress || 'Address not provided' }}
+        </span>
+      </div>
+
+      <hr class="bsp-divider my-3" />
+
+      <!-- Date & Time -->
+      <div class="d-flex justify-content-between align-items-center">
+        <span class="bsp-detail-label">Start Date &amp; Time</span>
+        <span class="bsp-detail-value fw-semibold text-dark">
+          {{ formatDate(data.bookingDate) }}, {{ formatTime(data.bookingTime) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Actions — native buttons to avoid global app-button style conflicts -->
+  <div class="bsp-actions d-flex gap-3">
+  <app-button class="flex-fill" [config]="addServicesBtnConfig"></app-button>
+  <app-button class="flex-fill" [config]="myBookingsBtnConfig"></app-button>
+</div>
+  </main>
+</div>

@@ -1,0 +1,19 @@
+<div class="description-wrapper" [formGroup]="formGroup" appRequiredField>
+    <textarea
+      class="form-control custom-textarea"
+      [class.is-invalid]="isTouched && control?.invalid"
+      [formControlName]="config.formControlName"
+      [rows]="config.rows ?? 3"
+      placeholder=" "
+    ></textarea>
+    <label class="floating-label">{{ config.placeholder }}</label>
+  
+    <!-- Validation Messages -->
+    @if (control?.touched && control?.invalid) {
+      <div class="error-messages">
+        @if (errors?.['required']) {
+          <div class="wr-input">Description is required.</div>
+        }
+      </div>
+    }
+  </div>

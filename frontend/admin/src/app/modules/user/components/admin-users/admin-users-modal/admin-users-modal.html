@@ -1,0 +1,38 @@
+<div class="modal-backdrop">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h5>{{ modalTitle }}</h5>
+      <button class="close-btn" (click)="close()">✕</button>
+    </div>
+
+    @if (isLoadingUser) {
+    <div class="modal-loading">
+      <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+      <span class="text-muted small">Loading user details...</span>
+    </div>
+    } @if (!isLoadingUser) {
+    <form [formGroup]="form">
+      <app-name-field [config]="nameConfig" [formGroup]="form"></app-name-field>
+      <app-mobile [config]="mobileConfig" [formGroup]="form"></app-mobile>
+      <app-email [config]="emailConfig" [formGroup]="form"></app-email>
+
+      @if (!isEditMode) {
+      <app-password [config]="passwordConfig" [formGroup]="form"></app-password>
+      <app-password [config]="confirmPasswordConfig" [formGroup]="form"></app-password>
+      @if (form.hasError('passwordMismatch') && f['confirmPassword'].touched) {
+      <div class="field-error">Passwords do not match.</div>
+      } } @if (showPasswordInEdit) {
+      <app-password [config]="passwordConfig" [formGroup]="form"></app-password>
+      <app-password [config]="confirmPasswordConfig" [formGroup]="form"></app-password>
+      @if (form.hasError('passwordMismatch') && f['confirmPassword'].touched) {
+      <div class="field-error">Passwords do not match.</div>
+      } }
+    </form>
+
+    <div class="modal-footer-actions">
+      <app-button [config]="cancelConfig" class="footer-btn"></app-button>
+      <app-button [config]="saveConfig" class="footer-btn"></app-button>
+    </div>
+    }
+  </div>
+</div>

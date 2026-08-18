@@ -1,0 +1,118 @@
+<div class="service-wrapper" (click)="closeDropdowns()">
+  <div class="header-section d-flex align-items-center justify-content-between">
+    <h2 class="service-title mb-0">Service Partners</h2>
+    <div class="header-actions d-flex gap-2">
+      <app-button [config]="filterButtonConfig"></app-button>
+    </div>
+  </div>
+
+  <div class="service-card shadow-sm">
+    <div class="grid-container">
+
+      <!-- Header -->
+      <div class="grid-header">
+        <div class="grid-cell ps-4 sortable" (click)="onSort('id')">ID</div>
+        <div class="grid-cell sortable" (click)="onSort('name')">Name</div>
+        <div class="grid-cell">Mobile Number</div>
+        <div class="grid-cell">Email</div>
+        <div class="grid-cell">Address</div>
+        <div class="grid-cell">Job</div>
+        <div class="grid-cell sortable" (click)="onSort('jobsCompleted')">Jobs Completed</div>
+        <div class="grid-cell d-flex justify-content-center align-items-center">Status</div>
+        <div class="grid-cell text-center">Action</div>
+      </div>
+
+      <!-- Body -->
+      <div class="grid-body">
+        @if (isLoading) {
+        <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+          <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+          Loading service partners...
+        </div>
+        } @else if (errorMessage) {
+        <div class="grid-state-row text-danger small d-flex align-items-center justify-content-center">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          {{ errorMessage }}
+        </div>
+        } @else if (servicePartners.length === 0) {
+        <div class="grid-state-row text-center text-muted">No service partners found.</div>
+        } @else {
+        @for (partner of servicePartners; track partner.id) {
+        <div class="grid-row">
+          <div class="grid-cell ps-4 pointer" (click)="navigateToDetail(partner.id)" title="View details">
+            <span class="fw-medium">{{ partner.id | idFormat }}</span>
+          </div>
+          <div class="grid-cell fw-medium pointer" (click)="navigateToDetail(partner.id)" title="View details">
+            {{ partner.name }}
+          </div>
+          <div class="grid-cell pointer" (click)="navigateToDetail(partner.id)" title="View details">
+            {{ partner.mobileNumber | mobilenumber }}
+          </div>
+          <div class="grid-cell text-truncate pointer" [title]="partner.email" (click)="navigateToDetail(partner.id)">
+            {{ partner.email }}
+          </div>
+          <div class="grid-cell text-truncate pointer" [title]="partner.address" (click)="navigateToDetail(partner.id)">
+            {{ partner.address }}
+          </div>
+          <div class="grid-cell pointer" (click)="navigateToDetail(partner.id)" title="View details">
+            {{ partner.job }}
+          </div>
+          <div class="grid-cell text-center pointer" (click)="navigateToDetail(partner.id)" title="View details">
+            {{ partner.jobsCompleted }}
+          </div>
+          <div class="grid-cell d-flex align-items-center justify-content-center pointer"
+            (click)="navigateToDetail(partner.id)" title="View details">
+            <span class="status-badge" [ngClass]="'status-' + partner.status.toLowerCase()">
+              <span class="status-dot"></span>
+              {{ partner.status }}
+            </span>
+          </div>
+          <div class="grid-cell d-flex justify-content-center align-items-center">
+            <div class="dropdown">
+              <button class="btn btn-link text-dark p-0 action-btn" data-bs-toggle="dropdown">
+                <img src="/assets/icons/DotsThreeOutlineVertical.svg" width="20" height="20" />
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                @if (partner.status === 'Active' || partner.status === 'Inactive') {
+                <li>
+                  <button class="dropdown-item d-flex align-items-center py-2 text-dark"
+                    (click)="onToggleStatus(partner)">
+                    <img [src]="partner.status === 'Active' ? '/assets/icons/inactive.svg' : '/assets/icons/active.svg'"
+                      width="20" height="20" class="me-2" />
+                    {{ partner.status === 'Active' ? 'Inactive' : 'Active' }}
+                  </button>
+                </li>
+                }
+                <li>
+                  <button class="dropdown-item d-flex align-items-center py-2 text-dark"
+                    (click)="onDeletePartner(partner)">
+                    <img src="/assets/icons/delete.svg" width="20" height="20" class="me-2" />
+                    Delete
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        } }
+      </div>
+    </div>
+
+    <div class="service-pagination d-flex align-items-center justify-content-end">
+      <app-pagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+        (pageChange)="changePage($event)" (pageSizeChange)="changePageSize($event)"></app-pagination>
+    </div>
+  </div>
+
+  <app-filter-panel [isOpen]="isFilterOpen" [config]="getFilterPanelConfig()"
+    [activeValues]="activeFilterValues"></app-filter-panel>
+
+  @if (isConfirmModalOpen) {
+  <app-confirmation-model [visible]="isConfirmModalOpen" [config]="confirmConfig!" (confirm)="confirmAction()"
+    (closed)="isConfirmModalOpen = false"></app-confirmation-model>
+  } @if (deleteConfig) {
+  <app-delete-model [visible]="isDeleteModalOpen" [config]="deleteConfig" (confirm)="confirmDelete()"
+    (closed)="closeDeleteModal()">
+  </app-delete-model>
+  }
+</div>

@@ -1,0 +1,26 @@
+<div
+  class="position-relative w-100 name-wrapper"
+  [class.fl-wrapper]="isFloating"
+  [formGroup]="formGroup"
+>
+  <input
+    type="text"
+    class="form-control custom-input"
+    [class.fl-input]="isFloating"
+    [class.is-invalid]="isTouched && isInvalidName"
+    [formControlName]="config.formControlName"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    [placeholder]="isFloating ? ' ' : (config.placeholder || 'Name')"
+  />
+  @if (isFloating) {
+  <label class="fl-label">{{ config.placeholder || 'Name' }}@if(config.showRequired){<span class="text-danger ms-1">*</span>}</label>
+  }
+</div>
+
+@if (isTouched && isInvalidName) {
+<div class="invalid-feedback d-block text-start">
+  @if (control?.errors?.['required']) { Name is required } @else if
+  (control?.errors?.['invalidName']) { Please enter a valid name }
+</div>
+}

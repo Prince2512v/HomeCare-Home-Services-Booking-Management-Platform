@@ -1,0 +1,47 @@
+<div class="tps-card">
+  <div class="tps-header">
+    <span class="tps-title fw-semibold">Top Performing Services</span>
+    <div class="period-tabs">
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'week'"
+        (click)="selectPeriod('week')"
+      >
+        This Week
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'month'"
+        (click)="selectPeriod('month')"
+      >
+        This Month
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'year'"
+        (click)="selectPeriod('year')"
+      >
+        This Year
+      </button>
+    </div>
+  </div>
+
+  <div class="tps-body">
+    <div class="donut-wrap">
+      <canvas #donutCanvas class="donut-canvas"></canvas>
+    </div>
+
+    <div class="service-list">
+      @for (row of servicesData; track row.serviceTypeId; let i = $index) {
+      <div class="service-item">
+        <span class="service-dot" [style.background]="donutColor(i)"></span>
+        <span class="service-name">{{ row.serviceTypeName }}</span>
+        <span class="service-count fw-semibold">{{ row.bookingCount | number }}</span>
+        <span class="service-label text-muted">Bookings</span>
+      </div>
+      } @if (!servicesData.length) {
+      <div class="text-center text-muted py-3 small">No data available</div>
+      }
+    </div>
+  </div>
+</div>

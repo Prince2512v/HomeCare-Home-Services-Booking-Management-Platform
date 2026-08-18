@@ -1,0 +1,133 @@
+@if (isLoading) {
+<div class="d-flex justify-content-center align-items-center py-5">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+} @if (!isLoading && service) {
+<div class="container py-4">
+  <div class="row g-4">
+    <!-- LEFT COLUMN: Gallery + Title + Inclusions/Exclusions -->
+    <div class="col-12 col-lg-9">
+      <!-- Image Gallery: 1 large left + 2x2 grid right, all static -->
+      <div class="gallery-grid">
+        <!-- Large main image (first image) -->
+        <div class="gallery-main">
+          <img
+            [src]="apiBase + service.images[0]"
+            [alt]="service.title"
+            class="gallery-main-img"
+          />
+        </div>
+
+        <!-- 2x2 thumbnail grid (images 1–4), no click needed -->
+        <div class="gallery-thumb-grid">
+          @for (img of service.images.slice(1, 5); track img) {
+          <div class="gallery-thumb">
+            <img [src]="apiBase + img" [alt]="service.title" />
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- Title, Price, Add Button -->
+      <div
+        class="d-flex align-items-start justify-content-between mt-4 flex-wrap gap-3"
+      >
+        <div>
+          <h2 class="fw-bold mb-1">{{ service.title }}</h2>
+          <div class="detail-price mt-3">
+            ${{ service.price | number: '1.2-2' }}
+          </div>
+        </div>
+        <app-button [config]="addBtnConfig" />
+      </div>
+
+      <!-- Inclusions / Exclusions -->
+      <div class="row mt-4 g-3">
+        <div class="col-12 col-md-6">
+          <div class="inc-exc-card">
+            <h6 class="inc-exc-title pb-1 fs-5">
+              {{service.serviceTypeName}} Includes
+            </h6>
+            <ul class="inc-exc-list">
+              @for (item of service.inclusions; track item) {
+              <li>
+                <i class="bi bi-check-circle-fill text-success me-2"></i>{{ item
+                }}
+              </li>
+              } @if (!service.inclusions || service.inclusions.length === 0) {
+              <li class="text-secondary fst-italic">No inclusions listed.</li>
+              }
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="inc-exc-card">
+            <h6 class="inc-exc-title pb-1 fs-5">
+              {{service.serviceTypeName}} Excludes
+            </h6>
+            <ul class="inc-exc-list">
+              @for (item of service.exclusions; track item) {
+              <li>
+                <i class="bi bi-x-circle-fill text-danger me-2"></i>{{ item }}
+              </li>
+              } @if (!service.exclusions || service.exclusions.length === 0) {
+              <li class="text-secondary fst-italic">No exclusions listed.</li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: Related Services -->
+    <div class="col-12 col-lg-3 align-self-start">
+      <div class="related-panel">
+        <h5 class="fw-bold fs-5 mb-3">
+          Other {{service.serviceTypeName}} Services
+        </h5>
+
+        @for (related of (showAllRelated ? service.relatedServices :
+        service.relatedServices.slice(0, 4)); track related.id) {
+        <div class="related-card">
+          <div class="related-info" style="cursor: pointer;" (click)="goToDetail(related.id)">
+            <p class="related-title">{{ related.title }}</p>
+            <p class="related-price">${{ related.price | number: '1.2-2' }}</p>
+          </div>
+
+          <div class="related-right">
+            <div class="related-img-wrap">
+              <img
+                [src]="apiBase + related.image"
+                [alt]="related.title"
+                class="related-img"
+                style="cursor: pointer;"
+                (click)="goToDetail(related.id)"
+              />
+              <app-button [config]="getRelatedAddConfig(related)" />
+            </div>
+          </div>
+        </div>
+        } @empty {
+        <p class="text-secondary fst-italic small mt-2">
+          No related services available.
+        </p>
+        }
+         @if (!showAllRelated && service.relatedServices.length > 4) {
+        <div class="text-center mt-3">
+          <app-button [config]="viewAllBtnConfig" />
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+} @if (!isLoading && !service) {
+<div
+  class="d-flex flex-column align-items-center justify-content-center py-5 text-secondary"
+>
+  <i class="bi bi-exclamation-circle fs-1 mb-3"></i>
+  <p class="fs-5">Service not found or currently unavailable.</p>
+</div>
+}

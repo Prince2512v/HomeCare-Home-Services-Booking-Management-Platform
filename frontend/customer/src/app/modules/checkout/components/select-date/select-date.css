@@ -1,0 +1,25 @@
+::ng-deep app-button button.sd-date-pill {
+    border-radius: 50px;
+    border: 1.5px solid #e5e7eb;
+    background: #ffffff;
+    color: #1a1a2e;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+::ng-deep app-button button.sd-date-pill:hover {
+    border-color: #4540e1;
+    background-color: #ECECFC;
+}
+
+::ng-deep app-button button.sd-date-pill.sd-date-pill--active {
+    border: 2px solid #4540e1;
+    background-color: #ECECFC;
+}
+
+app-button {
+    display: contents;
+}

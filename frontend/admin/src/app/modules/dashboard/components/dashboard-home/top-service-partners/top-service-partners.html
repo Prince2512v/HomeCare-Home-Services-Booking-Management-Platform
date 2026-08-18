@@ -1,0 +1,33 @@
+<div class="tsp-card">
+  <div class="tsp-header">
+    <span class="tsp-title">Top Service Partners</span>
+    <a class="view-all" (click)="goToServicePartners()">View All</a>
+  </div>
+
+  <div class="tsp-list">
+    @for (partner of partners; track partner.id; let i = $index) {
+    <div class="partner-item">
+      @if (isMedalRank(i)) {
+      <img [src]="medalSrc(i)" class="medal" [alt]="'rank ' + (i + 1)" width="24" height="24" />
+      } @else {
+      <span class="rank-label">{{ rankLabel(i) }}</span>
+      }
+      <img
+        [src]="partnerImage(partner.profileImageUrl)"
+        [alt]="partner.fullName"
+        class="partner-avatar"
+      />
+      <div class="partner-info">
+        <div class="partner-name">{{ partner.fullName }}</div>
+        <div class="partner-type">{{ partner.serviceTypeName }}</div>
+      </div>
+      <div class="partner-stats">
+        <div class="stats-count">{{ partner.totalJobsCompleted }}</div>
+        <div class="stats-label">Completed</div>
+      </div>
+    </div>
+    } @if (!partners.length) {
+    <div class="empty-state">No partners found.</div>
+    }
+  </div>
+</div>

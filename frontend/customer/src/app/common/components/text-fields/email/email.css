@@ -1,0 +1,106 @@
+.email-wrapper {
+  position: relative;
+}
+
+.custom-input.form-control {
+  height: 56px;
+  border-radius: 8px;
+  font-weight: 300;
+  font-size: 1rem;
+}
+
+.custom-input.form-control::placeholder {
+  color: #666666;
+  font-weight: 300;
+}
+
+.form-control.is-invalid {
+  background-image: none !important;
+}
+
+.email-input {
+  padding-right: 3rem;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 2;
+}
+.fl-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fl-input.form-control {
+  height: 56px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #212529;
+  padding-top: 14px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.fl-input::placeholder {
+  color: transparent;
+}
+
+.form-control.fl-input.is-invalid {
+  background-image: none !important;
+}
+
+.fl-label {
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 18px;
+  color: #666666;
+  font-size: 1rem;
+  font-weight: 300;
+  transition:
+    top 0.18s ease,
+    font-size 0.18s ease,
+    color 0.18s ease;
+  background-color: white;
+  padding: 0 5px;
+  margin: 0;
+  z-index: 1;
+}
+
+.fl-input:focus ~ .fl-label,
+.fl-input:not(:placeholder-shown) ~ .fl-label {
+  top: -9px;
+  left: 8px;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.fl-input:focus ~ .fl-label {
+  color: #3733b4;
+}
+
+.fl-input:not(:placeholder-shown):not(:focus) ~ .fl-label {
+  color: #444444;
+}
+
+.fl-input:focus {
+  border-color: #3733b4 !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
+  outline: none !important;
+}
+
+.form-control:focus {
+  box-shadow: none !important;
+  background-color: #fff !important;
+}

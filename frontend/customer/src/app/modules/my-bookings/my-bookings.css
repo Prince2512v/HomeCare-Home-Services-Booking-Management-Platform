@@ -1,0 +1,129 @@
+.bookings-container {
+  max-width: 860px;
+}
+
+.bookings-title {
+  font-size: 1.6rem;
+  color: #1a1a2e;
+}
+
+.tab-btn {
+  background: #ececfc;
+  font-size: 0.875rem;
+  color: #1a1a2e;
+  padding: 0.38rem 1.25rem;
+  transition: all 0.15s;
+}
+
+.tab-btn.active {
+  color: #4540e1;
+  border: 1.5px solid #3733b4 !important;
+}
+
+.booking-item-wrapper {
+  margin-left: 55px;
+}
+
+.date-badge {
+  background-color: #4540e1;
+  width: 65px;
+  border-radius: 10px 0 0 10px;
+  left: -55px;
+  top: 0;
+  z-index: 1;
+}
+
+.date-day {
+  font-size: 1.4rem;
+}
+.date-month {
+  font-size: 0.75rem;
+}
+
+.booking-card {
+  z-index: 2;
+  border-color: #dde4ee !important;
+}
+
+.service-name {
+  color: #3733b4;
+  font-size: 0.95rem;
+}
+.booking-amount {
+  font-size: 0.92rem;
+  color: #1a1a2e;
+}
+.amt {
+  color: #4540e1;
+}
+
+.card-divider {
+  border-top-style: dashed !important;
+  border-color: #eee !important;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  padding: 0.2rem 0.6rem;
+}
+.status-pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+.status-confirmed {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.status-completed {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.status-cancelled {
+  background: #fce4ec;
+  color: #c62828;
+}
+
+.btn-receipt {
+  font-size: 0.75rem;
+  color: #3733b4;
+  border: 1.5px solid #dde4ee;
+}
+
+.partner-avatar-wrapper {
+  width: 36px;
+  height: 36px;
+}
+.partner-initial {
+  background: #3733b4;
+  font-size: 0.8rem;
+}
+.smaller {
+  font-size: 0.7rem;
+}
+
+.btn-call,
+.btn-show-more {
+  border: 1.5px solid #dde4ee !important;
+  background: transparent;
+  color: #3733b4;
+}
+
+.btn-call {
+  width: 38px;
+  height: 38px;
+}
+.btn-show-more {
+  border-color: #3733b4 !important;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+.icon-sm {
+  width: 14px;
+  height: 14px;
+}
+.icon-md {
+  width: 18px;
+  height: 18px;
+}

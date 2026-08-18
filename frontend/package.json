@@ -1,0 +1,11 @@
+{
+  "name": "homecare-workspace",
+  "version": "1.0.0",
+  "description": "Root workspace to launch HomeCare frontend and backend applications",
+  "scripts": {
+    "start:customer": "npm --prefix Customer start",
+    "start:admin": "npm --prefix Admin start",
+    "start:backend": "dotnet run --project ../HomeCare_BE",
+    "dev": "node run-dev.js"
+  }
+}

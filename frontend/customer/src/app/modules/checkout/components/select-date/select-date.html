@@ -1,0 +1,5 @@
+<div class="d-flex flex-wrap gap-2">
+  @for (date of dates; track date.getTime()) {
+  <app-button [config]="getDateBtnConfig(date)"></app-button>
+  }
+</div>

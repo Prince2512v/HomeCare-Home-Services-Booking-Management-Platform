@@ -1,0 +1,122 @@
+:host {
+    display: block;
+}
+
+.carousel-outer {
+    position: relative;
+    padding: 0 28px;
+}
+
+.carousel-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.35s ease;
+}
+
+.see-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1.5px solid #4b4be8;
+    color: #4b4be8;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.see-more-btn:hover {
+    background: #4b4be8;
+    color: #fff;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    z-index: 10;
+    color: #333;
+    flex-shrink: 0;
+}
+
+.see-more-btn:hover .arrow-default {
+    display: none;
+}
+ 
+.see-more-btn:hover .arrow-hover {
+    display: inline;
+}
+
+.carousel-btn:hover {
+    background: #4b4be8;
+    color: #fff;
+    border-color: #4b4be8;
+}
+
+.carousel-btn-prev {
+    left: 5px;
+}
+
+.carousel-btn-next {
+    right: 20px;
+} 
+
+.arrow-hover {
+    display: none;
+}
+
+.carousel-btn:hover .arrow-default {
+    display: none;
+}
+
+.carousel-btn:hover .arrow-hover {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .carousel-outer {
+        padding: 0 22px;
+    }
+
+    .carousel-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .carousel-btn img {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .carousel-outer {
+        padding: 0 18px;
+    }
+
+    .carousel-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .carousel-btn img {
+        width: 12px;
+        height: 12px;
+    }
+}

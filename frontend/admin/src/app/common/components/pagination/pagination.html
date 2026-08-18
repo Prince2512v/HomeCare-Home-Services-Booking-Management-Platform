@@ -1,0 +1,57 @@
+<div class="pagination-wrapper d-flex align-items-center justify-content-end">
+  <div class="pagination-right d-flex align-items-center gap-4">
+
+    <div class="rows-per-page d-flex align-items-center gap-2">
+      <span class="label">
+        Rows<span class="d-none d-sm-inline"> per page</span>:
+      </span>
+
+      <div class="select-wrapper dropdown">
+        <button
+          class="custom-select-btn d-flex align-items-center gap-1"
+          type="button"
+          [id]="'pageSizeDropdown'"
+          data-bs-toggle="dropdown"
+          data-bs-auto-close="true"
+          aria-expanded="false">
+          {{ itemsPerPage }}
+          <img class="select-chevron" src="assets/icons/CaretDown.svg">
+        </button>
+        <ul class="dropdown-menu custom-dropdown-menu" [attr.aria-labelledby]="'pageSizeDropdown'">
+          @for (size of pageSizeOptions; track size) {
+            <li>
+              <button
+                class="dropdown-item custom-option"
+                [class.active-option]="size === itemsPerPage"
+                type="button"
+                (click)="changePageSize(size)">
+                {{ size }}
+              </button>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="pagination-controls d-flex align-items-center gap-1">
+      <span class="range me-1">{{ startItem }}–{{ endItem }} of {{ totalItems }}</span>
+
+      <button
+        class="arrow-btn d-flex align-items-center justify-content-center"
+        (click)="changePage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+        title="Previous page">
+        <img src="assets/icons/Left-Arrow.svg"/>
+      </button>
+
+      <button
+        class="arrow-btn d-flex align-items-center justify-content-center"
+        (click)="changePage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+        title="Next page">
+        <img src="assets/icons/Right-Arrow.svg"/>
+      </button>
+    </div>
+
+  </div>
+</div>

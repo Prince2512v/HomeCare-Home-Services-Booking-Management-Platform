@@ -1,0 +1,299 @@
+.tps-card {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  padding: 18px 24px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+ 
+.tps-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding-bottom: 14px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+ 
+.tps-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+}
+ 
+.period-tabs {
+  display: flex;
+  gap: 3px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 3px;
+}
+ 
+.period-btn {
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.73rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+ 
+.period-btn.active {
+  background: #fff;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ 
+.tps-body {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+ 
+.donut-wrap {
+  flex-shrink: 0;
+  width: 180px;
+  height: 180px;
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+}
+ 
+.donut-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100%;
+  display: block;
+}
+ 
+.service-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #e2e8f0 transparent;
+  padding-right: 8px;
+}
+ 
+.service-list::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.service-list::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+ 
+.service-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+ 
+.service-item {
+  display: grid;
+  grid-template-columns: 14px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+ 
+.service-item:last-child {
+  border-bottom: none;
+}
+ 
+.service-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+ 
+.service-name {
+  color: #374151;
+  font-weight: 500;
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+ 
+.service-count {
+  color: #111827;
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-left: 8px;
+}
+ 
+.service-label {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  font-weight: 400;
+  white-space: nowrap;
+  margin-left: 4px;
+}
+ 
+.no-data-msg {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+ 
+@media (max-width: 768px) {
+  .tps-body {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    overflow: visible;
+  }
+ 
+  .donut-wrap {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0;
+  }
+ 
+  .service-list {
+    height: auto;
+    max-height: 200px;
+    width: 100%;
+  }
+}
+ 
+@media (max-width: 640px) {
+  .tps-card {
+    padding: 14px 16px;
+  }
+ 
+  .tps-body {
+    gap: 12px;
+  }
+ 
+  .donut-wrap {
+    width: 140px;
+    height: 140px;
+  }
+ 
+  .service-list {
+    max-height: 160px;
+  }
+ 
+  .service-name {
+    font-size: 0.8rem;
+  }
+ 
+  .period-btn {
+    padding: 4px 8px;
+    font-size: 0.72rem;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .tps-title {
+    font-size: 0.9rem;
+  }
+ 
+  .period-tabs {
+    padding: 2px;
+  }
+ 
+  .period-btn {
+    padding: 3px 7px;
+    font-size: 0.68rem;
+  }
+ 
+  .donut-wrap {
+    width: 120px;
+    height: 120px;
+  }
+ 
+  .service-item {
+    gap: 8px;
+    padding: 10px 0;
+  }
+ 
+  .service-count {
+    font-size: 0.9rem;
+  }
+ 
+  .service-label {
+    font-size: 0.75rem;
+  }
+}
+ 
+@media (max-width: 380px) {
+  .tps-card {
+    padding: 10px 12px;
+  }
+ 
+  .tps-header {
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+    gap: 6px;
+  }
+ 
+  .tps-title {
+    font-size: 0.82rem;
+  }
+ 
+  .period-tabs {
+    gap: 2px;
+    padding: 2px;
+  }
+ 
+  .period-btn {
+    padding: 3px 6px;
+    font-size: 0.64rem;
+  }
+ 
+  .donut-wrap {
+    width: 100px;
+    height: 100px;
+  }
+ 
+  .service-list {
+    max-height: 140px;
+  }
+ 
+  .service-name {
+    font-size: 0.72rem;
+  }
+ 
+  .service-count {
+    font-size: 0.82rem;
+    margin-left: 4px;
+  }
+ 
+  .service-label {
+    font-size: 0.68rem;
+    margin-left: 2px;
+  }
+ 
+  .service-item {
+    grid-template-columns: 10px 1fr auto auto;
+    gap: 6px;
+    padding: 8px 0;
+  }
+ 
+  .service-dot {
+    width: 10px;
+    height: 10px;
+  }
+}

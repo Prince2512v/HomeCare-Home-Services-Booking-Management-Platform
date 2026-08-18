@@ -1,0 +1,10 @@
+@if (visible) {
+  <app-common-modal [title]="config.title" (close)="onCancel()">
+    <p class="text-muted mb-4" style="font-size: 15px">{{ config.message }}</p>
+
+    <div class="d-flex justify-content-end gap-2">
+      <app-button [config]="cancelConfig" />
+      <app-button [config]="deleteConfig" />
+    </div>
+  </app-common-modal>
+}

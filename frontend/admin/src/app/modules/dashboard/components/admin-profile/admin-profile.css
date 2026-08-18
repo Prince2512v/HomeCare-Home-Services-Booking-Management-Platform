@@ -1,0 +1,86 @@
+.bg-lightBlue {
+    background-color: #f3f9ff;
+}
+
+.container-fluid {
+    min-height: 100%;
+}
+
+.lineHeight {
+    line-height: 32px;
+}
+
+.linear-gradient {
+    background-image: linear-gradient(to right, #8C9FFE, #D0B0FF);
+    height: 100px;
+    padding: 0px;
+}
+
+.p-4 {
+    padding: 30px 40px 30px 40px !important;
+}
+
+.profile-overlap {
+    margin-top: -50px;
+    margin-bottom: 20px;
+}
+
+.font-grey {
+    color: #666666;
+}
+
+.wh-card {
+    width: 100%;
+    max-width: 700px;
+}
+
+.btn-purple {
+    color: #4540e1;
+    background-color: #E1E0FA;
+}
+
+.profile-image-wrapper {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    cursor: pointer;
+}
+
+.img-wh-profile {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.profile-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    opacity: 0;
+    transition: 0.3s ease;
+}
+
+.profile-image-wrapper:hover .profile-overlay {
+    opacity: 1;
+}
+
+::ng-deep .btn-cancel-custom {
+    background-color: #eeeaff;
+    color: #4b3ecc;
+}
+
+::ng-deep .btn-save-custom {
+    background-color: #4b3ecc;
+    color: #fff;
+}
+
+::ng-deep .btn-save-custom:hover {
+    background-color: #3b2eaa;
+    color: #fff;
+}
+
+::ng-deep .btn-cancel-custom:hover {
+    background-color: #d8d2f7;
+    color: #4b3ecc;
+}

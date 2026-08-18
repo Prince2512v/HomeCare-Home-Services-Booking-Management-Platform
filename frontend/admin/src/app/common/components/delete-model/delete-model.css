@@ -1,0 +1,24 @@
+.modal {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-title {
+  font-size: 18px;
+}
+
+.modal-body {
+  font-size: 15px;
+}
+.modal-footer-center {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-half-width {
+  display: block;
+  width: 45%;
+}

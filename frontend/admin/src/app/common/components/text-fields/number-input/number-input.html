@@ -1,0 +1,26 @@
+<div class="number-input-wrapper" [formGroup]="formGroup" appRequiredField>
+  <input
+    type="number"
+    class="form-control ni-input"
+    [class.is-invalid]="isTouched && control?.invalid"
+    [formControlName]="config.formControlName"
+    placeholder=" "
+    [attr.min]="config.min ?? null"
+    [attr.max]="config.max ?? null"
+    [attr.step]="config.step ?? 1"
+    (input)="control?.setValue(+$any($event.target).value, { emitEvent: true })"
+  />
+  <label class="ni-label">{{ config.placeholder }}</label>
+  @if (config.suffix) {
+  <span class="ni-badge">{{ config.suffix }}</span>
+  } @if (config.suffixIcon) {
+  <span class="ni-badge">
+    <img [src]="config.suffixIcon" alt="" width="16" height="16" />
+  </span>
+  } @if (isTouched && control?.invalid) {
+  <div class="ni-error">
+    @if (errors?.['required']) { {{ config.placeholder }} is required. } @else if (errors?.['min'])
+    { Min value is {{ config.min }}. } @else if (errors?.['max']) { Max value is {{ config.max }}. }
+  </div>
+  }
+</div>

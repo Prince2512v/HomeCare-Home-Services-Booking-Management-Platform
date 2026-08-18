@@ -1,0 +1,178 @@
+.asm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1060;
+}
+
+.asm-modal {
+  width: 800px;
+  max-width: 96vw;
+  height: 568px;
+  max-height: 92vh;
+  animation: asmFade 0.2s ease;
+}
+
+@media (max-width: 480px) {
+  .asm-modal {
+    height: 90vh;
+  }
+  .asm-unit-badge {
+    width: 32px;
+    font-size: 0.7rem;
+  }
+  .pe-5-custom {
+    padding-right: 38px;
+  }
+  .asm-float-label {
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes asmFade {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+select.asm-float-select {
+  width: 100%;
+  height: 56px;
+  padding: 0 12px;
+  appearance: none;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+}
+.asm-float-wrap {
+  position: relative;
+  width: 100%;
+}
+.asm-preview-item {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  flex-shrink: 0;
+}
+.asm-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.asm-remove-img {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.asm-preview-item:hover .asm-remove-img {
+  opacity: 1;
+}
+.asm-remove-img img {
+  filter: brightness(0) invert(1);
+  width: 18px;
+  height: 18px;
+}
+
+.asm-toggle {
+  height: 25px;
+  width: 45px;
+}
+.asm-toggle:checked {
+  background-color: #4540E1;
+  border-color:#4540E1;
+}
+.asm-toggle:focus {
+  box-shadow: none;
+}
+
+.asm-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: #333333;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.asm-chip button {
+  background: none;
+  border: none;
+  color: #666666;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+}
+.asm-chip-red {
+  background: #fff;
+  color: #333333;
+  border-color: #dddddd;
+}
+.asm-chip-red button {
+  color: #666666;
+}
+.asm-input {
+  height: 50px;
+}
+select.asm-float-select:focus {
+  outline: none;
+  border-color: #2555ff;
+  box-shadow: none;
+}
+
+.asm-float-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #6b7280;
+  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 0;
+  padding: 0 4px;
+  background-color: transparent;
+  font-size: 1rem;
+}
+
+.asm-label-floated,
+.asm-float-select:focus ~ .asm-float-label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  background-color: #fff;
+  color: #6b7280;
+  z-index: 2;
+}
+.btn-close-cancel {
+  width: 116px;
+  display: block;
+}
+.btn-save {
+  width: 116px;
+  display: block;
+}
+#ServiceDataForm{
+  scrollbar-width: none;
+}

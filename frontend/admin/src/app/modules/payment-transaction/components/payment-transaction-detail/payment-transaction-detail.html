@@ -1,0 +1,128 @@
+<div class="detail-wrapper">
+
+  <!-- Header -->
+  <div class="detail-header d-flex align-items-center">
+    <button (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h2 class="detail-title mb-0">{{ detail?.userName }}</h2>
+  </div>
+
+  <!-- Detail Card -->
+  <div class="detail-card shadow-sm">
+
+    @if (isDetailLoading) {
+    <div class="detail-loading d-flex align-items-center justify-content-center">
+      <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+      Loading details...
+    </div>
+    }
+
+    @if (!isDetailLoading && detail) {
+    <!-- Row 1 -->
+    <div class="row g-4 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">User</div>
+        <div class="spd-field-value">{{ detail.userName }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Transaction ID</div>
+        <div class="spd-field-value">{{ detail.transactionId }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Mobile Number</div>
+        <div class="spd-field-value">{{ detail.mobileNumber | mobilenumber }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Service</div>
+        <div class="spd-field-value">{{ detail.serviceName }}</div>
+      </div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="row g-4 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Service ID</div>
+        <div class="spd-field-value">{{ detail.serviceId }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Amount</div>
+        <div class="spd-field-value amount-value">{{ formatAmount(detail.transactionAmount) }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Payment Type</div>
+        <div class="spd-field-value fw-semibold">{{ detail.paymentType }}</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Payment Method</div>
+        <div class="spd-field-value fw-semibold">{{ detail.paymentMethod }}</div>
+      </div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-md-3">
+        <div class="spd-field-label">Date &amp; Time</div>
+        <div class="spd-field-value">{{ detail.transactionDate | date: 'd MMM yyyy h:mm a' }}</div>
+      </div>
+    </div>
+
+    <!-- Other Transactions Section -->
+    <div class="other-section">
+      <h3 class="other-title">Other Payment &amp; Transaction</h3>
+
+      <div class="other-grid-container">
+        
+        <!-- Grid Header -->
+        <div class="other-grid-header">
+          <div class="other-grid-cell">Transaction ID</div>
+          <div class="other-grid-cell">Service</div>
+          <div class="other-grid-cell">Amount</div>
+          <div class="other-grid-cell">Payment Method</div>
+          <div class="other-grid-cell">Action</div>
+        </div>
+
+        <!-- Grid Body -->
+        <div class="other-grid-body">
+          @if (isOtherLoading) {
+          <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+            <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+            Loading...
+          </div>
+          }
+
+          @if (!isOtherLoading && otherTransactions.length === 0) {
+          <div class="grid-state-row text-center text-muted">No other transactions found.</div>
+          }
+
+          @for (tx of otherTransactions; track tx.id) {
+          <div class="other-grid-row">
+            <div class="other-grid-cell text-muted">{{ tx.transactionId }}</div>
+            <div class="other-grid-cell">{{ tx.serviceName }}</div>
+            <div class="other-grid-cell amount-cell">{{ formatAmount(tx.transactionAmount) }}</div>
+            <div class="other-grid-cell text-muted">{{ tx.paymentMethod }}</div>
+            <div class="other-grid-cell">
+              <button class="dropdown-item d-flex align-items-center py-2 text-dark" (click)="onDeleteClick(tx.id)">
+                <img src="assets/icons/delete.svg" width="20" height="20" class="me-2" />
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      <!-- Pagination -->
+      <div class="other-pagination d-flex align-items-center justify-content-end">
+        <app-pagination [currentPage]="otherCurrentPage" [totalItems]="otherTotalItems"
+          [itemsPerPage]="otherItemsPerPage" (pageChange)="changePage($event)"
+          (pageSizeChange)="changePageSize($event)">
+        </app-pagination>
+      </div>
+    </div>
+    }
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<app-confirmation-model [visible]="showDeleteModal" [config]="deleteConfirmConfig" (confirm)="onDeleteConfirm()"
+  (closed)="onDeleteCancel()">
+</app-confirmation-model>

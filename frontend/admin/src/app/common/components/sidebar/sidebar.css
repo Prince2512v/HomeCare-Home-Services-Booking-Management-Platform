@@ -1,0 +1,48 @@
+.o {
+    color: #4540e1;
+}
+
+.fontsize {
+    font-size: xx-large;
+}
+
+.text-grey {
+    color: #666666;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.sidebar-link {
+    display: list-item;
+    list-style-type: disc;
+    padding: 8px 12px 8px 4px;
+    text-decoration: none;
+    color: #666666;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.sidebar-link::marker {
+    font-size: 16px;
+    color: #666666;
+}
+
+.active-link {
+    color: #4540e1 !important;
+    background-color: rgba(69, 64, 225, 0.1);
+}
+
+#userSubmenu .active-link {
+    color: #4540e1 !important;
+    background-color: transparent;
+}
+
+#userSubmenu .active-link::marker {
+    font-size: 16px;
+    color: #4540e1;
+}
+
+.pointer {
+    cursor: pointer;
+}

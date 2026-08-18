@@ -1,0 +1,66 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+
+    "baseUrl": "./",
+
+    "paths": {
+      "@common": ["src/app/common/components/index.ts"],
+      "@constants": ["src/app/common/constants/index.ts"],
+      "@enums": ["src/app/common/enums/index.ts"],
+      "@models": ["src/app/common/models/index.ts"],
+      "@pipes": ["src/app/common/pipes/index.ts"],
+      "@Validators": ["src/app/common/validators/index.ts"],
+      "@profile": ["src/app/modules/profile/models/index.ts"],
+      "@profileservices": ["src/app/modules/profile/services/index.ts"],
+      "@ServicePatnerService": [
+        "src/app/modules/service-partner/services/index.ts"
+      ],
+      "@ServicePartnerModels": [
+        "src/app/modules/service-partner/models/index.ts"
+      ],
+      "@services": ["src/app/common/services/index.ts"],
+      "@guards": ["src/app/common/guards/index.ts"],
+      "@interceptors": ["src/app/common/interceptors/index.ts"],
+      "@directives": ["src/app/common/directives/index.ts"],
+      "@ServiceListingService": [
+        "src/app/modules/service-listing/services/index.ts"
+      ],
+      "@ServiceListingModels": [
+        "src/app/modules/service-listing/models/index.ts"
+      ],
+      "@auth": ["src/app/modules/auth/services/index.ts"],
+      "@checkout": ["src/app/modules/checkout/index.ts"],
+      "@HomeService": ["src/app/modules/homepage/services/index.ts"],
+      "@ServiceSectionModels": ["src/app/modules/services/models/index.ts"],
+      "@ServiceSectionServices": ["src/app/modules/services/services/index.ts"],
+      "@MyBookingsService": ["src/app/modules/my-bookings/services/index.ts"],
+      "@MyBookingsModels": ["src/app/modules/my-bookings/models/index.ts"]
+    }
+  },
+
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.spec.json" }
+  ]
+}

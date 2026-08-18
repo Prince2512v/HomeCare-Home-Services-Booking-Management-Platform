@@ -1,0 +1,50 @@
+.footer-logo {
+    font-size: 28px;
+    font-weight: 800;
+}
+
+.footer-logo span {
+    color: #4540E1;
+}
+
+footer h6 {
+    color: #111;
+}
+
+footer a {
+    text-decoration: none;
+    color: #666;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: #000;
+}
+
+.app-badge {
+    display: block;
+    margin-bottom: 12px;
+    transition: opacity 0.2s;
+}
+
+.app-badge:hover {
+    opacity: 0.8;
+}
+
+.app-badge img {
+    width: 130px;
+    height: auto;
+    max-width: 100%;
+}
+
+.footer-bottom {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.bg-light {
+    background-color: #F5F5F5 !important;
+}

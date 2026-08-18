@@ -1,0 +1,24 @@
+<div
+  class="position-relative w-100 address-wrapper"
+  [class.fl-wrapper]="isFloating"
+  [formGroup]="formGroup"
+>
+  <textarea
+    rows="3"
+    class="form-control custom-input"
+    [class.fl-input]="isFloating"
+    [class.is-invalid]="isInvalid"
+    [formControlName]="config.formControlName"
+    (input)="onInput($event)"
+    (blur)="onBlur($event)"
+    [placeholder]="isFloating ? ' ' : config.placeholder || 'Address'"
+  ></textarea>
+  @if (isFloating) {
+  <label class="fl-label">{{ config.placeholder || 'Address' }}@if(config.showRequired){<span class="text-danger ms-1">*</span>}</label>
+  }
+</div>
+@if (isTouched && control?.hasError('required')) {
+  <div class="invalid-feedback d-block text-start">{{ config.placeholder || 'Address' }} is required.</div>
+  } @else if (isTouched && control?.hasError('invalidAddress')) {
+  <div class="invalid-feedback d-block text-start">{{ config.placeholder || 'Address' }} must be at least 10 characters.</div>
+  }

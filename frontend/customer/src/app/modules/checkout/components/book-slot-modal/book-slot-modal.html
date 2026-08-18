@@ -1,0 +1,30 @@
+<app-common-modal title="Book Slot" maxWidth="460px" (close)="close.emit()">
+  <p class="bsm-section-label fw-semibold mb-3">
+    When should our expert arrive
+  </p>
+  <app-select-date (dateSelected)="onDateSelected($event)"></app-select-date>
+
+  <p class="bsm-section-label fw-semibold mt-4 mb-3">
+    Please select the start time for service
+  </p>
+  <app-select-time
+    [selectedDate]="pendingDate ?? initialDate"
+    [serviceId]="serviceId"
+    [serviceTypeId]="serviceTypeId"
+    (timeSelected)="onTimeSelected($event)"
+    (availabilityChecked)="onAvailabilityChecked($event)"
+  ></app-select-time>
+
+  @if (pendingTime && !isPartnerAvailable) {
+  <div
+    class="alert alert-warning py-2 px-3 mt-3 mb-0 small fw-semibold bsm-unavailable-alert"
+  >
+    No partner available for this slot — please pick another time.
+  </div>
+  }
+
+  <div class="d-flex justify-content-end gap-3 mt-4">
+    <app-button [config]="cancelBtnConfig"></app-button>
+    <app-button [config]="saveBtnConfig"></app-button>
+  </div>
+</app-common-modal>

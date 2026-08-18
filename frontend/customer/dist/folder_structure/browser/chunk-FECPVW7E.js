@@ -1,0 +1,1 @@
+import{a as t}from"./chunk-FCWBEPB6.js";import"./chunk-4CLCTAJ7.js";var e=[{path:"",children:[{path:t.CUSTOMER.SIGN_IN.SIGN_IN,loadComponent:()=>import("./chunk-5R6GD4NZ.js").then(o=>o.CustomerSignIn)},{path:t.CUSTOMER.OTP_VERIFY.OTP_VERIFY,loadComponent:()=>import("./chunk-UTMB5KJV.js").then(o=>o.OtpVerify)}]}];export{e as CUSTOMER_AUTH_ROUTES};

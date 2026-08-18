@@ -1,0 +1,157 @@
+.date-wrapper {
+  position: relative;
+}
+
+.custom-input.form-control {
+  height: 56px;
+  padding-right: 3rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.custom-input.form-control::placeholder {
+  color: #666666;
+  font-weight: 400;
+}
+
+.form-control.is-invalid {
+  background-image: none;
+  padding-right: 3rem;
+  border-color: #dc3545;
+}
+
+.date-input {
+  padding-right: 48px;
+}
+
+.fl-wrapper .fl-input.date-input {
+  padding-top: 18px;
+  padding-bottom: 4px;
+}
+
+.calendar-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  cursor: pointer;
+  z-index: 6;
+  transition: opacity 0.2s;
+}
+
+.calendar-icon:hover {
+  opacity: 1;
+}
+
+.native-date-hidden {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  border: none;
+  padding: 0;
+}
+
+input[type="date"].native-date-styled {
+  color-scheme: light;
+}
+
+::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+}
+
+::-webkit-datetime-edit-month-field:focus,
+::-webkit-datetime-edit-day-field:focus,
+::-webkit-datetime-edit-year-field:focus {
+  background-color: #3733b4;
+  color: #fff;
+  border-radius: 2px;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+.fl-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.fl-input.form-control {
+  height: 56px;
+  width: 100%;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #212529;
+  padding-top: 14px;
+  padding-bottom: 4px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.fl-input::placeholder {
+  color: transparent;
+}
+
+.form-control.fl-input.is-invalid {
+  background-image: none !important;
+}
+
+.fl-label {
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 18px;
+  color: #666666;
+  font-size: 1rem;
+  font-weight: 300;
+  transition:
+    top 0.18s ease,
+    font-size 0.18s ease,
+    color 0.18s ease;
+  background-color: white;
+  padding: 0 5px;
+  margin: 0;
+  z-index: 1;
+}
+
+.fl-input:focus ~ .fl-label,
+.fl-input:not(:placeholder-shown) ~ .fl-label {
+  top: -9px;
+  left: 8px;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.fl-input:focus ~ .fl-label {
+  color: #3733b4;
+}
+
+.fl-input:not(:placeholder-shown):not(:focus) ~ .fl-label {
+  color: #444444;
+}
+
+.fl-input:focus {
+  border-color: #3733b4 !important;
+  box-shadow: none !important;
+  background-color: #fff !important;
+  outline: none !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}

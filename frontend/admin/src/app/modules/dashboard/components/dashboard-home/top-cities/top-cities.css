@@ -1,0 +1,226 @@
+.tc-card {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e9ecef;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+ 
+.tc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+ 
+.tc-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+ 
+.period-tabs {
+  display: flex;
+  gap: 3px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 3px;
+}
+ 
+.period-btn {
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.73rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+ 
+.period-btn.active {
+  background: #fff;
+  color: #111827;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ 
+.tc-body {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+ 
+.tc-loading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.city-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+ 
+.tc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  position: relative;
+  min-height: 32px;
+}
+ 
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 20%;
+  flex-shrink: 0;
+}
+ 
+.legend-label {
+  font-size: 0.78rem;
+  color: #374151;
+  white-space: nowrap;
+}
+ 
+.city-nav {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  right: 0;
+}
+ 
+.nav-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+ 
+.nav-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+}
+ 
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+ 
+@media (max-width: 640px) {
+  .tc-card {
+    padding: 12px 14px;
+  }
+ 
+  .tc-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+ 
+  .period-btn {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+}
+ 
+@media (max-width: 480px) {
+  .tc-card {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+ 
+  .tc-title {
+    font-size: 0.88rem;
+  }
+ 
+  .period-tabs {
+    padding: 2px;
+    gap: 2px;
+  }
+ 
+  .period-btn {
+    padding: 3px 7px;
+    font-size: 0.68rem;
+  }
+ 
+  .legend-label {
+    font-size: 0.72rem;
+  }
+ 
+  .tc-footer {
+    gap: 10px;
+  }
+ 
+  .city-nav {
+    position: static;
+    margin-left: auto;
+  }
+}
+ 
+@media (max-width: 380px) {
+  .tc-card {
+    padding: 8px 10px;
+    gap: 6px;
+    border-radius: 10px;
+  }
+ 
+  .tc-title {
+    font-size: 0.8rem;
+  }
+ 
+  .period-btn {
+    padding: 3px 6px;
+    font-size: 0.62rem;
+  }
+ 
+  .legend-dot {
+    width: 8px;
+    height: 8px;
+  }
+ 
+  .legend-label {
+    font-size: 0.65rem;
+  }
+ 
+  .tc-footer {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+ 
+  .nav-btn {
+    width: 24px;
+    height: 24px;
+  }
+ 
+  .city-nav {
+    position: static;
+    margin-left: auto;
+  }
+}

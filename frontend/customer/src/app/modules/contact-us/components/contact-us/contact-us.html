@@ -1,0 +1,72 @@
+<div class="container p-0 py-5 mb-5">
+
+  <!-- Hero Banner -->
+  <div class="overlay position-relative overflow-hidden rounded-4">
+    <img src="/assets/images/Contact-us.svg" class="img-fluid w-100 h-100 object-fit-cover" />
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center z-2 text-white fw-bold fs-1">
+      Contact Us
+    </div>
+  </div>
+
+  <!-- Contact Section -->
+  <div class="row g-4 mt-4 px-2 px-sm-3">
+
+    <!-- Info Card -->
+    <div class="col-12 col-lg-5 col-info-card pe-lg-4">
+      <div class="card-wrapper">
+        <img class="card-bg" src="assets/images/card-background.svg" />
+        <div class="card-content-overlay">
+          <div class="contact-section">
+            <span class="contact-text">{{ phone }}</span>
+          </div>
+          <div class="contact-section">
+            <span class="contact-text">{{ email }}</span>
+          </div>
+          <div class="contact-section">
+            <div class="contact-text-group">
+              <span class="contact-text">{{ addressLine1 }}</span>
+              <span class="contact-text">{{ addressLine2 }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="col-12 col-lg-7 col-contact-form ps-lg-4">
+      <h4 class="contact-form-title">Get in Touch</h4>
+
+      <form [formGroup]="contactForm">
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-sm-6">
+            <app-name [config]="firstNameConfig" [formGroup]="contactForm"></app-name>
+          </div>
+          <div class="col-12 col-sm-6">
+            <app-name [config]="lastNameConfig" [formGroup]="contactForm"></app-name>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-12 col-sm-6">
+            <app-mobile [config]="mobileConfig" [formGroup]="contactForm"></app-mobile>
+          </div>
+          <div class="col-12 col-sm-6">
+            <app-email [config]="emailConfig" [formGroup]="contactForm"></app-email>
+          </div>
+        </div>
+
+        <div class="row g-3 mb-3">
+          <div class="col-12">
+            <app-address [config]="descriptionConfig" [formGroup]="contactForm"></app-address>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-sm-auto">
+            <app-button [config]="sendMessageConfig"></app-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

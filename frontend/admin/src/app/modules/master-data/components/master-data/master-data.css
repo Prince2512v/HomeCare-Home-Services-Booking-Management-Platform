@@ -1,0 +1,138 @@
+.custom-table {
+  color: #3f3f46;
+}
+
+.container-fluid {
+  background: #F2F5F9;
+}
+
+.custom-table th {
+  font-size: 0.875rem;
+  color: #71717a;
+}
+
+.list-item-row:last-child {
+  border-bottom: none !important;
+}
+
+.icon-wrapper {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+.dots-menu:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.action-dropdown {
+  min-width: 140px;
+  border-radius: 8px;
+  bottom: 0;
+  right: 0;
+  margin-top: 0;
+  transform: translateY(90%) translateX(-25%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.list-item-row:nth-last-child(-n + 2) .action-dropdown {
+  transform: translateY(-55%) translateX(-25%);
+  bottom: auto;
+  top: 0;
+}
+
+.dropdown-item {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.dropdown-item:hover {
+  background-color: #f3f4f6;
+}
+
+.scrollable-table {
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  display: block;
+  padding-bottom: 80px;
+}
+
+.scrollable-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1050;
+}
+
+.main-modal {
+  width: 700px;
+  max-width: 95%;
+  height: 520px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: modalFade 0.25s ease;
+}
+
+@keyframes modalFade {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.main-modal .row {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.main-modal .col-md-6 {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.main-modal .col-md-6 ul {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+  transition: background 0.15s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f7ff;
+}
+
+.selected-row {
+  background-color: #eeecfc !important;
+  border-left: 3px solid #4540e1 !important;
+  font-weight: 600;
+}
+
+.pending-row {
+  background-color: #fffbea;
+}

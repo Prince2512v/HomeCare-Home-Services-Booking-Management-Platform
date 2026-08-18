@@ -1,0 +1,58 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+
+    "baseUrl": "./",
+
+    "paths": {
+      "@common": ["src/app/common/components/index.ts"],
+      "@constants": ["src/app/common/constants/index.ts"],
+
+      "@guards": ["src/app/common/guards/index.ts"],
+      "@interceptors": ["src/app/common/interceptors/index.ts"],
+      "@models": ["src/app/common/models/index.ts"],
+      "@pipe": ["src/app/common/pipes/index.ts"],
+      "@directives": ["src/app/common/directives/index.ts"],
+      "@services": ["src/app/common/services/index.ts"],
+      "@Validators": ["src/app/common/validators/index.ts"],
+      "@authservices": ["src/app/modules/auth/services/index.ts"],
+      "@authModels": ["src/app/modules/auth/models/index.js"],
+      "@admin": ["src/app/modules/auth/components/admin/index.ts"],
+      "@masterDataModels": ["src/app/modules/master-data/models/index.ts"],
+      "@masterDataServices": ["src/app/modules/master-data/services/index.ts"],
+      "@offerModels": ["src/app/modules/offer/models/index.ts"],
+      "@offerServices": ["src/app/modules/offer/services/index.ts"],
+      "@contactUsModels": ["src/app/modules/contact-us/models/index.ts"],
+      "@contactUsServices": ["src/app/modules/contact-us/services/index.ts"],
+      "@customerManagementModels": ["src/app/modules/customers/models/index.ts"],
+      "@customerManagementServices": ["src/app/modules/customers/services/index.ts"],
+      "@servicepartnerModels": ["src/app/modules/service-partners/models/index.ts"],
+      "@servicepartnerServices": ["src/app/modules/service-partners/services/index.ts"],
+      "@dashboardModels": ["src/app/modules/dashboard/models/index.ts"],
+      "@dashboardServices": ["src/app/modules/dashboard/services/index.ts"],
+      "@dashboardComponents": ["src/app/modules/dashboard/components/dashboard-home/index.ts"]
+    }
+  },
+
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true
+  },
+
+  "files": [],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.spec.json" }]
+}

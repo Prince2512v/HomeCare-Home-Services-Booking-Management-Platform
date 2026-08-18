@@ -1,0 +1,143 @@
+<div class="au-wrapper" (click)="closeDropdown()">
+  <div class="au-header d-flex align-items-center">
+    <h2 class="au-title mb-0">Admin Users</h2>
+    <div class="header-actions d-flex gap-2 ms-auto">
+      <app-button [config]="filterConfig"></app-button>
+      @if (isSuperAdmin) {
+      <app-button [config]="addConfig"></app-button>
+      }
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="au-card shadow-sm">
+
+    <div class="grid-container">
+
+      <!-- Header -->
+      <div class="grid-header">
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('id')">
+          ID
+        </div>
+        <div class="grid-cell sortable d-flex align-items-center" (click)="onSort('name')">
+          Name
+        </div>
+        <div class="grid-cell d-flex align-items-center">Email</div>
+        <div class="grid-cell d-flex justify-content-center align-items-center">Status</div>
+        <div class="grid-cell d-flex justify-content-center align-items-center">Action</div>
+      </div>
+
+      <!-- Body -->
+      <div class="grid-body">
+
+        @if (isLoading) {
+        <div class="grid-state-row d-flex align-items-center justify-content-center text-muted small">
+          <div class="spinner-border spinner-border-sm text-primary me-2"></div>
+          Loading admin users...
+        </div>
+        } @else if (errorMessage) {
+        <div class="grid-state-row text-danger small d-flex align-items-center justify-content-center">
+          <i class="bi bi-exclamation-circle me-2"></i>
+          {{ errorMessage }}
+        </div>
+        } @else if (users.length === 0) {
+        <div class="grid-state-row text-center text-muted">No data found.</div>
+        } @else {
+        @for (user of users; track user.id) {
+        <div class="grid-row">
+
+          <div class="grid-cell text-muted small">{{ user.id | idFormat }}</div>
+
+          <div class="grid-cell fw-medium">
+            {{ user.name }}
+            @if (user.id === currentUserId) {
+            <span class="badge-you ms-1">You</span>
+            }
+          </div>
+
+          <div class="grid-cell text-muted au-email">{{ user.email }}</div>
+
+          <div class="grid-cell d-flex justify-content-center align-items-center">
+            <span class="status-badge" [class.status-active]="user.isActive" [class.status-inactive]="!user.isActive">
+              <span class="status-dot"></span>
+              {{ user.isActive ? 'Active' : 'Inactive' }}
+            </span>
+          </div>
+
+          <div class="grid-cell d-flex justify-content-center align-items-center">
+            @if (canSeeActions(user) && user.isActive) {
+            <button class="action-btn" (click)="toggleDropdown(user, $event)"
+              [attr.aria-expanded]="openDropdownId === user.id">
+              <img src="assets/icons/DotsThreeOutlineVertical.svg" width="20" height="20" />
+            </button>
+            } @else {
+            <button class="action-btn action-btn-disabled" disabled>
+              <img src="assets/icons/DotsThreeOutlineVertical.svg" width="20" height="20" />
+            </button>
+            }
+          </div>
+
+        </div>
+        }
+        }
+
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="au-pagination d-flex align-items-center justify-content-end">
+      <app-pagination [currentPage]="currentPage" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+        (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)">
+      </app-pagination>
+    </div>
+
+  </div>
+</div>
+
+<!-- Action Dropdown -->
+@if (openDropdownId !== null && activeDropdownUser) {
+<ul class="action-dropdown shadow" [style.top.px]="dropdownY" [style.left.px]="dropdownX"
+  (click)="$event.stopPropagation()">
+  <li>
+    <button class="action-item" (click)="onEdit(activeDropdownUser!)">
+      <img src="assets/icons/edit.svg" width="18" height="18" />
+      Edit
+    </button>
+  </li>
+  <li>
+    <button class="action-item" (click)="onChangePassword(activeDropdownUser!)">
+      <img src="assets/icons/changepass.svg" alt="" />
+      Change Password
+    </button>
+  </li>
+  @if (canDelete(activeDropdownUser!)) {
+  <li>
+    <button class="action-item" (click)="openDeleteModal(activeDropdownUser!)">
+      <img src="assets/icons/delete.svg" width="18" height="18" />
+      Delete
+    </button>
+  </li>
+  }
+</ul>
+}
+
+<!-- Filter Panel -->
+<app-filter-panel [config]="filterPanelConfig" [isOpen]="isFilterOpen"
+  [activeValues]="activeFilterValues"></app-filter-panel>
+
+<!-- Modals -->
+@if (showUserModal) {
+<app-admin-users-modal [user]="selectedUser" [isSuperAdmin]="isSuperAdmin" (modalClose)="onModalClose()"
+  (saved)="onModalSaved()"></app-admin-users-modal>
+}
+
+@if (showChangePasswordModal && changePasswordTargetId !== null) {
+<app-change-password-modal [targetAdminId]="changePasswordTargetId" [targetAdminName]="changePasswordTargetName"
+  [targetAdminEmail]="changePasswordTargetEmail" (modalClose)="onChangePasswordClose()"
+  (saved)="loadUsers()"></app-change-password-modal>
+}
+
+@if (isDeleteModalOpen && deleteConfig) {
+<app-delete-model [visible]="isDeleteModalOpen" [isLoading]="isDeleting" [config]="deleteConfig"
+  (confirm)="onDeleteConfirm()" (closed)="onDeleteClose()"></app-delete-model>
+}

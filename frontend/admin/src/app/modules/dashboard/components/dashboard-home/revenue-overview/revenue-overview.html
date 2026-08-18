@@ -1,0 +1,32 @@
+<div class="ro-card">
+  <div class="ro-header">
+    <span class="ro-title fw-semibold">Revenue Overview</span>
+    <div class="period-tabs">
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'week'"
+        (click)="selectPeriod('week')"
+      >
+        This Week
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'month'"
+        (click)="selectPeriod('month')"
+      >
+        This Month
+      </button>
+      <button
+        class="period-btn"
+        [class.active]="activePeriod === 'year'"
+        (click)="selectPeriod('year')"
+      >
+        This Year
+      </button>
+    </div>
+  </div>
+
+  <div class="ro-body">
+    <canvas #revenueCanvas class="revenue-canvas"></canvas>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="dh-wrapper">
+    @if (isLoading) {
+  <div class="dh-loading d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary"></div>
+  </div>
+  } @if (!isLoading && data) {
+  <h2 class="dh-page-title fw-semibold">Dashboard</h2>
+
+  <div class="dh-stats-row">
+    <app-stat-card [data]="totalServicesData" [config]="totalServicesConfig"></app-stat-card>
+    <app-stat-card [data]="activeUsersData" [config]="activeUsersConfig"></app-stat-card>
+    <app-stat-card [data]="activePartnersData" [config]="activePartnersConfig"></app-stat-card>
+    <app-stat-card [data]="totalRevenueData" [config]="totalRevenueConfig"></app-stat-card>
+  </div>
+
+  <div class="dh-row2">
+    <app-top-performing-services></app-top-performing-services>
+    <app-revenue-overview></app-revenue-overview>
+  </div>
+
+  <div class="dh-row3">
+    <app-top-cities></app-top-cities>
+    <app-top-service-partners></app-top-service-partners>
+  </div>
+  }
+</div>

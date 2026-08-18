@@ -1,0 +1,38 @@
+<div class="d-flex flex-column min-vh-100">
+  <div class="d-flex align-items-center px-4 py-3 border-bottom">
+    <span
+      class="navbar-brand text-logo clickable fs-3 fw-bold ms-2 ms-md-5 me-4"
+      (click)="goToHome()"
+    >
+      H<span class="text-purple">o</span>meCare
+    </span>
+  </div>
+
+  <div
+    class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-center px-4"
+  >
+    <h4 class="fw-bold mb-2 text-heading">
+      Thank you for applying to HomeCare!
+    </h4>
+
+    <p class="text-muted mb-4 small-text">
+      We'll review your application and get back to you soon.
+    </p>
+
+    <div class="d-flex gap-3">
+      <button
+        class="btn px-5 py-2 rounded-pill fw-semibold btn-outline-custom"
+        (click)="viewServices()"
+      >
+        View Services
+      </button>
+
+      <button
+        class="btn px-5 py-2 rounded-pill fw-semibold text-white btn-primary-custom"
+        (click)="goToHome()"
+      >
+        Go to Home
+      </button>
+    </div>
+  </div>
+</div>

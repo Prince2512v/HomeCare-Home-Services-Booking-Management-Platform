@@ -1,0 +1,166 @@
+<div class="container-fluid py-4 px-2 px-md-3 bookings-container mx-auto">
+  <div
+    class="d-flex align-items-center justify-content-between mb-4 mt-3 flex-wrap gap-2"
+  >
+    <h4 class="fw-bold bookings-title mb-0">My Bookings</h4>
+
+    <div class="d-flex gap-2">
+      <button
+        class="tab-btn rounded-pill border-0 fw-semibold"
+        [class.active]="activeTab === BookingTab.Upcoming"
+        (click)="setTab(BookingTab.Upcoming)"
+      >
+        Upcoming
+      </button>
+      <button
+        class="tab-btn rounded-pill border-0 fw-semibold"
+        [class.active]="activeTab === BookingTab.Completed"
+        (click)="setTab(BookingTab.Completed)"
+      >
+        Completed
+      </button>
+    </div>
+  </div>
+
+  @if (!isLoading && bookings.length > 0) {
+  <div class="d-flex flex-column gap-3">
+    @for (booking of visibleBookings; track booking.id) {
+    <div class="booking-item-wrapper position-relative">
+      <div
+        class="date-badge position-absolute d-flex flex-column align-items-center text-center text-white py-2"
+      >
+        <span class="date-day fw-bold lh-1"
+          >{{ getBookingDay(booking.bookingDate) }}</span
+        >
+        <span class="date-month fw-medium lh-1 mt-1 text-capitalize"
+          >{{ getBookingMonth(booking.bookingDate) }}</span
+        >
+      </div>
+
+      <div
+        class="card booking-card border rounded-3 shadow-sm overflow-hidden bg-white"
+      >
+        <div class="card-body p-3">
+          <div
+            class="d-flex align-items-center justify-content-between gap-2 mb-1"
+          >
+            <h6 class="service-name fw-bold mb-0 text-truncate">
+              {{ booking.serviceName }}
+            </h6>
+            <div class="d-flex align-items-center gap-2 flex-shrink-0">
+              <span
+                class="status-badge fw-bold rounded-pill"
+                [ngClass]="BookingStatusClass[booking.status]"
+              >
+                {{ BookingStatusLabel[booking.status] }}
+              </span>
+              <button
+                class="btn btn-receipt d-flex align-items-center gap-1 rounded-pill fw-bold"
+                (click)="downloadReceipt(booking.id)"
+                [disabled]="downloadingReceiptId === booking.id"
+              >
+                @if (downloadingReceiptId === booking.id) {
+                <span
+                  class="spinner-border spinner-border-sm receipt-spinner"
+                  role="status"
+                ></span>
+                } @else {
+                <img src="assets/icons/DownloadSimple.svg" alt="" />
+                }
+                <span>Receipt</span>
+              </button>
+            </div>
+          </div>
+
+          <p class="booking-duration mb-2 small fw-medium">
+            {{ booking.durationInMinutes }} Min
+          </p>
+
+          <div
+            class="d-flex align-items-start justify-content-between gap-2 mb-1"
+          >
+            <div class="d-flex align-items-start gap-1 min-w-0">
+              <img
+                src="assets/icons/MapPin.svg"
+                alt=""
+                class="flex-shrink-0 mt-1 icon-sm"
+              />
+              <span class="booking-address text-muted small"
+                >{{ getFullAddress(booking) }}</span
+              >
+            </div>
+            <span class="booking-amount fw-bold flex-shrink-0 text-nowrap">
+              <span class="amt">$ </span>{{ booking.bookingAmount | number:
+              '1.0-2' }}
+            </span>
+          </div>
+
+          <hr class="card-divider border-top border-2 my-2 opacity-100" />
+
+          <p class="text-muted mb-2 small">Assigned Service Partner</p>
+
+          @if (booking.assignedPartner) {
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center gap-2">
+              <div class="partner-avatar-wrapper flex-shrink-0">
+                @if (booking.assignedPartner.profileImageUrl) {
+                <img
+                  [src]="getPartnerImageUrl(booking.assignedPartner.profileImageUrl)"
+                  class="rounded-circle object-fit-cover w-100 h-100"
+                  alt="{{ booking.assignedPartner.fullName }}"
+                  (error)="onPartnerImageError($event)"
+                />
+                } @else {
+                <img
+                  src="assets/icons/ServicePartner.png"
+                  class="rounded-circle object-fit-cover w-100 h-100"
+                  alt="{{ booking.assignedPartner.fullName }}"
+                />
+                }
+              </div>
+              <div>
+                <p class="partner-name fw-semibold mb-0 small">
+                  {{ booking.assignedPartner.fullName }}
+                </p>
+                <p class="text-muted mb-0 smaller">
+                  {{ booking.assignedPartner.role }}
+                </p>
+              </div>
+            </div>
+
+            <button
+              class="btn btn-call rounded-circle d-flex align-items-center justify-content-center p-0"
+              (click)="callPartner(booking.assignedPartner.mobileNumber)"
+            >
+              <img src="assets/icons/Call.svg" class="icon-md" alt="" />
+            </button>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  @if (hasMoreBookings) {
+  <div class="text-center mt-4">
+    <button
+      class="btn btn-show-more px-4 rounded-pill fw-bold"
+      (click)="showMore()"
+    >
+      Show More
+      <span class="ms-1 fw-normal opacity-75 small"
+        >({{ bookings.length - visibleCount }} more)</span
+      >
+    </button>
+  </div>
+  } } @if (!isLoading && bookings.length === 0) {
+  <div class="text-center py-5 text-muted">
+    <p class="mb-0">No bookings found.</p>
+  </div>
+  } @if (isLoading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+  </div>
+  }
+</div>

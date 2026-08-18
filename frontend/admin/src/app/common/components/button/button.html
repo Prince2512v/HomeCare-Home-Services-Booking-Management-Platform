@@ -1,0 +1,43 @@
+@if (isToggle) {
+<div class="form-check form-switch mb-2 mt-2  ">
+  <input
+    class="form-check-input btn-toggle"
+    type="checkbox"
+    role="switch"
+    [checked]="config.checked"
+    [disabled]="config.disabled"
+    (change)="handleToggle($event)"
+  />
+</div>
+} @else {
+<button
+  [type]="config.type || 'button'"
+  [ngClass]="['btn', variantClass]"
+  [disabled]="config.disabled || config.isLoading"
+  (click)="handleClick($event)"
+>
+  @if (config.isLoading) {
+  <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+  } @if (config.variant === 'filter') {
+  <svg
+    width="13"
+    height="13"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    class="btn-icon"
+  >
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+  </svg>
+  } @if (config.variant === 'edit') {
+  <img
+    src="assets/icons/PencilSimple.svg"
+    width="16"
+    height="16"
+    class="btn-icon"
+  />
+  }
+  {{ config.text || variantText }}
+</button>
+}
